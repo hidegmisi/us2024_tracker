@@ -35,7 +35,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js' // Output bundle for embedding
+		file: 'docs/build/bundle.js' // Output bundle for embedding
 	},
 	plugins: [
 		svelte({
