@@ -7,18 +7,29 @@
 
     export let demLead = 2.1;
 
+    const colors = {
+        dem: {
+            main: "#00f",
+            secondary: "#aaf",
+        },
+        rep: {
+            main: "#f00",
+            secondary: "#faa",
+        },
+    };
+
     let lead_color = '#aaa';
     if (demLead > 2) {
-        lead_color = '#00f';
+        lead_color = colors.dem.main
     } else if (demLead < -2) {
-        lead_color = '#f00';
+        lead_color = colors.rep.main;
     }
 
     let lead_bg_color = '#ddd';
     if (demLead > 2) {
-        lead_bg_color = '#aaf';
+        lead_bg_color = colors.dem.secondary
     } else if (demLead < -2) {
-        lead_bg_color = '#faa';
+        lead_bg_color = colors.rep.secondary;
     }
 
     let chartdiv;
@@ -41,15 +52,22 @@
             }),
         );
 
-        // Create axis and its renderer
-        let axisRenderer = am5radar.AxisRendererCircular.new(root, {
-            innerRadius: -40,
+        let gradientFill = am5.LinearGradient.new(root, {
+            rotation: 0,
+            stops: [
+                { color: am5.color(colors.rep.main), offset: 0 },
+                { color: am5.color('#eee'), offset: 0.5000 },
+                { color: am5.color('#eee'), offset: 0.7617
+                 },
+                { color: am5.color(colors.dem.main), offset: 1 },
+            ],
         });
 
-        axisRenderer.grid.template.setAll({
-            stroke: root.interfaceColors.get("background"),
-            visible: true,
-            strokeOpacity: 0.8,
+        // Create axis and its renderer
+        let axisRenderer = am5radar.AxisRendererCircular.new(root, {
+            strokeWidth: 30,
+            strokeOpacity: 1,
+            strokeGradient: gradientFill,
         });
 
         let xAxis = chart.xAxes.push(
@@ -99,44 +117,7 @@
         axisDataItem.set("value", demLead);
         bullet.get("sprite").on("rotation", function () {
             let value = axisDataItem.get("value");
-            label.set("text", Math.abs(value).toFixed(1).toString());
-        });
-
-        // Create axis ranges bands
-        let bandsData = [
-            {
-                title: "Reps Lead",
-                color: "#f00",
-                lowScore: -15,
-                highScore: 0,
-            },
-            {
-                title: "Close",
-                color: "#ddd",
-                lowScore: 0,
-                highScore: 4,
-            },
-            {
-                title: "Dems Lead",
-                color: "#00f",
-                lowScore: 4,
-                highScore: 15,
-            },
-        ];
-
-        am5.array.each(bandsData, function (data) {
-            let axisRange = xAxis.createAxisRange(xAxis.makeDataItem({}));
-
-            axisRange.setAll({
-                value: data.lowScore,
-                endValue: data.highScore,
-            });
-
-            axisRange.get("axisFill").setAll({
-                visible: true,
-                fill: am5.color(data.color),
-                fillOpacity: 0.8,
-            });
+            label.set("text", Math.abs(value).toFixed(1).toString().replace(".", ","));
         });
 
         chart.appear(1000, 100);
@@ -154,5 +135,9 @@
     :global(.chartdiv) {
         width: 100%;
         height: 200px;
+    }
+
+    :global(.am5-layer-30) {
+        display: none;
     }
 </style>

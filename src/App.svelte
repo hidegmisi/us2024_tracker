@@ -91,14 +91,14 @@
         const margin = { top: 20, right: 0, bottom: 30, left: 0 };
         const svg = d3.select("svg");
         const width = parseInt(svg.style("width")) - margin.left - margin.right;
-        const height = width * (2 / 4);
+        const height = width * (4 / 7);
 
         const x = d3
             .scaleTime()
             .domain(d3.extent(rawData, (d) => d3.timeParse("%Y-%m-%d")(d.date)))
             .range([0, width - 100]);
 
-        const y = d3.scaleLinear().domain([0.30, 0.51]).range([height, 0]);
+        const y = d3.scaleLinear().domain([0.35, 0.51]).range([height, 0]);
 
         const chartGroup = svg
             .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
@@ -171,7 +171,7 @@
             .attr("class", "grid y-grid")
             .call(
                 d3.axisLeft(y)
-                    .tickValues([0.30, 0.35, 0.40, 0.45, 0.50])
+                    .tickValues([0.35, 0.40, 0.45, 0.50])
                     .tickSize(-width)
                     .tickFormat((d) => `${d * 100}`)
             )
@@ -184,7 +184,7 @@
         chartGroup
             .selectAll(".y-grid")
             .selectAll("text")
-            .attr("dx", "2.5em")
+            .attr("dx", "1.5em")
             .attr("dy", "-0.5em")
 
         chartGroup
@@ -385,13 +385,14 @@
     <div class="uglygrid">
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
-            <p>Nagyjából <span class="dem compact">2%</span>-os demokrata vezetésnél várható szoros eredmény a választáson.</p>
+            <p class="has-data">A nagyjából <span class="dem compact">2%</span>-os demokrata vezetésnél <span class="contest">szoros</span> eredmény várható a választáson.</p>
             <Gauge />
+            <p class="info">A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.</p>
         </article>
         <section id="poll-graph">
             <h1>Trump vs Harris <!-- <span class="lead dem">+2.1</span> --></h1>
-            <p>Az alábbi grafikon az amerikai poll aggregátorok (<a href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>, <a href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>, <a href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>, <a href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>, <a href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem molestiae a sapiente quas! Esse deserunt inventore quidem ipsam labore ducimus debitis, corrupti blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.</p>
-            <svg></svg>
+            <p>Az alábbi grafikon az amerikai poll aggregátorokat (<a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>, <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>, <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>, <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>, <a href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem molestiae a sapiente quas! Esse deserunt inventore quidem ipsam labore ducimus debitis, corrupti blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.</p>
+            <svg class="polls"></svg>
         </section>
         <article></article>
     </div>
@@ -399,7 +400,7 @@
 
 <style>
     header {
-        margin-bottom: 24px;
+        margin-bottom: 32px;
         background-color: #ddd;
         padding: 8px 16px;
         background: url(https://i.pinimg.com/474x/d7/bb/0b/d7bb0bab32300e13b64e2567fd9083e8.jpg);
@@ -414,7 +415,6 @@
     }
 
     header h1 span {
-        background-color: #fff;
         padding: 0 8px;
     }
 
@@ -422,7 +422,7 @@
         display: grid;
         grid-template-columns: 1fr 700px;
         grid-template-rows: fit-content 1fr;
-        gap: 16px;
+        gap: 24px;
     }
 
     #winner-gauge {
@@ -431,6 +431,9 @@
         height: fit-content;
         border-top: 2px solid #333;
         padding: 8px 0;
+    }
+    #winner-gauge p:first-of-type {
+        text-align: center;
     }
 
     #poll-graph {
@@ -441,15 +444,15 @@
         padding: 8px 1rem;
     }
 
+    .polls {
+        margin-top: 1rem;
+    }
+
     article {
         width: 100%;
         max-width: 1000px;
         margin: 0 auto;
         padding: 8px 16px;
-    }
-
-    header {
-        margin-bottom: 24px;
     }
 
     h1 {
@@ -465,7 +468,19 @@
 
     p {
         font-size: 16px;
-        margin: 12px 0;
+        margin-top: 12px;
+    }
+    p.has-data {
+        line-height: 1.5;
+    }
+    p.has-data span {
+        font-family: 'courier';
+    }
+    p.info {
+        margin: 12px 6px;
+        padding: 6px;
+        border-radius: 8px;
+        background-color: #f7f7f7;
     }
 
     span.rep {
@@ -479,6 +494,12 @@
         background-color: #00f2;
         color: blue;
         padding: 0px 8px;
+    }
+
+    span.contest {
+        background-color: #0003;
+        padding: 0px 8px;
+        color: #444;
     }
 
     span.dem.compact, span.rep.compact {
