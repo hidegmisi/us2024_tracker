@@ -97,7 +97,7 @@
             .domain(d3.extent(rawData, (d) => d3.timeParse("%Y-%m-%d")(d.date)))
             .range([0, width - 100]);
 
-        const y = d3.scaleLinear().domain([0.35, 0.50]).range([height, 0]);
+        const y = d3.scaleLinear().domain([0.30, 0.51]).range([height, 0]);
 
         const chartGroup = svg
             .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
@@ -137,10 +137,8 @@
                     .append("circle")
                     .attr("cx", x(d3.timeParse("%Y-%m-%d")(d.date)))
                     .attr("cy", y(value))
-                    .attr("r", 4)
+                    .attr("r", 3)
                     .attr("fill", colors[d.candidate])
-                    .attr("stroke", "white")
-                    .attr("stroke-width", 1.5)
                     .attr("opacity", 0.3);
             });
         });
@@ -154,11 +152,11 @@
             .call(
                 d3.axisBottom(x)
                     .ticks(d3.timeWeek.every(1))
-                    .tickSize(-height)
-                    .tickFormat(d3.timeFormat("%m/%d"))
+                    .tickSizeInner(-10)
+                    .tickPadding(10)
+                    .tickFormat(d => new Date(d).toLocaleDateString("hu-HU", { month: "short", day: "numeric" }))
             )
             .call((g) => g.select(".domain").remove())
-            .call((g) => g.selectAll(".tick line").remove())
             .selectAll("line")
             .style("stroke", "#eee")
             .style("stroke-opacity", 1);
@@ -166,19 +164,20 @@
         chartGroup
             .selectAll(".x-grid")
             .selectAll("text")
-            .attr("dy", "1em")
 
         chartGroup
             .append("g")
             .attr("class", "grid y-grid")
             .call(
                 d3.axisLeft(y)
-                    .ticks(3)
+                    .tickValues([0.30, 0.35, 0.40, 0.45, 0.50])
                     .tickSize(-width)
-                    .tickFormat((d) => `${d * 100}%`)
+                    .tickFormat((d) => `${d * 100}`)
             )
+            .call((g) => g.select(".domain").remove())
+            /* .call((g) => g.selectAll(".tick:last-child text").remove()) */
             .selectAll("line")
-            .style("stroke", "#bbb")
+            .style("stroke", "#ddd")
             .style("stroke-opacity", 1);
 
         chartGroup
@@ -188,20 +187,48 @@
             .attr("dy", "-0.5em")
 
         chartGroup
-            .selectAll(".grid")
+            .selectAll(".tick")
             .selectAll("text")
-            .style("font-size", "1rem");
+            .style("font-size", "1rem")
+            .style("font-family", "courier");
     }
 
     function setupInteractivity(chartGroup, averagesByCandidate, x, y, width, height) {
-        const verticalLine = chartGroup
+        const focusDate = chartGroup
+            .append("g")
+            .attr("y1", 0)
+            .attr("y2", height)
+            .attr("x1", width - 101)
+            .attr("x2", width - 101);
+
+        const verticalLine = focusDate
             .append("line")
             .attr("stroke", "black")
             .attr("stroke-width", 2)
             .attr("y1", 0)
             .attr("y2", height)
-            .attr("x1", width - 100)
-            .attr("x2", width - 100);
+            .attr("x1", width - 101)
+            .attr("x2", width - 101);
+
+        const dateLabel = focusDate
+            .append("text")
+            .attr("text-anchor", "middle")
+            .style("fill", "#333")
+            .text(new Date().toLocaleDateString("hu-HU", { month: "long", day: "numeric" }))
+
+        chartGroup
+            .append("rect")
+            .attr("class", "overlay-box")
+            .attr("x", width - 100)
+            .attr("y", 0)
+            .attr("width", 100)
+            .attr("height", height)
+            .attr("fill", "white")
+            .attr("opacity", 0.8);
+
+        dateLabel
+            .attr("x", width - 100)
+            .attr("y", -6)
 
         const focusTexts = initializeFocusTexts(chartGroup, colors);
         updateLabels(focusTexts, averagesByCandidate, x, y);
@@ -218,18 +245,33 @@
                 Object.values(focusTexts).forEach((text) => text.style("opacity", 1));
             })
             .on("mousemove", function (event) {
-                handleMouseMove(event, chartGroup, averagesByCandidate, x, y, width, height, verticalLine, focusTexts);
+                handleMouseMove(event, chartGroup, averagesByCandidate, x, y, width, height, verticalLine, dateLabel, focusTexts);
             })
             .on("mouseout", () => {
                 verticalLine
                     .attr("y1", 0)
                     .attr("y2", height)
-                    .attr("x1", width - 100)
-                    .attr("x2", width - 100);
+                    .attr("x1", width - 101)
+                    .attr("x2", width - 101);
+
+                dateLabel
+                    .text(new Date().toLocaleDateString("hu-HU", { month: "long", day: "numeric" }))
+                    .attr("x", width - 101)
+                    .attr("y", -6);
 
                 updateLabels(focusTexts, averagesByCandidate, x, y);
-                
-                chartGroup.selectAll(".overlay-box").remove(); // Clear the white box on mouse out
+            
+                chartGroup.selectAll(".overlay-box").remove(); // Clear existing box
+                chartGroup
+                    .append("rect")
+                    .attr("class", "overlay-box")
+                    .attr("x", width - 100)
+                    .attr("y", 0)
+                    .attr("width", 100)
+                    .attr("height", height)
+                    .attr("fill", "white")
+                    .attr("opacity", 0.8);
+                Object.values(focusTexts).forEach((text) => text.raise());
             });
     }
 
@@ -248,7 +290,7 @@
         return focusTexts;
     }
 
-    function handleMouseMove(event, chartGroup, averagesByCandidate, x, y, width, height, verticalLine, focusTexts) {
+    function handleMouseMove(event, chartGroup, averagesByCandidate, x, y, width, height, verticalLine, dateLabel, focusTexts) {
         const mouse = d3.pointer(event);
         const mouseDate = x.invert(mouse[0]);
         const roundedDate = new Date(mouseDate);
@@ -258,6 +300,7 @@
         }
         const lineDate = new Date(roundedDate.getTime() - 86400000); // Subtract 1 day from the date
         verticalLine.attr("x1", x(lineDate) - 1).attr("x2", x(lineDate));
+        dateLabel.text(roundedDate.toLocaleDateString("hu-HU", { month: "long", day: "numeric" })).attr("x", x(lineDate));
 
         // Add half-opaque white box to the right of the vertical line
         chartGroup.selectAll(".overlay-box").remove(); // Clear existing box
@@ -300,11 +343,12 @@
             if (closestValue) {
                 focusTexts[candidate]
                     .text(`${candidate}: `)
-                    .attr("x", x(closestValue.date) + 7)
+                    .attr("x", x(closestValue.date) + 12)
                     .attr("y", y(closestValue.avg))
+                    .style("font-size", "1.2rem")
                     .append("tspan")
-                    .text(`${(closestValue.avg * 100).toFixed(1)}%`)
-                    .attr("style", `fill: ${colors[candidate]}; font-weight: 900; font-size: 1.2rem; dominant-baseline: middle;`)
+                    .text(`${(closestValue.avg * 100).toFixed(1)}`)
+                    .attr("style", `fill: ${colors[candidate]}; font-weight: 500; font-family: 'courier'; dominant-baseline: middle;`)
             } else {
                 focusTexts[candidate].text(""); // Clear the label if no data
             }
@@ -331,21 +375,32 @@
 </script>
 
 <article>
-    <h1>Hogy áll az amerikai elnökválasztás?</h1>
+    <header>
+        <h1>Trump vs Harris</h1>
+        <!-- <p>Ki vezeti az amerikai országos közvélemény-kutatásokat?</p> -->
+    </header>
     <svg></svg>
 </article>
 
 <style>
     article {
         width: 100%;
-        max-width: 800px;
+        max-width: 700px;
         margin: 0 auto;
         padding: 8px 16px;
     }
 
+    header {
+        margin-bottom: 12px;
+    }
+
     h1 {
-        font-size: 1.5rem;
-        margin-bottom: 16px;
+        font-size: 2.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-top: 12px;
     }
 
     svg {
