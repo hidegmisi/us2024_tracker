@@ -3,4 +3,18 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+    text-rendering: optimizeLegibility;
+}
+
+a {
+    color: inherit;
+}
+
+p, p * {
+    font-family: 'baskerville', serif;
+}
+
+.number {
+    font-family: 'courier', monospace;
 }

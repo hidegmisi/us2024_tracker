@@ -1,5 +1,6 @@
 <script>
     import * as d3 from "d3";
+    import Gauge from "./components/Gauge.svelte";
 
     export let repo = "hidegmisi/us2024_aggregator_scraper";
 
@@ -90,7 +91,7 @@
         const margin = { top: 20, right: 0, bottom: 30, left: 0 };
         const svg = d3.select("svg");
         const width = parseInt(svg.style("width")) - margin.left - margin.right;
-        const height = width * (2 / 3);
+        const height = width * (2 / 4);
 
         const x = d3
             .scaleTime()
@@ -359,7 +360,6 @@
         const y_positions = Object.values(focusTexts).map((text) => parseFloat(text.attr("y")));
         const difference = Math.abs(y_positions[0] - y_positions[1])
         const average_y = (y_positions[0] + y_positions[1]) / 2;
-        console.log(difference);
         
         if (difference < 30) {
             const topCandidate = y_positions[0] > y_positions[1] ? "Trump" : "Harris";
@@ -376,31 +376,113 @@
 
 <article>
     <header>
-        <h1>Trump vs Harris</h1>
-        <!-- <p>Ki vezeti az amerikai országos közvélemény-kutatásokat?</p> -->
+        <h1>
+            <span>Vox Populi</span>
+            <div style="flex-grow: 1; flex-shrink: 1;"></div>
+            <span>Egyesült Államok 2024</span>
+        </h1>
     </header>
-    <svg></svg>
+    <div class="uglygrid">
+        <article id="winner-gauge">
+            <h2>Várható győztes</h2>
+            <p>Nagyjából <span class="dem compact">2%</span>-os demokrata vezetésnél várható szoros eredmény a választáson.</p>
+            <Gauge />
+        </article>
+        <section id="poll-graph">
+            <h1>Trump vs Harris <!-- <span class="lead dem">+2.1</span> --></h1>
+            <p>Az alábbi grafikon az amerikai poll aggregátorok (<a href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>, <a href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>, <a href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>, <a href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>, <a href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem molestiae a sapiente quas! Esse deserunt inventore quidem ipsam labore ducimus debitis, corrupti blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.</p>
+            <svg></svg>
+        </section>
+        <article></article>
+    </div>
 </article>
 
 <style>
+    header {
+        margin-bottom: 24px;
+        background-color: #ddd;
+        padding: 8px 16px;
+        background: url(https://i.pinimg.com/474x/d7/bb/0b/d7bb0bab32300e13b64e2567fd9083e8.jpg);
+        background-size: auto 800%;
+        background-position: 0 50%;
+        background-repeat: repeat-x;
+    }
+    header h1 {
+        font-size: 1.2rem;
+        color: #333;
+        display: flex;
+    }
+
+    header h1 span {
+        background-color: #fff;
+        padding: 0 8px;
+    }
+
+    .uglygrid {
+        display: grid;
+        grid-template-columns: 1fr 700px;
+        grid-template-rows: fit-content 1fr;
+        gap: 16px;
+    }
+
+    #winner-gauge {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        height: fit-content;
+        border-top: 2px solid #333;
+        padding: 8px 0;
+    }
+
+    #poll-graph {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        padding: 1rem 2rem;
+        border-top: 2px solid #333;
+        padding: 8px 1rem;
+    }
+
     article {
         width: 100%;
-        max-width: 700px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 8px 16px;
     }
 
     header {
-        margin-bottom: 12px;
+        margin-bottom: 24px;
     }
 
     h1 {
         font-size: 2.5rem;
+        font-weight: 500;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-align: center;
     }
 
     p {
-        font-size: 1rem;
-        margin-top: 12px;
+        font-size: 16px;
+        margin: 12px 0;
+    }
+
+    span.rep {
+        /* text-decoration: 3px solid underline red; */
+        background-color: #f002;
+        padding: 0px 8px;
+    }
+
+    span.dem {
+        /* text-decoration: 3px solid underline blue; */
+        background-color: #00f2;
+        color: blue;
+        padding: 0px 8px;
+    }
+
+    span.dem.compact, span.rep.compact {
+        padding: 0 3px;
     }
 
     svg {
