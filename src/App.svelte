@@ -434,13 +434,14 @@
     }
     #winner-gauge p:first-of-type {
         text-align: center;
+        font-size: 21px;
     }
 
     #poll-graph {
         grid-column: 2 / 3;
         grid-row: 1 / 3;
         padding: 1rem 2rem;
-        border-top: 2px solid #333;
+        border-top: 2px solid #888;
         padding: 8px 1rem;
     }
 
@@ -456,7 +457,7 @@
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 500;
     }
 
