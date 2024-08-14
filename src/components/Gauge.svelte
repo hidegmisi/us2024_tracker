@@ -55,11 +55,11 @@
         let gradientFill = am5.LinearGradient.new(root, {
             rotation: 0,
             stops: [
-                { color: am5.color(colors.rep.main), offset: 0 },
+                { color: am5.color(colors.rep.secondary), offset: 0 },
                 { color: am5.color('#eee'), offset: 0.5000 },
                 { color: am5.color('#eee'), offset: 0.7617
                  },
-                { color: am5.color(colors.dem.main), offset: 1 },
+                { color: am5.color(colors.dem.secondary), offset: 1 },
             ],
         });
 
@@ -109,7 +109,7 @@
                 textAlign: "center",
                 centerY: am5.percent(50),
                 fontSize: "1.5rem",
-                fontFamily: "Courier",
+                /* fontFamily: "Courier", */
             }),
         );
 

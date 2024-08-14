@@ -123,7 +123,8 @@
                 .attr("class", candidate)
                 .attr("fill", "none")
                 .attr("stroke", colors[candidate])
-                .attr("stroke-width", 3)
+                .attr("stroke-width", 10)
+                .style("opacity", 0.45)
                 .attr("d", line);
         });
     }
@@ -191,7 +192,7 @@
             .selectAll(".tick")
             .selectAll("text")
             .style("font-size", "1rem")
-            .style("font-family", "courier");
+            //.style("font-family", "courier");
     }
 
     function setupInteractivity(chartGroup, averagesByCandidate, x, y, width, height) {
@@ -346,7 +347,7 @@
                     .text(`${candidate}: `)
                     .attr("x", x(closestValue.date) + 12)
                     .attr("y", y(closestValue.avg))
-                    .style("font-size", "1.2rem")
+                    .style("font-size", "1.4rem")
                     .append("tspan")
                     .text(`${(closestValue.avg * 100).toFixed(1)}`)
                     .attr("style", `fill: ${colors[candidate]}; font-weight: 500; font-family: 'courier'; dominant-baseline: middle;`)
@@ -403,7 +404,6 @@
         margin-bottom: 32px;
         background-color: #ddd;
         padding: 8px 16px;
-        background: url(https://i.pinimg.com/474x/d7/bb/0b/d7bb0bab32300e13b64e2567fd9083e8.jpg);
         background-size: auto 800%;
         background-position: 0 50%;
         background-repeat: repeat-x;
