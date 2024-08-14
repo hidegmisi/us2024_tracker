@@ -79,7 +79,6 @@
             realclearpolling: 'RCP',
             natesilver: 'Silver Bulletin',
             nyt: 'NYT',
-            economist: 'Economist'
         }
         aggregatorsCurrent = Object.keys(aggregators).map((name, displayName) => {
             const trump = currentTrump[name];
