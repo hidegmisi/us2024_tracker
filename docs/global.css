@@ -23,3 +23,30 @@ p, p * {
 .number {
     font-family: 'courier', monospace;
 }
+
+span.rep {
+    /* text-decoration: 3px solid underline red; */
+    background-color: #f002;
+    color: #d00;
+    padding: 0px 8px;
+}
+
+span.dem {
+    /* text-decoration: 3px solid underline blue; */
+    background-color: #00f2;
+    color: blue;
+    padding: 0px 8px;
+}
+
+span.contest {
+    background-color: #0003;
+    padding: 0px 8px;
+    color: #444;
+}
+
+p.has-data {
+    line-height: 1.5;
+}
+p.has-data span:not(.container) {
+    font-family: 'courier', monospace;
+}

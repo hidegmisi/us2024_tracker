@@ -4,6 +4,10 @@
 
     export let repo = "hidegmisi/us2024_aggregator_scraper";
 
+    let demLead = null;
+    let leadHTML = null;
+    let aggregatorsCurrent = [];
+
     const colors = {
         Trump: "red",
         Harris: "blue",
@@ -52,10 +56,52 @@
         }));
     }
 
+    function setDemLeadAndWinningHTML(data) {
+        const currentTrump = data[data.length - 1].value;
+        const currentHarris = data[data.length - 2].value;
+
+        demLead = currentHarris - currentTrump;
+        
+        if (demLead >= 0.04) {
+            leadHTML = "valószínűleg a <span class='dem'>demokraták</span> fognak nyerni választáson."
+        } else if (demLead < 0) {
+            leadHTML = "valószínűleg a <span class='rep'>republikánusok</span> fognak nyerni választáson.";
+        } else {
+            leadHTML = "<span class='contest'>szoros</span> eredmény várható a választáson.";
+        }
+    }
+
+    function setAggregatorsCurrent(data) {
+        const currentTrump = data[data.length - 1];
+        const currentHarris = data[data.length - 2];
+        const aggregators = {
+            fivethirtyeight: '538',
+            realclearpolling: 'RCP',
+            natesilver: 'Silver Bulletin',
+            nyt: 'NYT',
+            economist: 'Economist'
+        }
+        aggregatorsCurrent = Object.keys(aggregators).map((name, displayName) => {
+            const trump = currentTrump[name];
+            const harris = currentHarris[name];
+            const lead = (harris - trump) * 100;
+            return {
+                name: aggregators[name],
+                lead: Math.abs(lead.toFixed(2)),
+                leading: lead > 0 ? "dem" : "rep",
+            };
+        });
+        
+    }
+
     async function fetchData() {
         try {
             const data = await getPollData(repo);
             const parsedData = prepareData(data);
+            
+            setDemLeadAndWinningHTML(parsedData);
+            setAggregatorsCurrent(data);
+            
             drawChart(parsedData, data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -96,7 +142,7 @@
         const x = d3
             .scaleTime()
             .domain(d3.extent(rawData, (d) => d3.timeParse("%Y-%m-%d")(d.date)))
-            .range([0, width - 100]);
+            .range([0, width - 150]);
 
         const y = d3.scaleLinear().domain([0.35, 0.51]).range([height, 0]);
 
@@ -191,7 +237,8 @@
         chartGroup
             .selectAll(".tick")
             .selectAll("text")
-            .style("font-size", "1rem")
+            .style("font-size", "14px")
+            .style("color", "#666")
             //.style("font-family", "courier");
     }
 
@@ -200,8 +247,8 @@
             .append("g")
             .attr("y1", 0)
             .attr("y2", height)
-            .attr("x1", width - 101)
-            .attr("x2", width - 101);
+            .attr("x1", width - 151)
+            .attr("x2", width - 151);
 
         const verticalLine = focusDate
             .append("line")
@@ -209,8 +256,8 @@
             .attr("stroke-width", 2)
             .attr("y1", 0)
             .attr("y2", height)
-            .attr("x1", width - 101)
-            .attr("x2", width - 101);
+            .attr("x1", width - 151)
+            .attr("x2", width - 151);
 
         const dateLabel = focusDate
             .append("text")
@@ -221,7 +268,7 @@
         chartGroup
             .append("rect")
             .attr("class", "overlay-box")
-            .attr("x", width - 100)
+            .attr("x", width - 150)
             .attr("y", 0)
             .attr("width", 100)
             .attr("height", height)
@@ -229,7 +276,7 @@
             .attr("opacity", 0.8);
 
         dateLabel
-            .attr("x", width - 100)
+            .attr("x", width - 150)
             .attr("y", -6)
 
         const focusTexts = initializeFocusTexts(chartGroup, colors);
@@ -239,7 +286,7 @@
 
         svg
             .append("rect")
-            .attr("width", width - 100)
+            .attr("width", width - 150)
             .attr("height", height)
             .style("fill", "none")
             .style("pointer-events", "all")
@@ -253,12 +300,12 @@
                 verticalLine
                     .attr("y1", 0)
                     .attr("y2", height)
-                    .attr("x1", width - 101)
-                    .attr("x2", width - 101);
+                    .attr("x1", width - 151)
+                    .attr("x2", width - 151);
 
                 dateLabel
                     .text(new Date().toLocaleDateString("hu-HU", { month: "long", day: "numeric" }))
-                    .attr("x", width - 101)
+                    .attr("x", width - 151)
                     .attr("y", -6);
 
                 updateLabels(focusTexts, averagesByCandidate, x, y);
@@ -267,7 +314,7 @@
                 chartGroup
                     .append("rect")
                     .attr("class", "overlay-box")
-                    .attr("x", width - 100)
+                    .attr("x", width - 150)
                     .attr("y", 0)
                     .attr("width", 100)
                     .attr("height", height)
@@ -386,13 +433,22 @@
     <div class="uglygrid">
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
-            <p class="has-data">A nagyjából <span class="dem compact">2%</span>-os demokrata vezetésnél <span class="contest">szoros</span> eredmény várható a választáson.</p>
-            <Gauge />
-            <p class="info">A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.</p>
+            {#if demLead !== null && leadHTML !== null}
+                <p class="has-data">Nagyjából <span class="compact {demLead > 0 ? "dem" : "rep"}">{Math.abs((demLead * 100).toFixed(0))}%</span>-os {demLead > 0 ? 'demokrata' : 'republikánus' } vezetésnél <span class="container">{@html leadHTML}</span></p>
+                <Gauge {demLead} />
+                <p class="info">A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.</p>
+            {/if}
         </article>
         <section id="poll-graph">
-            <h1>Trump vs Harris <!-- <span class="lead dem">+2.1</span> --></h1>
+            <h1>Trump vs Harris</h1>
             <p>Az alábbi grafikon az amerikai poll aggregátorokat (<a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>, <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>, <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>, <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>, <a href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem molestiae a sapiente quas! Esse deserunt inventore quidem ipsam labore ducimus debitis, corrupti blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.</p>
+            {#if aggregatorsCurrent.length !== 0}
+                <div class="aggregator-bubbles">
+                    {#each aggregatorsCurrent as aggregator}
+                        <div class="aggregator">{aggregator.name} <span class="{aggregator.leading}">+{aggregator.lead}</span></div>
+                    {/each}
+                </div> 
+            {/if}
             <svg class="polls"></svg>
         </section>
         <article></article>
@@ -434,7 +490,7 @@
     }
     #winner-gauge p:first-of-type {
         text-align: center;
-        font-size: 21px;
+        font-size: 22px;
     }
 
     #poll-graph {
@@ -445,8 +501,25 @@
         padding: 8px 1rem;
     }
 
-    .polls {
-        margin-top: 1rem;
+    .aggregator-bubbles {
+        display: flex;
+        gap: 8px;
+        margin: 1rem 0;
+    }
+
+    .aggregator {
+        background-color: #f7f7f7;
+        padding-left: 8px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .aggregator span {
+        font-family: 'courier';
+        display: inline-block;
+        vertical-align: bottom;
+        margin-left: 3px;
+        background: transparent;
     }
 
     article {
@@ -462,7 +535,7 @@
     }
 
     h2 {
-        font-size: 1.2rem;
+        font-size: 22px;
         font-weight: 500;
         text-align: center;
     }
@@ -471,36 +544,11 @@
         font-size: 16px;
         margin-top: 12px;
     }
-    p.has-data {
-        line-height: 1.5;
-    }
-    p.has-data span {
-        font-family: 'courier';
-    }
     p.info {
         margin: 12px 6px;
         padding: 6px;
         border-radius: 8px;
         background-color: #f7f7f7;
-    }
-
-    span.rep {
-        /* text-decoration: 3px solid underline red; */
-        background-color: #f002;
-        padding: 0px 8px;
-    }
-
-    span.dem {
-        /* text-decoration: 3px solid underline blue; */
-        background-color: #00f2;
-        color: blue;
-        padding: 0px 8px;
-    }
-
-    span.contest {
-        background-color: #0003;
-        padding: 0px 8px;
-        color: #444;
     }
 
     span.dem.compact, span.rep.compact {

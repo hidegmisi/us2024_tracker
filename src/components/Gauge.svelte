@@ -5,16 +5,18 @@
     import * as am5radar from "@amcharts/amcharts5/radar";
     import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
-    export let demLead = 2.1;
+    export let demLead;
+
+    demLead *= 100;
 
     const colors = {
         dem: {
             main: "#00f",
-            secondary: "#aaf",
+            secondary: "#bbf",
         },
         rep: {
-            main: "#f00",
-            secondary: "#faa",
+            main: "#d00",
+            secondary: "#fbb",
         },
     };
 
@@ -55,11 +57,11 @@
         let gradientFill = am5.LinearGradient.new(root, {
             rotation: 0,
             stops: [
-                { color: am5.color(colors.rep.secondary), offset: 0 },
+                { color: am5.color('#f77'), offset: 0 },
                 { color: am5.color('#eee'), offset: 0.5000 },
                 { color: am5.color('#eee'), offset: 0.7617
                  },
-                { color: am5.color(colors.dem.secondary), offset: 1 },
+                { color: am5.color('#77f'), offset: 1 },
             ],
         });
 
