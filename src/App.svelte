@@ -1,7 +1,12 @@
 <script>
     import * as d3 from "d3";
+    import Gauge from "./components/Gauge.svelte";
 
     export let repo = "hidegmisi/us2024_aggregator_scraper";
+
+    let demLead = null;
+    let leadHTML = null;
+    let aggregatorsCurrent = [];
 
     const colors = {
         Trump: "red",
@@ -51,10 +56,51 @@
         }));
     }
 
+    function setDemLeadAndWinningHTML(data) {
+        const currentTrump = data[data.length - 1].value;
+        const currentHarris = data[data.length - 2].value;
+
+        demLead = currentHarris - currentTrump;
+        
+        if (demLead >= 0.04) {
+            leadHTML = "valószínűleg a <span class='dem'>demokraták</span> fognak nyerni választáson."
+        } else if (demLead < 0) {
+            leadHTML = "valószínűleg a <span class='rep'>republikánusok</span> fognak nyerni választáson.";
+        } else {
+            leadHTML = "<span class='contest'>szoros</span> eredmény várható a választáson.";
+        }
+    }
+
+    function setAggregatorsCurrent(data) {
+        const currentTrump = data[data.length - 1];
+        const currentHarris = data[data.length - 2];
+        const aggregators = {
+            fivethirtyeight: '538',
+            realclearpolling: 'RCP',
+            natesilver: 'Silver Bulletin',
+            nyt: 'NYT',
+        }
+        aggregatorsCurrent = Object.keys(aggregators).map((name, displayName) => {
+            const trump = currentTrump[name];
+            const harris = currentHarris[name];
+            const lead = (harris - trump) * 100;
+            return {
+                name: aggregators[name],
+                lead: Math.abs(lead.toFixed(2)),
+                leading: lead > 0 ? "dem" : "rep",
+            };
+        });
+        
+    }
+
     async function fetchData() {
         try {
             const data = await getPollData(repo);
             const parsedData = prepareData(data);
+            
+            setDemLeadAndWinningHTML(parsedData);
+            setAggregatorsCurrent(data);
+            
             drawChart(parsedData, data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -90,14 +136,14 @@
         const margin = { top: 20, right: 0, bottom: 30, left: 0 };
         const svg = d3.select("svg");
         const width = parseInt(svg.style("width")) - margin.left - margin.right;
-        const height = width * (2 / 3);
+        const height = width * (4 / 7);
 
         const x = d3
             .scaleTime()
             .domain(d3.extent(rawData, (d) => d3.timeParse("%Y-%m-%d")(d.date)))
-            .range([0, width - 100]);
+            .range([0, width - 150]);
 
-        const y = d3.scaleLinear().domain([0.30, 0.51]).range([height, 0]);
+        const y = d3.scaleLinear().domain([0.35, 0.51]).range([height, 0]);
 
         const chartGroup = svg
             .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
@@ -122,7 +168,8 @@
                 .attr("class", candidate)
                 .attr("fill", "none")
                 .attr("stroke", colors[candidate])
-                .attr("stroke-width", 3)
+                .attr("stroke-width", 10)
+                .style("opacity", 0.45)
                 .attr("d", line);
         });
     }
@@ -170,7 +217,7 @@
             .attr("class", "grid y-grid")
             .call(
                 d3.axisLeft(y)
-                    .tickValues([0.30, 0.35, 0.40, 0.45, 0.50])
+                    .tickValues([0.35, 0.40, 0.45, 0.50])
                     .tickSize(-width)
                     .tickFormat((d) => `${d * 100}`)
             )
@@ -183,14 +230,15 @@
         chartGroup
             .selectAll(".y-grid")
             .selectAll("text")
-            .attr("dx", "2.5em")
+            .attr("dx", "1.5em")
             .attr("dy", "-0.5em")
 
         chartGroup
             .selectAll(".tick")
             .selectAll("text")
-            .style("font-size", "1rem")
-            .style("font-family", "courier");
+            .style("font-size", "14px")
+            .style("color", "#666")
+            //.style("font-family", "courier");
     }
 
     function setupInteractivity(chartGroup, averagesByCandidate, x, y, width, height) {
@@ -198,8 +246,8 @@
             .append("g")
             .attr("y1", 0)
             .attr("y2", height)
-            .attr("x1", width - 101)
-            .attr("x2", width - 101);
+            .attr("x1", width - 151)
+            .attr("x2", width - 151);
 
         const verticalLine = focusDate
             .append("line")
@@ -207,8 +255,8 @@
             .attr("stroke-width", 2)
             .attr("y1", 0)
             .attr("y2", height)
-            .attr("x1", width - 101)
-            .attr("x2", width - 101);
+            .attr("x1", width - 151)
+            .attr("x2", width - 151);
 
         const dateLabel = focusDate
             .append("text")
@@ -219,7 +267,7 @@
         chartGroup
             .append("rect")
             .attr("class", "overlay-box")
-            .attr("x", width - 100)
+            .attr("x", width - 150)
             .attr("y", 0)
             .attr("width", 100)
             .attr("height", height)
@@ -227,7 +275,7 @@
             .attr("opacity", 0.8);
 
         dateLabel
-            .attr("x", width - 100)
+            .attr("x", width - 150)
             .attr("y", -6)
 
         const focusTexts = initializeFocusTexts(chartGroup, colors);
@@ -237,7 +285,7 @@
 
         svg
             .append("rect")
-            .attr("width", width - 100)
+            .attr("width", width - 150)
             .attr("height", height)
             .style("fill", "none")
             .style("pointer-events", "all")
@@ -251,12 +299,12 @@
                 verticalLine
                     .attr("y1", 0)
                     .attr("y2", height)
-                    .attr("x1", width - 101)
-                    .attr("x2", width - 101);
+                    .attr("x1", width - 151)
+                    .attr("x2", width - 151);
 
                 dateLabel
                     .text(new Date().toLocaleDateString("hu-HU", { month: "long", day: "numeric" }))
-                    .attr("x", width - 101)
+                    .attr("x", width - 151)
                     .attr("y", -6);
 
                 updateLabels(focusTexts, averagesByCandidate, x, y);
@@ -265,7 +313,7 @@
                 chartGroup
                     .append("rect")
                     .attr("class", "overlay-box")
-                    .attr("x", width - 100)
+                    .attr("x", width - 150)
                     .attr("y", 0)
                     .attr("width", 100)
                     .attr("height", height)
@@ -345,7 +393,7 @@
                     .text(`${candidate}: `)
                     .attr("x", x(closestValue.date) + 12)
                     .attr("y", y(closestValue.avg))
-                    .style("font-size", "1.2rem")
+                    .style("font-size", "1.4rem")
                     .append("tspan")
                     .text(`${(closestValue.avg * 100).toFixed(1)}`)
                     .attr("style", `fill: ${colors[candidate]}; font-weight: 500; font-family: 'courier'; dominant-baseline: middle;`)
@@ -359,7 +407,6 @@
         const y_positions = Object.values(focusTexts).map((text) => parseFloat(text.attr("y")));
         const difference = Math.abs(y_positions[0] - y_positions[1])
         const average_y = (y_positions[0] + y_positions[1]) / 2;
-        console.log(difference);
         
         if (difference < 30) {
             const topCandidate = y_positions[0] > y_positions[1] ? "Trump" : "Harris";
@@ -376,31 +423,135 @@
 
 <article>
     <header>
-        <h1>Trump vs Harris</h1>
-        <!-- <p>Ki vezeti az amerikai országos közvélemény-kutatásokat?</p> -->
+        <h1>
+            <span>Vox Populi</span>
+            <div style="flex-grow: 1; flex-shrink: 1;"></div>
+            <span>Egyesült Államok 2024</span>
+        </h1>
     </header>
-    <svg></svg>
+    <div class="uglygrid">
+        <article id="winner-gauge">
+            <h2>Várható győztes</h2>
+            {#if demLead !== null && leadHTML !== null}
+                <p class="has-data">Nagyjából <span class="compact {demLead > 0 ? "dem" : "rep"}">{Math.abs((demLead * 100).toFixed(0))}%</span>-os {demLead > 0 ? 'demokrata' : 'republikánus' } vezetésnél <span class="container">{@html leadHTML}</span></p>
+                <Gauge {demLead} />
+                <p class="info">A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.</p>
+            {/if}
+        </article>
+        <section id="poll-graph">
+            <h1>Trump vs Harris</h1>
+            <p>Az alábbi grafikon az amerikai poll aggregátorokat (<a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>, <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>, <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>, <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>, <a href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit autem molestiae a sapiente quas! Esse deserunt inventore quidem ipsam labore ducimus debitis, corrupti blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.</p>
+            {#if aggregatorsCurrent.length !== 0}
+                <div class="aggregator-bubbles">
+                    {#each aggregatorsCurrent as aggregator}
+                        <div class="aggregator">{aggregator.name} <span class="{aggregator.leading}">+{aggregator.lead}</span></div>
+                    {/each}
+                </div> 
+            {/if}
+            <svg class="polls"></svg>
+        </section>
+        <article></article>
+    </div>
 </article>
 
 <style>
+    header {
+        margin-bottom: 32px;
+        background-color: #ddd;
+        padding: 8px 16px;
+        background-size: auto 800%;
+        background-position: 0 50%;
+        background-repeat: repeat-x;
+    }
+    header h1 {
+        font-size: 1.2rem;
+        color: #333;
+        display: flex;
+    }
+
+    header h1 span {
+        padding: 0 8px;
+    }
+
+    .uglygrid {
+        display: grid;
+        grid-template-columns: 1fr 700px;
+        grid-template-rows: fit-content 1fr;
+        gap: 24px;
+    }
+
+    #winner-gauge {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+        height: fit-content;
+        border-top: 2px solid #333;
+        padding: 8px 0;
+    }
+    #winner-gauge p:first-of-type {
+        text-align: center;
+        font-size: 22px;
+    }
+
+    #poll-graph {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+        padding: 1rem 2rem;
+        border-top: 2px solid #888;
+        padding: 8px 1rem;
+    }
+
+    .aggregator-bubbles {
+        display: flex;
+        gap: 8px;
+        margin: 1rem 0;
+    }
+
+    .aggregator {
+        background-color: #f7f7f7;
+        padding-left: 8px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .aggregator span {
+        font-family: 'courier';
+        display: inline-block;
+        vertical-align: bottom;
+        margin-left: 3px;
+        background: transparent;
+    }
+
     article {
         width: 100%;
-        max-width: 700px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 8px 16px;
     }
 
-    header {
-        margin-bottom: 12px;
+    h1 {
+        font-size: 2rem;
+        font-weight: 500;
     }
 
-    h1 {
-        font-size: 2.5rem;
+    h2 {
+        font-size: 22px;
+        font-weight: 500;
+        text-align: center;
     }
 
     p {
-        font-size: 1rem;
+        font-size: 16px;
         margin-top: 12px;
+    }
+    p.info {
+        margin: 12px 6px;
+        padding: 6px;
+        border-radius: 8px;
+        background-color: #f7f7f7;
+    }
+
+    span.dem.compact, span.rep.compact {
+        padding: 0 3px;
     }
 
     svg {
