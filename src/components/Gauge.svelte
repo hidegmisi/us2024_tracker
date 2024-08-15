@@ -110,8 +110,7 @@
                 centerX: am5.percent(50),
                 textAlign: "center",
                 centerY: am5.percent(50),
-                fontSize: "1.5rem",
-                /* fontFamily: "Courier", */
+                fontSize: "1.4rem",
             }),
         );
 
