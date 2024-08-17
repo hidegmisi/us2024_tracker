@@ -556,6 +556,7 @@
         return () => {
             d3.selectAll(`circle`).attr("opacity", 0.3).attr("r", 3).attr("stroke-width", 0);
             d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.45);
+            d3.selectAll(`circle.${aggregator}.Harris`).attr("fill", "blue");
         };
     }
 
