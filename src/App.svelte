@@ -144,7 +144,8 @@
                 const harris = currentHarris[aggregator];
                 const lead = (harris - trump) * 100;
                 return {
-                    name: aggregatorNameMap[aggregator],
+                    name: aggregator,
+                    displayName: aggregatorNameMap[aggregator],
                     lead: Math.abs(lead.toFixed(2)),
                     leading: lead > 0 ? "dem" : "rep",
                 };
@@ -207,8 +208,6 @@
     }
 
     function drawLines(chartGroup, dailyAggData, x, y) {
-        console.log(dailyAggData);
-        
         for (const candidate of ["Trump", "Harris"]) {
             const line = d3
                 .line()
@@ -228,7 +227,7 @@
                 .attr("fill", "none")
                 .attr("stroke", colors[candidate])
                 .attr("stroke-width", 9)
-                .style("opacity", 0.45)
+                .attr("opacity", 0.45)
                 .attr("d", line);
         }
     }
@@ -243,7 +242,7 @@
 
                     circleGroup
                         .append("circle")
-                        .attr("class", aggregator)
+                        .attr("class", aggregator + " " + candidate)
                         .attr(
                             "cx",
                             x(d3.timeParse("%Y-%m-%d")(d[candidate].date)),
@@ -251,7 +250,10 @@
                         .attr("cy", y(d[candidate][aggregator]))
                         .attr("r", 3)
                         .attr("fill", colors[candidate])
-                        .attr("opacity", 0.3);
+                        .attr("opacity", 0.3)
+                        .attr("stroke", "white")
+                        .attr("stroke-width", 0)
+                        .attr("paint-order", "stroke")
                 });
             }
         });
@@ -364,7 +366,7 @@
             .style("pointer-events", "all")
             .on("mouseover", () => {
                 Object.values(focusTexts).forEach((text) =>
-                    text.style("opacity", 1),
+                    text.attr("opacity", 1),
                 );
             })
             .on("mousemove", function (event) {
@@ -512,7 +514,7 @@
                         .attr("y", y(closestValue[candidate].avg))
                         .append("tspan")
                         .text(
-                            `${(closestValue[candidate].avg * 100).toFixed(1)}`,
+                            `${(closestValue[candidate].avg * 100).toFixed(1).replace('.', ',')}`,
                         )
                         .attr(
                             "style",
@@ -539,6 +541,22 @@
             focusTexts[topCandidate].attr("y", average_y + 15);
             focusTexts[bottomCandidate].attr("y", average_y - 15);
         }
+    }
+
+    function setSoloAggregator(aggregator) {
+        return () => {
+            d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 4).attr("stroke-width", 0);
+            d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 5).attr("fill", "transparent").attr("stroke-width", 2).attr("stroke", "blue");
+            d3.selectAll(`circle:not(.${aggregator})`).attr("opacity", 0.05);
+            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.05);
+        };
+    }
+
+    function removeSoloAggregator(aggregator) {
+        return () => {
+            d3.selectAll(`circle`).attr("opacity", 0.3).attr("r", 3).attr("stroke-width", 0);
+            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.45);
+        };
     }
 
     fetchData();
@@ -602,10 +620,10 @@
             {#if aggregatorsCurrent.length !== 0}
                 <div class="aggregator-bubbles">
                     {#each aggregatorsCurrent as aggregator}
-                        <div class="aggregator">
-                            {aggregator.name}
+                        <div class="aggregator" on:mouseenter={setSoloAggregator(aggregator.name)} on:mouseleave={removeSoloAggregator(aggregator.name)}>
+                            {aggregator.displayName}
                             <span class={aggregator.leading}
-                                >+{aggregator.lead}</span
+                                >+{aggregator.lead.toString().replace('.', ',')}</span
                             >
                         </div>
                     {/each}
