@@ -7,32 +7,37 @@
 
     export let demLead;
 
-    demLead *= 100;
-
     const colors = {
         dem: {
             main: "#00f",
             secondary: "#bbf",
+            light: "#e8e8ff",
         },
         rep: {
             main: "#d00",
             secondary: "#fbb",
+            light: "#ffe8e8",
         },
     };
 
-    let lead_color = '#aaa';
-    if (demLead > 2) {
-        lead_color = colors.dem.main
-    } else if (demLead < -2) {
-        lead_color = colors.rep.main;
-    }
+    console.log(demLead);
 
+    let lead_color = '#aaa';
     let lead_bg_color = '#ddd';
-    if (demLead > 2) {
+
+    if (demLead >= 0.02) {
+        lead_color = colors.dem.main
         lead_bg_color = colors.dem.secondary
-    } else if (demLead < -2) {
-        lead_bg_color = colors.rep.secondary;
-    }
+    } else if (demLead >= 0) {
+        lead_color = colors.dem.main
+        lead_bg_color = colors.dem.light
+    } else if (demLead <= -0.02) {
+        lead_color = colors.rep.main;
+        lead_bg_color = colors.rep.light;
+    } else if (demLead <= -0) {
+        lead_color = colors.rep.main
+        lead_bg_color = colors.rep.secondary
+    } 
 
     let chartdiv;
 
@@ -115,7 +120,7 @@
         );
 
         // Set the initial value based on the prop
-        axisDataItem.set("value", demLead);
+        axisDataItem.set("value", (demLead * 100).toFixed(1));
         bullet.get("sprite").on("rotation", function () {
             let value = axisDataItem.get("value");
             label.set("text", Math.abs(value).toFixed(1).toString().replace(".", ","));
