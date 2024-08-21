@@ -7,11 +7,10 @@
 	<title>Svelte app</title>
 
 	<script>
-		const isProduction = process.env.NODE_ENV === 'production';
-		const basePath = isProduction ? '/us2024_tracker/' : '/';
+		const basePath = window.location.pathname.includes('us2024_tracker') ? '/us2024_tracker/' : '/';
+		document.write(`<base href='${basePath}'>`);
 	</script>
 
-	<base href='{{basePath}}'>
 	<link rel='icon' type='image/png' href='favicon.png'>
 	<link rel='stylesheet' href='build/bundle.css'>
 </head>
