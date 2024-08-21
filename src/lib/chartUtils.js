@@ -65,12 +65,12 @@ export function onResize(dailyAggData, dailyData, aggregators) {
 
 export function drawChart(dailyAggData, dailyData, aggregators) {
     const screenSizeCateg = getScreenSize();
-    const { margin, width, height, x, y, chartGroup } = setupChart(dailyData, screenSizeCateg);
+    const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
-    drawLines(chartGroup, dailyAggData, x, y, screenSizeCateg);
-    drawDots(chartGroup, dailyData, x, y, aggregators, screenSizeCateg);
-    drawGridlines(chartGroup, x, y, width, height, screenSizeCateg);
-    setupInteractivity(chartGroup, dailyData, x, y, width, height, screenSizeCateg);
+    drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCateg);
+    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
+    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
+    setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
 }
 
 function setupChart(dailyData, screenSizeCateg) {
@@ -104,10 +104,14 @@ function setupChart(dailyData, screenSizeCateg) {
         .attr("preserveAspectRatio", "xMidYMid meet")
         .append("g");
 
-    return { margin, width, height, x, y, chartGroup };
+    const chartElements = chartGroup
+        .append("g")
+        .attr("class", "chart-elements");
+
+    return { margin, width, height, x, y, chartGroup, chartElements };
 }
 
-function drawLines(chartGroup, dailyAggData, x, y, screenSizeCateg) {
+function drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCateg) {
     for (const candidate of ["Trump", "Harris"]) {
         const line = d3
             .line()
@@ -115,7 +119,7 @@ function drawLines(chartGroup, dailyAggData, x, y, screenSizeCateg) {
             .y((d) => y(d.avg))
             .curve(d3.curveMonotoneX);
 
-        chartGroup
+        chartElements
             .append("path")
             .datum(
                 dailyAggData.map((d) => ({
@@ -127,13 +131,30 @@ function drawLines(chartGroup, dailyAggData, x, y, screenSizeCateg) {
             .attr("fill", "none")
             .attr("stroke", colors[candidate])
             .attr("stroke-width", lineWidths[screenSizeCateg])
-            .attr("opacity", 0.45)
+            .attr("opacity", 0.425)
+            .attr("d", line);
+
+        chartGroup
+            .append("path")
+            .datum(
+                dailyAggData.map((d) => ({
+                    date: d3.timeParse("%Y-%m-%d")(d.date),
+                    avg: d[candidate],
+                }))
+            )
+            .attr("class", candidate)
+            .attr("class", "background-line")
+            .attr("fill", "none")
+            .attr("stroke", colors[candidate])
+            .attr("stroke-width", lineWidths[screenSizeCateg])
+            .attr("opacity", 0.05)
             .attr("d", line);
     }
 }
 
-function drawDots(chartGroup, dailyData, x, y, aggregators, screenSizeCateg) {
-    const circleGroup = chartGroup.append("g");
+function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg) {
+    const circleGroup = chartElements.append("g");
+    const backgroundCircleGroup = chartGroup.append("g");
 
     dailyData.forEach((d) => {
         for (const candidate of ["Trump", "Harris"]) {
@@ -150,7 +171,23 @@ function drawDots(chartGroup, dailyData, x, y, aggregators, screenSizeCateg) {
                     .attr("cy", y(d[candidate][aggregator]))
                     .attr("r", dotSizes[screenSizeCateg])
                     .attr("fill", colors[candidate])
-                    .attr("opacity", 0.3)
+                    .attr("opacity", 0.2)
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 0)
+                    .attr("paint-order", "stroke");
+                
+                backgroundCircleGroup
+                    .append("circle")
+                    .attr("class", aggregator + " " + candidate)
+                    .attr("class", "background-dot")
+                    .attr(
+                        "cx",
+                        x(d3.timeParse("%Y-%m-%d")(d[candidate].date))
+                    )
+                    .attr("cy", y(d[candidate][aggregator]))
+                    .attr("r", dotSizes[screenSizeCateg])
+                    .attr("fill", colors[candidate])
+                    .attr("opacity", 0.1)
                     .attr("stroke", "white")
                     .attr("stroke-width", 0)
                     .attr("paint-order", "stroke");
@@ -159,7 +196,7 @@ function drawDots(chartGroup, dailyData, x, y, aggregators, screenSizeCateg) {
     });
 }
 
-function drawGridlines(chartGroup, x, y, width, height, screenSizeCateg) {
+function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg) {
     chartGroup
         .append("g")
         .attr("class", "grid x-grid")
@@ -184,18 +221,39 @@ function drawGridlines(chartGroup, x, y, width, height, screenSizeCateg) {
 
     chartGroup
         .append("g")
-        .attr("class", "grid y-grid")
+        .attr("class", "grid y-grid y-grid-left")
         .call(
             d3
                 .axisLeft(y)
                 .tickValues([0.35, 0.4, 0.45, 0.5])
-                .tickSize(-width)
+                .tickSize(-(width - paddingSizes[screenSizeCateg]))
                 .tickFormat((d) => `${d * 100}`)
         )
         .call((g) => g.select(".domain").remove())
         .selectAll("line")
         .style("stroke", "#ddd")
         .style("stroke-opacity", 1);
+
+    chartGroup
+        .append("g")
+        .attr("class", "grid y-grid-right")
+        .call(
+            d3
+                .axisRight(y)
+                .tickValues([0.35, 0.4, 0.45, 0.5])
+                .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
+                .tickFormat("")
+        )
+        .call((g) => g.select(".domain").remove())
+        .selectAll("line")
+        .attr("class", "y-gridline-right")
+        .style("stroke", "#f7f7f7")
+        .attr("transform", `translate(${width}, 0)`);
+
+    chartGroup
+        .selectAll(".y-grid-right")
+        .selectAll("text")
+        .remove();
 
     chartGroup
         .selectAll(".y-grid")
@@ -206,7 +264,7 @@ function drawGridlines(chartGroup, x, y, width, height, screenSizeCateg) {
     d3.selectAll(".grid text").attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`).attr("fill", "#666");
 }
 
-function setupInteractivity(chartGroup, dailyData, x, y, width, height, screenSizeCateg) {
+function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
 
     const focusDate = chartGroup
@@ -237,15 +295,16 @@ function setupInteractivity(chartGroup, dailyData, x, y, width, height, screenSi
             }),
         );
 
-    chartGroup
+    chartGroup.append("defs")
+        .append("clipPath")
+        .attr("id", "overlay-clip")
         .append("rect")
-        .attr("class", "overlay-box")
-        .attr("x", width - paddingRightSize)
+        .attr("x", 0)
         .attr("y", 0)
-        .attr("width", paddingRightSize)
-        .attr("height", height)
-        .attr("fill", "white")
-        .attr("opacity", 0.8);
+        .attr("width", width - paddingRightSize)
+        .attr("height", height);
+
+    chartElements.attr("clip-path", "url(#overlay-clip)");
 
     dateLabel.attr("x", width - paddingRightSize).attr("y", -6);
 
@@ -291,17 +350,15 @@ function setupInteractivity(chartGroup, dailyData, x, y, width, height, screenSi
                 .attr("y", -6);
 
             updateLabels(focusTexts, dailyData, x, y);
+            d3.select("#overlay-clip rect")
+                .attr("width", width - paddingRightSize);
 
-            chartGroup.selectAll(".overlay-box").remove(); // Clear existing box
-            chartGroup
-                .append("rect")
-                .attr("class", "overlay-box")
-                .attr("x", width - paddingRightSize)
-                .attr("y", 0)
-                .attr("width", 100)
-                .attr("height", height)
-                .attr("fill", "white")
-                .attr("opacity", 0.8);
+            chartGroup.selectAll(".y-grid-left line")
+                .attr("x2", (width - paddingRightSize));
+            chartGroup.selectAll(".y-grid-right line")
+                .attr("x1", 0)
+                .attr("x2", -paddingSizes[screenSizeCateg]);
+            
             Object.values(focusTexts).forEach((text) => text.raise());
         });
 }
@@ -342,6 +399,8 @@ function handleMouseMove(
         roundedDate.setDate(roundedDate.getDate() + 1);
     }
     const lineDate = new Date(roundedDate.getTime()); // Subtract 1 day from the date
+    const lineXPosition = x(lineDate);
+
     verticalLine.attr("x1", x(lineDate) - 1).attr("x2", x(lineDate));
     dateLabel
         .text(
@@ -352,17 +411,17 @@ function handleMouseMove(
         )
         .attr("x", x(lineDate));
 
-    // Add half-opaque white box to the right of the vertical line
-    chartGroup.selectAll(".overlay-box").remove(); // Clear existing box
-    chartGroup
-        .append("rect")
-        .attr("class", "overlay-box")
-        .attr("x", x(lineDate))
-        .attr("y", 0)
-        .attr("width", width - x(lineDate))
-        .attr("height", height)
-        .attr("fill", "white")
-        .attr("opacity", 0.8);
+    d3.select("#overlay-clip rect")
+        .attr("x", 0)
+        .attr("width", x(lineDate));
+
+    // Adjust the gridlines' positions to match the date marker
+    chartGroup.selectAll(".y-grid-left line")
+        .attr("x2", lineXPosition);
+
+    chartGroup.selectAll(".y-grid-right line")
+        .attr("x1", 0)
+        .attr("x2", -(width - lineXPosition));
 
     // Put the labels at the end of the svg rendering order
     Object.values(focusTexts).forEach((text) => text.raise());
