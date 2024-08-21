@@ -17,9 +17,10 @@
     }
 
     onMount(() => {
-        page('/', routeHandler(Home));
-        page('/embed/chart', routeHandler(ChartEmbed));
-        page('*', routeHandler(NotFound));
+        const baseUrl = window.location.pathname;
+        page(baseUrl, routeHandler(Home));
+        page(baseUrl+'embed/chart', routeHandler(ChartEmbed));
+        page(baseUrl+'*', routeHandler(NotFound));
         page.start();
     });
 </script>
