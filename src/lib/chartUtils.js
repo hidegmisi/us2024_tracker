@@ -12,28 +12,34 @@ let screenSizes = {
     small: 700,
 };
 
+let chartContainerRatios = {
+    mobile: 0.62,
+    small: 0.57,
+    large: 0.46,
+};
+
 let paddingSizes = {
-    mobile: 100,
-    small: 120,
-    large: 150,
+    mobile: 0,
+    small: 0,
+    large: 0,
 };
 
 let candidateLabelSizes = {
-    mobile: 1,
-    small: 1.2,
-    large: 1.5,
+    mobile: 0.8,
+    small: 1,
+    large: 1,
 }
 
 let dotSizes = {
-    mobile: 2,
-    small: 3,
-    large: 3,
+    mobile: 1,
+    small: 2,
+    large: 2,
 }
 
 let lineWidths = {
-    mobile: 5,
-    small: 7,
-    large: 9,
+    mobile: 2,
+    small: 3,
+    large: 5,
 }
 
 let gridLabelSizes = {
@@ -80,7 +86,7 @@ function setupChart(dailyData, screenSizeCateg) {
     const svg = d3.select(".polls");
 
     const width = parseInt(svg.style("width")) - margin.left - margin.right;
-    const height = width * (4 / 7);
+    const height = width * (chartContainerRatios[screenSizeCateg]);
 
     const dateExtent = d3.extent(dailyData, (d) =>
         d3.timeParse("%Y-%m-%d")(d.Trump.date)
@@ -91,8 +97,8 @@ function setupChart(dailyData, screenSizeCateg) {
 
     const x = d3
         .scaleTime()
-        .domain([paddedStartDate, dateExtent[1]])
-        .range([0, width - paddingRightSize]);
+        .domain([paddedStartDate, new Date('2024-11-05')])
+        .range([0, width]);
 
     const y = d3.scaleLinear().domain([0.35, 0.51]).range([height, 0]);
 
@@ -197,6 +203,7 @@ function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, scree
 }
 
 function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg) {
+    const todayX = x(new Date());
     chartGroup
         .append("g")
         .attr("class", "grid x-grid")
@@ -204,13 +211,12 @@ function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSiz
         .call(
             d3
                 .axisBottom(x)
-                .ticks(d3.timeWeek.every(1))
+                .ticks(d3.timeMonth.every(1))
                 .tickSizeInner(-6)
                 .tickPadding(10)
                 .tickFormat((d) =>
                     new Date(d).toLocaleDateString("hu-HU", {
                         month: "short",
-                        day: "numeric",
                     })
                 )
         )
@@ -226,7 +232,7 @@ function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSiz
             d3
                 .axisLeft(y)
                 .tickValues([0.35, 0.4, 0.45, 0.5])
-                .tickSize(-(width - paddingSizes[screenSizeCateg]))
+                .tickSize(-todayX)
                 .tickFormat((d) => `${d * 100}`)
         )
         .call((g) => g.select(".domain").remove())
@@ -241,7 +247,7 @@ function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSiz
             d3
                 .axisRight(y)
                 .tickValues([0.35, 0.4, 0.45, 0.5])
-                .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
+                .tickSize(-(width - todayX)) // Adjusted for the padding
                 .tickFormat("")
         )
         .call((g) => g.select(".domain").remove())
@@ -267,12 +273,14 @@ function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSiz
 function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
 
+    const todayX = x(new Date(dailyData[dailyData.length - 1].Trump.date));
+
     const focusDate = chartGroup
         .append("g")
         .attr("y1", 0)
         .attr("y2", height)
-        .attr("x1", width - (paddingRightSize + 1))
-        .attr("x2", width - (paddingRightSize + 1));
+        .attr("x1", todayX)
+        .attr("x2", todayX);
 
     const verticalLine = focusDate
         .append("line")
@@ -280,8 +288,8 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
         .attr("stroke-width", 2)
         .attr("y1", 0)
         .attr("y2", height)
-        .attr("x1", width - (paddingRightSize + 1))
-        .attr("x2", width - (paddingRightSize + 1));
+        .attr("x1", todayX)
+        .attr("x2", todayX);
 
     const dateLabel = focusDate
         .append("text")
@@ -301,12 +309,12 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
         .append("rect")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("width", width - paddingRightSize)
+        .attr("width", todayX)
         .attr("height", height);
 
     chartElements.attr("clip-path", "url(#overlay-clip)");
 
-    dateLabel.attr("x", width - paddingRightSize).attr("y", -6);
+    dateLabel.attr("x", todayX).attr("y", -6);
 
     const focusTexts = initializeFocusTexts(chartGroup, colors, screenSizeCateg);
     updateLabels(focusTexts, dailyData, x, y);
@@ -314,7 +322,7 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
     const svg = d3.select(chartGroup.node().parentNode);
 
     svg.append("rect")
-        .attr("width", width - paddingRightSize)
+        .attr("width", todayX)
         .attr("height", height)
         .style("fill", "none")
         .style("pointer-events", "all")
@@ -336,8 +344,8 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
             verticalLine
                 .attr("y1", 0)
                 .attr("y2", height)
-                .attr("x1", width - (paddingRightSize + 1))
-                .attr("x2", width - (paddingRightSize + 1));
+                .attr("x1", todayX - 1)
+                .attr("x2", todayX - 1);
 
             dateLabel
                 .text(
@@ -346,18 +354,18 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
                         day: "numeric",
                     }),
                 )
-                .attr("x", width - (paddingRightSize + 1))
+                .attr("x", todayX - 1)
                 .attr("y", -6);
 
             updateLabels(focusTexts, dailyData, x, y);
             d3.select("#overlay-clip rect")
-                .attr("width", width - paddingRightSize);
+                .attr("width", todayX);
 
             chartGroup.selectAll(".y-grid-left line")
-                .attr("x2", (width - paddingRightSize));
+                .attr("x2", (todayX));
             chartGroup.selectAll(".y-grid-right line")
                 .attr("x1", 0)
-                .attr("x2", -paddingSizes[screenSizeCateg]);
+                .attr("x2", -(width - todayX));
             
             Object.values(focusTexts).forEach((text) => text.raise());
         });

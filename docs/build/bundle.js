@@ -65955,28 +65955,28 @@ var app = (function () {
 	    small: 700,
 	};
 
-	let paddingSizes = {
-	    mobile: 100,
-	    small: 120,
-	    large: 150,
+	let chartContainerRatios = {
+	    mobile: 0.62,
+	    small: 0.57,
+	    large: 0.46,
 	};
 
 	let candidateLabelSizes = {
-	    mobile: 1,
-	    small: 1.2,
-	    large: 1.5,
+	    mobile: 0.8,
+	    small: 1,
+	    large: 1,
 	};
 
 	let dotSizes = {
-	    mobile: 2,
-	    small: 3,
-	    large: 3,
+	    mobile: 1,
+	    small: 2,
+	    large: 2,
 	};
 
 	let lineWidths = {
-	    mobile: 5,
-	    small: 7,
-	    large: 9,
+	    mobile: 2,
+	    small: 3,
+	    large: 5,
 	};
 
 	let gridLabelSizes = {
@@ -66017,13 +66017,12 @@ var app = (function () {
 	}
 
 	function setupChart(dailyData, screenSizeCateg) {
-	    const paddingRightSize = paddingSizes[screenSizeCateg];
 
 	    const margin = { top: 20, right: 0, bottom: 30, left: 0 };
 	    const svg = select(".polls");
 
 	    const width = parseInt(svg.style("width")) - margin.left - margin.right;
-	    const height = width * (4 / 7);
+	    const height = width * (chartContainerRatios[screenSizeCateg]);
 
 	    const dateExtent = extent$1(dailyData, (d) =>
 	        timeParse("%Y-%m-%d")(d.Trump.date)
@@ -66033,8 +66032,8 @@ var app = (function () {
 	    paddedStartDate.setDate(paddedStartDate.getDate() - 1);
 
 	    const x = time()
-	        .domain([paddedStartDate, dateExtent[1]])
-	        .range([0, width - paddingRightSize]);
+	        .domain([paddedStartDate, new Date('2024-11-05')])
+	        .range([0, width]);
 
 	    const y = linear$1().domain([0.35, 0.51]).range([height, 0]);
 
@@ -66138,19 +66137,19 @@ var app = (function () {
 	}
 
 	function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg) {
+	    const todayX = x(new Date());
 	    chartGroup
 	        .append("g")
 	        .attr("class", "grid x-grid")
 	        .attr("transform", `translate(0,${height})`)
 	        .call(
 	            axisBottom(x)
-	                .ticks(timeSunday.every(1))
+	                .ticks(timeMonth.every(1))
 	                .tickSizeInner(-6)
 	                .tickPadding(10)
 	                .tickFormat((d) =>
 	                    new Date(d).toLocaleDateString("hu-HU", {
 	                        month: "short",
-	                        day: "numeric",
 	                    })
 	                )
 	        )
@@ -66165,7 +66164,7 @@ var app = (function () {
 	        .call(
 	            axisLeft(y)
 	                .tickValues([0.35, 0.4, 0.45, 0.5])
-	                .tickSize(-(width - paddingSizes[screenSizeCateg]))
+	                .tickSize(-todayX)
 	                .tickFormat((d) => `${d * 100}`)
 	        )
 	        .call((g) => g.select(".domain").remove())
@@ -66179,7 +66178,7 @@ var app = (function () {
 	        .call(
 	            axisRight(y)
 	                .tickValues([0.35, 0.4, 0.45, 0.5])
-	                .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
+	                .tickSize(-(width - todayX)) // Adjusted for the padding
 	                .tickFormat("")
 	        )
 	        .call((g) => g.select(".domain").remove())
@@ -66203,14 +66202,15 @@ var app = (function () {
 	}
 
 	function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg) {
-	    const paddingRightSize = paddingSizes[screenSizeCateg];
+
+	    const todayX = x(new Date(dailyData[dailyData.length - 1].Trump.date));
 
 	    const focusDate = chartGroup
 	        .append("g")
 	        .attr("y1", 0)
 	        .attr("y2", height)
-	        .attr("x1", width - (paddingRightSize + 1))
-	        .attr("x2", width - (paddingRightSize + 1));
+	        .attr("x1", todayX)
+	        .attr("x2", todayX);
 
 	    const verticalLine = focusDate
 	        .append("line")
@@ -66218,8 +66218,8 @@ var app = (function () {
 	        .attr("stroke-width", 2)
 	        .attr("y1", 0)
 	        .attr("y2", height)
-	        .attr("x1", width - (paddingRightSize + 1))
-	        .attr("x2", width - (paddingRightSize + 1));
+	        .attr("x1", todayX)
+	        .attr("x2", todayX);
 
 	    const dateLabel = focusDate
 	        .append("text")
@@ -66239,12 +66239,12 @@ var app = (function () {
 	        .append("rect")
 	        .attr("x", 0)
 	        .attr("y", 0)
-	        .attr("width", width - paddingRightSize)
+	        .attr("width", todayX)
 	        .attr("height", height);
 
 	    chartElements.attr("clip-path", "url(#overlay-clip)");
 
-	    dateLabel.attr("x", width - paddingRightSize).attr("y", -6);
+	    dateLabel.attr("x", todayX).attr("y", -6);
 
 	    const focusTexts = initializeFocusTexts(chartGroup, colors, screenSizeCateg);
 	    updateLabels(focusTexts, dailyData, x, y);
@@ -66252,7 +66252,7 @@ var app = (function () {
 	    const svg = select(chartGroup.node().parentNode);
 
 	    svg.append("rect")
-	        .attr("width", width - paddingRightSize)
+	        .attr("width", todayX)
 	        .attr("height", height)
 	        .style("fill", "none")
 	        .style("pointer-events", "all")
@@ -66274,8 +66274,8 @@ var app = (function () {
 	            verticalLine
 	                .attr("y1", 0)
 	                .attr("y2", height)
-	                .attr("x1", width - (paddingRightSize + 1))
-	                .attr("x2", width - (paddingRightSize + 1));
+	                .attr("x1", todayX - 1)
+	                .attr("x2", todayX - 1);
 
 	            dateLabel
 	                .text(
@@ -66284,18 +66284,18 @@ var app = (function () {
 	                        day: "numeric",
 	                    }),
 	                )
-	                .attr("x", width - (paddingRightSize + 1))
+	                .attr("x", todayX - 1)
 	                .attr("y", -6);
 
 	            updateLabels(focusTexts, dailyData, x, y);
 	            select("#overlay-clip rect")
-	                .attr("width", width - paddingRightSize);
+	                .attr("width", todayX);
 
 	            chartGroup.selectAll(".y-grid-left line")
-	                .attr("x2", (width - paddingRightSize));
+	                .attr("x2", (todayX));
 	            chartGroup.selectAll(".y-grid-right line")
 	                .attr("x1", 0)
-	                .attr("x2", -paddingSizes[screenSizeCateg]);
+	                .attr("x2", -(width - todayX));
 	            
 	            Object.values(focusTexts).forEach((text) => text.raise());
 	        });
