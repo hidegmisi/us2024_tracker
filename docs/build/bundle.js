@@ -67767,11 +67767,11 @@ var app = (function () {
 		}
 
 		onMount(() => {
-			const baseUrl = window.location.pathname;
-			page(baseUrl, routeHandler(Home));
-			page(baseUrl + 'embed/chart', routeHandler(ChartEmbed));
-			page(baseUrl + '*', routeHandler(NotFound));
-			page.start();
+			page.base(window.location.pathname);
+			page('#/home', routeHandler(Home));
+			page('#/embed/chart', routeHandler(ChartEmbed));
+			page('*', routeHandler(NotFound));
+			page.start({ hashbang: true });
 		});
 
 		const writable_props = [];
