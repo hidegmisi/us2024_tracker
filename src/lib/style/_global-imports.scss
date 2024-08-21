@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: "Helvetica Neue", sans-serif;
     color: #333;
     text-rendering: optimizeLegibility;
     line-height: 1.4;
@@ -12,16 +12,22 @@ a {
     color: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #222;
 }
 
-p, p * {
-    font-family: 'baskerville', serif;
+p,
+p * {
+    font-family: "baskerville", serif;
 }
 
 .number {
-    font-family: 'courier', monospace;
+    font-family: "courier", monospace;
 }
 
 span.rep {
@@ -48,5 +54,5 @@ p.has-data {
     line-height: 1.5;
 }
 p.has-data span:not(.container) {
-    font-family: 'courier', monospace;
+    font-family: "courier", monospace;
 }

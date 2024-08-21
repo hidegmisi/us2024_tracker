@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import './lib/style/_global-imports.scss';
 
 const app = new App({
 	target: document.body,
