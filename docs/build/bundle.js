@@ -67768,6 +67768,7 @@ var app = (function () {
 
 		onMount(() => {
 			page.base(window.location.pathname);
+			page('/', routeHandler(Home));
 			page('#/home', routeHandler(Home));
 			page('#/embed/chart', routeHandler(ChartEmbed));
 			page('*', routeHandler(NotFound));
