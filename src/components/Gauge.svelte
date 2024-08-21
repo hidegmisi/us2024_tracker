@@ -20,8 +20,6 @@
         },
     };
 
-    console.log(demLead);
-
     let lead_color = '#aaa';
     let lead_bg_color = '#ddd';
 
