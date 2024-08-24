@@ -434,6 +434,7 @@ function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
     }
 
     let closestValue = { Trump: null, Harris: null };
+    let closestDate = null;
     let minDiff = { Trump: Infinity, Harris: Infinity };
 
     // Find the closest data point for each candidate
@@ -442,11 +443,12 @@ function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
             const candidateObj = day[candidate];
 
             const diff = Math.abs(
-                new Date(lineDate) - new Date(candidateObj.date),
+                new Date(lineDate) - new Date(day.date),
             );
 
             if (diff < minDiff[candidate]) {
                 closestValue[candidate] = candidateObj;
+                closestDate = day.date;
                 minDiff[candidate] = diff;
             }
 
@@ -456,7 +458,7 @@ function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
                     .text(`${candidate} `)
                     .attr(
                         "x",
-                        x(new Date(closestValue.date)) + 8,
+                        x(new Date(closestDate)) + 8,
                     )
                     .attr("y", y(closestValue[candidate].avg))
                     .append("tspan")
