@@ -6,7 +6,6 @@ const app = new App({
 	props: {
 		repo: 'hidegmisi/us2024_aggregator_scraper'
 	},
-	customElement: true,
 });
 
 export default app;

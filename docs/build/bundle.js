@@ -25643,11 +25643,11 @@ var app = (function () {
 		let switch_instance;
 		let switch_instance_anchor;
 		let current;
-		var switch_value = /*currentComponent*/ ctx[0];
+		var switch_value = /*currentComponent*/ ctx[1];
 
 		function switch_props(ctx, dirty) {
 			return {
-				props: { repo: /*repo*/ ctx[1] },
+				props: { repo: /*repo*/ ctx[0] },
 				$$inline: true
 			};
 		}
@@ -25670,7 +25670,7 @@ var app = (function () {
 				current = true;
 			},
 			p: function update(ctx, [dirty]) {
-				if (dirty & /*currentComponent*/ 1 && switch_value !== (switch_value = /*currentComponent*/ ctx[0])) {
+				if (dirty & /*currentComponent*/ 2 && switch_value !== (switch_value = /*currentComponent*/ ctx[1])) {
 					if (switch_instance) {
 						group_outros();
 						const old_component = switch_instance;
@@ -25690,6 +25690,10 @@ var app = (function () {
 					} else {
 						switch_instance = null;
 					}
+				} else if (switch_value) {
+					const switch_instance_changes = {};
+					if (dirty & /*repo*/ 1) switch_instance_changes.repo = /*repo*/ ctx[0];
+					switch_instance.$set(switch_instance_changes);
 				}
 			},
 			i: function intro(local) {
@@ -25724,12 +25728,12 @@ var app = (function () {
 	function instance($$self, $$props, $$invalidate) {
 		let { $$slots: slots = {}, $$scope } = $$props;
 		validate_slots('App', slots, []);
-		let repo = 'hidegmisi/us2024_aggregator_scraper';
+		let { repo } = $$props;
 		let currentComponent;
 
 		function routeHandler(component) {
 			return function () {
-				$$invalidate(0, currentComponent = component);
+				$$invalidate(1, currentComponent = component);
 			};
 		}
 
@@ -25742,11 +25746,21 @@ var app = (function () {
 			page.start({ hashbang: true });
 		});
 
-		const writable_props = [];
+		$$self.$$.on_mount.push(function () {
+			if (repo === undefined && !('repo' in $$props || $$self.$$.bound[$$self.$$.props['repo']])) {
+				console.warn("<App> was created without expected prop 'repo'");
+			}
+		});
+
+		const writable_props = ['repo'];
 
 		Object.keys($$props).forEach(key => {
 			if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
 		});
+
+		$$self.$$set = $$props => {
+			if ('repo' in $$props) $$invalidate(0, repo = $$props.repo);
+		};
 
 		$$self.$capture_state = () => ({
 			onMount,
@@ -25760,21 +25774,21 @@ var app = (function () {
 		});
 
 		$$self.$inject_state = $$props => {
-			if ('repo' in $$props) $$invalidate(1, repo = $$props.repo);
-			if ('currentComponent' in $$props) $$invalidate(0, currentComponent = $$props.currentComponent);
+			if ('repo' in $$props) $$invalidate(0, repo = $$props.repo);
+			if ('currentComponent' in $$props) $$invalidate(1, currentComponent = $$props.currentComponent);
 		};
 
 		if ($$props && "$$inject" in $$props) {
 			$$self.$inject_state($$props.$$inject);
 		}
 
-		return [currentComponent, repo];
+		return [repo, currentComponent];
 	}
 
 	class App extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init$1(this, options, instance, create_fragment, safe_not_equal, {});
+			init$1(this, options, instance, create_fragment, safe_not_equal, { repo: 0 });
 
 			dispatch_dev("SvelteRegisterComponent", {
 				component: this,
@@ -25783,6 +25797,14 @@ var app = (function () {
 				id: create_fragment.name
 			});
 		}
+
+		get repo() {
+			throw new Error("<App>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
+
+		set repo(value) {
+			throw new Error("<App>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
 	}
 
 	const app = new App({
@@ -25790,7 +25812,6 @@ var app = (function () {
 	    props: {
 	        repo: 'hidegmisi/us2024_aggregator_scraper'
 	    },
-	    customElement: true,
 	});
 
 	return app;

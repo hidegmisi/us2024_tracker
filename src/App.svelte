@@ -6,7 +6,7 @@
     import ChartEmbed from './routes/ChartEmbed.svelte';
     import NotFound from './routes/NotFound.svelte';
 
-    let repo = 'hidegmisi/us2024_aggregator_scraper';
+    export let repo;
 
     let currentComponent;
 
