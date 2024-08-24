@@ -2,37 +2,50 @@
     import * as d3 from "d3";
     import { onMount } from "svelte";
     import { aggregators } from "../lib/dataUtils";
+    import type { CandidateData, DayData } from "../lib/types";
 
     export let dailyData;
-    
-    let aggregatorsCurrent = [];
 
-    function setAggregatorsCurrent(data) {
+    interface Aggregator {
+        name: string;
+        displayName: string;
+        lead: number;
+        leading: "dem" | "rep";
+    }
+    
+    let aggregatorsCurrent: Aggregator[] = [];
+
+    function setAggregatorsCurrent(data: DayData[]) {
         const lastDay = data[data.length - 1];
         const currentTrump = lastDay.Trump;
         const currentHarris = lastDay.Harris;
-        const aggregatorNameMap = {
+        const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: string } = {
             fivethirtyeight: "538",
             realclearpolling: "RCP",
             natesilver: "Silver Bulletin",
             nyt: "NYT",
         };
-        aggregatorsCurrent = Object.keys(aggregatorNameMap).map(
+        aggregatorsCurrent = (Object.keys(aggregatorNameMap) as Array<keyof typeof aggregatorNameMap>).map(
             (aggregator) => {
                 const trump = currentTrump[aggregator];
                 const harris = currentHarris[aggregator];
-                const lead = (harris - trump) * 100;
+                
+                let lead = 0
+                if (!!trump && !!harris) {
+                    lead = (harris - trump) * 100;
+                }
+
                 return {
                     name: aggregator,
                     displayName: aggregatorNameMap[aggregator],
-                    lead: Math.abs(lead.toFixed(1)),
+                    lead: Math.abs(parseFloat(lead.toFixed(1))),
                     leading: lead > 0 ? "dem" : "rep",
                 };
             },
         );
     }
 
-    function setSoloAggregator(aggregator) {
+    function setSoloAggregator(aggregator: string) {
         return () => {
             d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 4).attr("stroke-width", 0);
             d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 5).attr("fill", "transparent").attr("stroke-width", 2).attr("stroke", "blue");
@@ -41,7 +54,7 @@
         };
     }
 
-    function removeSoloAggregator(aggregator) {
+    function removeSoloAggregator(aggregator: string) {
         return () => {
             d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.2).attr("r", 3).attr("stroke-width", 0);
             d3.selectAll(`circle.background-dot:is(.Trump, .Harris)`).attr("opacity", 0.1);

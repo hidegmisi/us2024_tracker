@@ -105,28 +105,12 @@
         border-top: 2px solid #333;
         padding: 8px 0;
     }
-    #winner-gauge .label {
-        text-align: center;
-        margin-top: 36px;
-        font-family: 'helvetica neue';
-        text-transform: uppercase;
-        font-weight: 500;
-        font-size: 14px;
-        margin-bottom: -12px;
-    }
 
     #poll-graph {
         grid-column: 2 / 3;
         grid-row: 1 / 3;
         border-top: 2px solid #888;
         padding: 8px 1rem;
-    }
-    #poll-graph .label {
-        text-transform: uppercase;
-        font-family: 'helvetica neue';
-        font-weight: 500;
-        font-size: 14px;
-        margin-top: 26px;
     }
 
     article {

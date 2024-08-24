@@ -24576,7 +24576,7 @@ var app = (function () {
 		return child_ctx;
 	}
 
-	// (50:0) {#if aggregatorsCurrent.length !== 0}
+	// (53:0) {#if aggregatorsCurrent.length !== 0}
 	function create_if_block$2(ctx) {
 		let div;
 		let each_value = ensure_array_like_dev(/*aggregatorsCurrent*/ ctx[0]);
@@ -24595,7 +24595,7 @@ var app = (function () {
 				}
 
 				attr_dev(div, "class", "aggregator-bubbles svelte-e1cfa5");
-				add_location(div, file$3, 59, 4, 2060);
+				add_location(div, file$3, 72, 4, 2137);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24643,14 +24643,14 @@ var app = (function () {
 			block,
 			id: create_if_block$2.name,
 			type: "if",
-			source: "(50:0) {#if aggregatorsCurrent.length !== 0}",
+			source: "(53:0) {#if aggregatorsCurrent.length !== 0}",
 			ctx
 		});
 
 		return block;
 	}
 
-	// (52:8) {#each aggregatorsCurrent as aggregator}
+	// (55:8) {#each aggregatorsCurrent as aggregator}
 	function create_each_block(ctx) {
 		let div;
 		let t0_value = /*aggregator*/ ctx[5].displayName + "";
@@ -24675,11 +24675,11 @@ var app = (function () {
 				t3 = text$1(t3_value);
 				t4 = space();
 				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[5].leading) + " svelte-e1cfa5"));
-				add_location(span, file$3, 63, 16, 2368);
+				add_location(span, file$3, 76, 16, 2445);
 				attr_dev(div, "class", "aggregator svelte-e1cfa5");
 				attr_dev(div, "role", "button");
 				attr_dev(div, "tabindex", "0");
-				add_location(div, file$3, 61, 12, 2154);
+				add_location(div, file$3, 74, 12, 2231);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24742,7 +24742,7 @@ var app = (function () {
 			block,
 			id: create_each_block.name,
 			type: "each",
-			source: "(52:8) {#each aggregatorsCurrent as aggregator}",
+			source: "(55:8) {#each aggregatorsCurrent as aggregator}",
 			ctx
 		});
 
@@ -24822,12 +24822,16 @@ var app = (function () {
 			$$invalidate(0, aggregatorsCurrent = Object.keys(aggregatorNameMap).map(aggregator => {
 				const trump = currentTrump[aggregator];
 				const harris = currentHarris[aggregator];
-				const lead = (harris - trump) * 100;
+				let lead = 0;
+
+				if (!!trump && !!harris) {
+					lead = (harris - trump) * 100;
+				}
 
 				return {
 					name: aggregator,
 					displayName: aggregatorNameMap[aggregator],
-					lead: Math.abs(lead.toFixed(1)),
+					lead: Math.abs(parseFloat(lead.toFixed(1))),
 					leading: lead > 0 ? "dem" : "rep"
 				};
 			}));
@@ -25117,23 +25121,23 @@ var app = (function () {
 				if (if_block1) if_block1.c();
 				t20 = space();
 				article1 = element("article");
-				attr_dev(span0, "class", "svelte-1lxe816");
+				attr_dev(span0, "class", "svelte-11anfwk");
 				add_location(span0, file$2, 26, 12, 559);
 				set_style(div0, "flex-grow", "1");
 				set_style(div0, "flex-shrink", "1");
 				add_location(div0, file$2, 27, 12, 595);
-				attr_dev(span1, "class", "svelte-1lxe816");
+				attr_dev(span1, "class", "svelte-11anfwk");
 				add_location(span1, file$2, 28, 12, 657);
-				attr_dev(h10, "class", "svelte-1lxe816");
+				attr_dev(h10, "class", "svelte-11anfwk");
 				add_location(h10, file$2, 25, 8, 542);
-				attr_dev(header, "class", "svelte-1lxe816");
+				attr_dev(header, "class", "svelte-11anfwk");
 				add_location(header, file$2, 24, 4, 525);
-				attr_dev(h2, "class", "svelte-1lxe816");
+				attr_dev(h2, "class", "svelte-11anfwk");
 				add_location(h2, file$2, 33, 12, 792);
 				attr_dev(article0, "id", "winner-gauge");
-				attr_dev(article0, "class", "svelte-1lxe816");
+				attr_dev(article0, "class", "svelte-11anfwk");
 				add_location(article0, file$2, 32, 8, 752);
-				attr_dev(h11, "class", "svelte-1lxe816");
+				attr_dev(h11, "class", "svelte-11anfwk");
 				add_location(h11, file$2, 39, 12, 1001);
 				attr_dev(a0, "target", "_blank");
 				attr_dev(a0, "href", "https://projects.fivethirtyeight.com/polls/president-general/2024/national/");
@@ -25147,17 +25151,17 @@ var app = (function () {
 				attr_dev(a3, "target", "_blank");
 				attr_dev(a3, "href", "https://www.nytimes.com/interactive/2024/us/elections/polls-president.html");
 				add_location(a3, file$2, 56, 16, 1781);
-				attr_dev(p, "class", "svelte-1lxe816");
+				attr_dev(p, "class", "svelte-11anfwk");
 				add_location(p, file$2, 40, 12, 1053);
 				attr_dev(section, "id", "poll-graph");
-				attr_dev(section, "class", "svelte-1lxe816");
+				attr_dev(section, "class", "svelte-11anfwk");
 				add_location(section, file$2, 38, 8, 963);
-				attr_dev(article1, "class", "svelte-1lxe816");
+				attr_dev(article1, "class", "svelte-11anfwk");
 				add_location(article1, file$2, 70, 8, 2506);
 				attr_dev(div1, "id", "mainGrid");
-				attr_dev(div1, "class", "svelte-1lxe816");
+				attr_dev(div1, "class", "svelte-11anfwk");
 				add_location(div1, file$2, 31, 4, 724);
-				attr_dev(article2, "class", "svelte-1lxe816");
+				attr_dev(article2, "class", "svelte-11anfwk");
 				add_location(article2, file$2, 23, 0, 511);
 			},
 			l: function claim(nodes) {
