@@ -24513,7 +24513,11 @@ var app = (function () {
 	function create_if_block_2(ctx) {
 		let candidatestanding;
 		let current;
-		candidatestanding = new CandidateStanding({ props: { demLead: 0.05 }, $$inline: true });
+
+		candidatestanding = new CandidateStanding({
+				props: { demLead: /*demLead*/ ctx[3] },
+				$$inline: true
+			});
 
 		const block = {
 			c: function create() {
@@ -24522,6 +24526,11 @@ var app = (function () {
 			m: function mount(target, anchor) {
 				mount_component(candidatestanding, target, anchor);
 				current = true;
+			},
+			p: function update(ctx, dirty) {
+				const candidatestanding_changes = {};
+				if (dirty & /*demLead*/ 8) candidatestanding_changes.demLead = /*demLead*/ ctx[3];
+				candidatestanding.$set(candidatestanding_changes);
 			},
 			i: function intro(local) {
 				if (current) return;
@@ -24567,7 +24576,7 @@ var app = (function () {
 				}
 
 				attr_dev(div, "class", "aggregator-bubbles svelte-4affb7");
-				add_location(div, file$2, 123, 16, 4451);
+				add_location(div, file$2, 123, 16, 4446);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24647,9 +24656,9 @@ var app = (function () {
 				t3 = text$1(t3_value);
 				t4 = space();
 				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[10].leading) + " svelte-4affb7"));
-				add_location(span, file$2, 127, 28, 4780);
+				add_location(span, file$2, 127, 28, 4775);
 				attr_dev(div, "class", "aggregator svelte-4affb7");
-				add_location(div, file$2, 125, 24, 4569);
+				add_location(div, file$2, 125, 24, 4564);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24870,26 +24879,26 @@ var app = (function () {
 				attr_dev(article0, "class", "svelte-4affb7");
 				add_location(article0, file$2, 89, 8, 2865);
 				attr_dev(h11, "class", "svelte-4affb7");
-				add_location(h11, file$2, 96, 12, 3101);
+				add_location(h11, file$2, 96, 12, 3096);
 				attr_dev(a0, "target", "_blank");
 				attr_dev(a0, "href", "https://projects.fivethirtyeight.com/polls/president-general/2024/national/");
-				add_location(a0, file$2, 98, 68, 3225);
+				add_location(a0, file$2, 98, 68, 3220);
 				attr_dev(a1, "target", "_blank");
 				attr_dev(a1, "href", "https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris");
-				add_location(a1, file$2, 103, 16, 3442);
+				add_location(a1, file$2, 103, 16, 3437);
 				attr_dev(a2, "target", "_blank");
 				attr_dev(a2, "href", "https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model");
-				add_location(a2, file$2, 108, 16, 3663);
+				add_location(a2, file$2, 108, 16, 3658);
 				attr_dev(a3, "target", "_blank");
 				attr_dev(a3, "href", "https://www.nytimes.com/interactive/2024/us/elections/polls-president.html");
-				add_location(a3, file$2, 113, 16, 3881);
+				add_location(a3, file$2, 113, 16, 3876);
 				attr_dev(p, "class", "svelte-4affb7");
-				add_location(p, file$2, 97, 12, 3153);
+				add_location(p, file$2, 97, 12, 3148);
 				attr_dev(section, "id", "poll-graph");
 				attr_dev(section, "class", "svelte-4affb7");
-				add_location(section, file$2, 95, 8, 3063);
+				add_location(section, file$2, 95, 8, 3058);
 				attr_dev(article1, "class", "svelte-4affb7");
-				add_location(article1, file$2, 138, 8, 5212);
+				add_location(article1, file$2, 138, 8, 5207);
 				attr_dev(div1, "class", "uglygrid svelte-4affb7");
 				add_location(div1, file$2, 88, 4, 2834);
 				attr_dev(article2, "class", "svelte-4affb7");
@@ -24938,6 +24947,8 @@ var app = (function () {
 			p: function update(ctx, [dirty]) {
 				if (/*demLead*/ ctx[3] !== null) {
 					if (if_block0) {
+						if_block0.p(ctx, dirty);
+
 						if (dirty & /*demLead*/ 8) {
 							transition_in(if_block0, 1);
 						}
