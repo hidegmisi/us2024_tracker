@@ -2,13 +2,12 @@
     import { onMount } from "svelte";
     import { drawChart, onResize } from "$lib/chartUtils";
 
-    export let dailyAggData;
     export let dailyData;
     export let aggregators;
 
     onMount(() => {
-        drawChart(dailyAggData, dailyData, aggregators);
-        window.addEventListener("resize", () => onResize(dailyAggData, dailyData, aggregators));
+        drawChart(dailyData, aggregators);
+        window.addEventListener("resize", () => onResize(dailyData, aggregators));
     });
 
 </script>

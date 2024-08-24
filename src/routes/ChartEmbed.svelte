@@ -5,13 +5,12 @@
 
     export let repo;
 
-    let dailyAggData = [];
     let dailyData = [];
 
     async function fetchData() {
         try {
             const data = await getPollData(repo);
-            ({ dailyAggData, dailyData } = prepareData(data));
+            dailyData = prepareData(data);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -22,8 +21,8 @@
   
 <article>
     <div class="chartContainer">
-        {#if dailyAggData.length !== 0 && dailyData.length !== 0 && aggregators.length !== 0}
-            <Chart class="chart" {dailyAggData} {dailyData} {aggregators} />
+        {#if dailyData.length !== 0 && aggregators.length !== 0}
+            <Chart class="chart" {dailyData} {aggregators} />
         {/if}
     </div>
 </article>

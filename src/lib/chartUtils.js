@@ -52,23 +52,23 @@ function getScreenSize() {
     return "large";
 }
 
-export function onResize(dailyAggData, dailyData, aggregators) {
+export function onResize(dailyData, aggregators) {
     if (resizeDebounce) {
         clearTimeout(resizeDebounce);
     }
     
     resizeDebounce = setTimeout(() => {
         d3.selectAll(".polls").selectAll("*").remove();
-        drawChart(dailyAggData, dailyData, aggregators);
+        drawChart(dailyData, aggregators);
     }, 250);
 }
 
-export function drawChart(dailyAggData, dailyData, aggregators) {
+export function drawChart( dailyData, aggregators) {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
     drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
-    drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCateg);
+    drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
     drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
     setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
 }
@@ -111,7 +111,7 @@ function setupChart(dailyData, screenSizeCateg) {
     return { margin, width, height, x, y, chartGroup, chartElements };
 }
 
-function drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCateg) {
+function drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg) {
     for (const candidate of ["Trump", "Harris"]) {
         const line = d3
             .line()
@@ -122,9 +122,9 @@ function drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCate
         chartElements
             .append("path")
             .datum(
-                dailyAggData.map((d) => ({
+                dailyData.map((d) => ({
                     date: d3.timeParse("%Y-%m-%d")(d.date),
-                    avg: d[candidate],
+                    avg: d[candidate].avg,
                 }))
             )
             .attr("class", candidate)
@@ -137,9 +137,9 @@ function drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCate
         chartGroup
             .append("path")
             .datum(
-                dailyAggData.map((d) => ({
+                dailyData.map((d) => ({
                     date: d3.timeParse("%Y-%m-%d")(d.date),
-                    avg: d[candidate],
+                    avg: d[candidate].avg,
                 }))
             )
             .attr("class", candidate + " background-line")

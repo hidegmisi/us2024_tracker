@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import type { CandidateData, DayData, RawData } from "./types";
 
 const aggregators = [
     "fivethirtyeight",
@@ -7,22 +8,20 @@ const aggregators = [
     "nyt",
 ];
 
-async function fetchPollData(repo) {
+async function fetchPollData(repo: string): Promise<RawData[]> {
     const response = await fetch(
         `https://api.github.com/repos/${repo}/contents/polls.csv`,
     );
     const json = await response.json();
     const csvData = atob(json.content);
-    return d3.csvParse(csvData);
+    return d3.csvParse(csvData) as unknown as RawData[];
 }
 
 function isDataStale() {
     const oneHour = 1000 * 60 * 60;
     const now = new Date();
-    const lastUpdated = new Date(
-        sessionStorage.getItem("pollsDataUpdated"),
-    );
-    const diff = now - lastUpdated;
+    const lastUpdated = new Date(sessionStorage.getItem("pollsDataUpdated") || 0);
+    const diff = now.getTime() - lastUpdated.getTime();
 
     return (
         sessionStorage.getItem("pollsData") == null ||
@@ -31,19 +30,21 @@ function isDataStale() {
     );
 }
 
-async function getPollData(repo) {
+async function getPollData(repo: string): Promise<RawData[] | false> {
     if (isDataStale()) {
         const pollData = await fetchPollData(repo);
         const now = new Date();
         sessionStorage.setItem("pollsData", JSON.stringify(pollData));
-        sessionStorage.setItem("pollsDataUpdated", now);
+        sessionStorage.setItem("pollsDataUpdated", now.toString());
         return pollData;
     } else {
-        return JSON.parse(sessionStorage.getItem("pollsData"));
+        const storedData = sessionStorage.getItem("pollsData");
+        if (storedData === null) return false;
+        return JSON.parse(storedData) as RawData[];
     }
 }
 
-function prepareData(data) {
+function prepareData(data: RawData[]): DayData[] {
     const candidates = ["Trump", "Harris"];
 
     data.forEach((d) => {
@@ -61,39 +62,26 @@ function prepareData(data) {
                 (d) => d.candidate === candidate,
             );
             const aggregatorData = Object.fromEntries(
-                aggregators.map((p) => [
-                    p,
-                    d3.mean(candidatePolls.map((d) => d[p])),
+                aggregators.map((aggregator) => [
+                    aggregator,
+                    d3.mean(candidatePolls.map((d) => d[aggregator])),
                 ]),
             );
 
             return {
                 candidate,
-                date,
+                date, // TODO: remove this
                 ...aggregatorData,
                 avg: d3.mean(aggregators.map((p) => aggregatorData[p])),
-            };
+            } as CandidateData;
         });
-        return Object.fromEntries(
-            candidateData.map((d) => [d.candidate, d]),
-        );
-    });
-
-    const dailyCandidateAgg = dailyCandidateData.map((d) => {
-        const trump = d.Trump;
-        const harris = d.Harris;
-
         return {
-            date: trump.date,
-            Trump: d3.mean(aggregators.map((p) => trump[p])).toFixed(5),
-            Harris: d3.mean(aggregators.map((p) => harris[p])).toFixed(5),
-        };
+            ...Object.fromEntries( candidateData.map((d) => [d.candidate, d]) ),
+            date,
+        } as DayData;
     });
-
-    return {
-        dailyAggData: dailyCandidateAgg,
-        dailyData: dailyCandidateData,
-    };
+    
+    return dailyCandidateData;
 }
 
 export { getPollData, prepareData, aggregators };

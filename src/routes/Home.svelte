@@ -1,81 +1,24 @@
 <script lang="ts">
-    import * as d3 from "d3";
     import CandidateStanding from "../components/CandidateStanding.svelte";
     import Chart from "../components/Chart.svelte";
-    import { getPollData, prepareData, aggregators } from "../lib/dataUtils.js";
+    import { aggregators } from "../lib/dataUtils";
+    import { pollData, fetchPollData } from "../stores/dataStore";
+    import { onMount } from "svelte";
+    import AggregatorStrip from "../components/AggregatorStrip.svelte";
+    import type { PollData } from "../lib/types";
 
     export let repo: string;
 
-    let dailyAggData = [];
-    let dailyData = [];
+    let data: PollData = {
+        demLead: null,
+        dailyData: [],
+    };
 
-    let aggregatorsCurrent = [];
+    onMount(async () => {
+        await fetchPollData(repo);
+    });
 
-    let demLead: number | null = null;
-
-    function setAggregatorsCurrent(data) {
-        const lastDay = data[data.length - 1];
-        const currentTrump = lastDay.Trump;
-        const currentHarris = lastDay.Harris;
-        const aggregatorNameMap = {
-            fivethirtyeight: "538",
-            realclearpolling: "RCP",
-            natesilver: "Silver Bulletin",
-            nyt: "NYT",
-        };
-        aggregatorsCurrent = Object.keys(aggregatorNameMap).map(
-            (aggregator) => {
-                const trump = currentTrump[aggregator];
-                const harris = currentHarris[aggregator];
-                const lead = (harris - trump) * 100;
-                return {
-                    name: aggregator,
-                    displayName: aggregatorNameMap[aggregator],
-                    lead: Math.abs(lead.toFixed(1)),
-                    leading: lead > 0 ? "dem" : "rep",
-                };
-            },
-        );
-    }
-
-    function getDemLead() {
-        const lastDay = dailyAggData[dailyAggData.length - 1];
-        const demLead = lastDay.Harris - lastDay.Trump;
-        return demLead;
-    }
-
-    async function fetchData() {
-        try {
-            const data = await getPollData(repo);
-            ({ dailyAggData, dailyData } = prepareData(data));
-
-            setAggregatorsCurrent(dailyData);
-            demLead = getDemLead(dailyAggData)
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    }
-
-    function setSoloAggregator(aggregator) {
-        return () => {
-            d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 4).attr("stroke-width", 0);
-            d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 5).attr("fill", "transparent").attr("stroke-width", 2).attr("stroke", "blue");
-            d3.selectAll(`circle:is(.Trump, .Harris):not(.${aggregator})`).attr("opacity", 0.05);
-            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.05);
-        };
-    }
-
-    function removeSoloAggregator(aggregator) {
-        return () => {
-            d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.2).attr("r", 3).attr("stroke-width", 0);
-            d3.selectAll(`circle.background-dot:is(.Trump, .Harris)`).attr("opacity", 0.1);
-            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.425);
-            d3.selectAll(`path.background-line:is(.Trump, .Harris)`).attr("opacity", 0.05);
-            d3.selectAll(`circle.${aggregator}.Harris`).attr("fill", "blue");
-        };
-    }
-
-    fetchData();
+    $: data = $pollData;
 </script>
 
 <article>
@@ -86,11 +29,11 @@
             <span>Egyesült Államok 2024</span>
         </h1>
     </header>
-    <div class="uglygrid">
+    <div id="mainGrid">
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
-            {#if demLead !== null}
-                <CandidateStanding {demLead} />
+            {#if data.demLead !== null}
+                <CandidateStanding demLead={data.demLead} />
             {/if}
         </article>
         <section id="poll-graph">
@@ -120,20 +63,9 @@
                 inventore quidem ipsam labore ducimus debitis, corrupti
                 blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.
             </p>
-            {#if aggregatorsCurrent.length !== 0}
-                <div class="aggregator-bubbles">
-                    {#each aggregatorsCurrent as aggregator}
-                        <div class="aggregator" on:mouseenter={setSoloAggregator(aggregator.name)} on:mouseleave={removeSoloAggregator(aggregator.name)}>
-                            {aggregator.displayName}
-                            <span class={aggregator.leading}
-                                >+{aggregator.lead.toString().replace('.', ',')}</span
-                            >
-                        </div>
-                    {/each}
-                </div>
-            {/if}
-            {#if dailyAggData.length !== 0 && dailyData.length !== 0}
-                <Chart {dailyAggData} {dailyData} {aggregators} />
+            {#if data.dailyData.length !== 0}
+                <AggregatorStrip dailyData={data.dailyData} />
+                <Chart dailyData={data.dailyData} {aggregators} />
             {/if}
         </section>
         <article></article>
@@ -159,7 +91,7 @@
         padding: 0 8px;
     }
 
-    .uglygrid {
+    #mainGrid {
         display: grid;
         grid-template-columns: 1fr 700px;
         grid-template-rows: fit-content 1fr;
@@ -195,29 +127,6 @@
         font-weight: 500;
         font-size: 14px;
         margin-top: 26px;
-    }
-
-    .aggregator-bubbles {
-        display: flex;
-        gap: 8px;
-        margin: 1rem 0;
-    }
-
-    .aggregator {
-        background-color: #f7f7f7;
-        padding-left: 8px;
-        font-size: 14px;
-        color: #666;
-        cursor: default;
-    }
-
-    .aggregator span {
-        font-family: "courier";
-        display: inline-block;
-        vertical-align: bottom;
-        margin-left: 3px;
-        background: transparent;
-        cursor: default;
     }
 
     article {
