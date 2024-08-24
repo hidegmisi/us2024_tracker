@@ -85,8 +85,8 @@ function prepareData(data) {
 
         return {
             date: trump.date,
-            Trump: d3.mean(aggregators.map((p) => trump[p])).toFixed(4),
-            Harris: d3.mean(aggregators.map((p) => harris[p])).toFixed(4),
+            Trump: d3.mean(aggregators.map((p) => trump[p])).toFixed(5),
+            Harris: d3.mean(aggregators.map((p) => harris[p])).toFixed(5),
         };
     });
 

@@ -9,28 +9,7 @@
     let dailyAggData = [];
     let dailyData = [];
 
-    let demLead = null;
-    let leadHTML = null;
     let aggregatorsCurrent = [];
-
-    function setDemLeadAndWinningHTML(data) {
-        const lastDay = data[data.length - 1];
-        const currentTrump = lastDay.Trump;
-        const currentHarris = lastDay.Harris;
-
-        demLead = currentHarris - currentTrump;
-
-        if (demLead >= 0.04) {
-            leadHTML =
-                "valószínűleg a <span class='dem'>demokraták</span> fognak nyerni választáson.";
-        } else if (demLead < 0) {
-            leadHTML =
-                "valószínűleg a <span class='rep'>republikánusok</span> fognak nyerni választáson.";
-        } else {
-            leadHTML =
-                "<span class='contest'>szoros</span> eredmény várható a választáson.";
-        }
-    }
 
     function setAggregatorsCurrent(data) {
         const lastDay = data[data.length - 1];
@@ -50,7 +29,7 @@
                 return {
                     name: aggregator,
                     displayName: aggregatorNameMap[aggregator],
-                    lead: Math.abs(lead.toFixed(2)),
+                    lead: Math.abs(lead.toFixed(1)),
                     leading: lead > 0 ? "dem" : "rep",
                 };
             },
@@ -62,7 +41,6 @@
             const data = await getPollData(repo);
             ({ dailyAggData, dailyData } = prepareData(data));
 
-            setDemLeadAndWinningHTML(dailyAggData);
             setAggregatorsCurrent(dailyData);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -73,15 +51,17 @@
         return () => {
             d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 4).attr("stroke-width", 0);
             d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 5).attr("fill", "transparent").attr("stroke-width", 2).attr("stroke", "blue");
-            d3.selectAll(`circle:not(.${aggregator})`).attr("opacity", 0.05);
+            d3.selectAll(`circle:is(.Trump, .Harris):not(.${aggregator})`).attr("opacity", 0.05);
             d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.05);
         };
     }
 
     function removeSoloAggregator(aggregator) {
         return () => {
-            d3.selectAll(`circle`).attr("opacity", 0.3).attr("r", 3).attr("stroke-width", 0);
-            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.45);
+            d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.2).attr("r", 3).attr("stroke-width", 0);
+            d3.selectAll(`circle.background-dot:is(.Trump, .Harris)`).attr("opacity", 0.1);
+            d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.425);
+            d3.selectAll(`path.background-line:is(.Trump, .Harris)`).attr("opacity", 0.05);
             d3.selectAll(`circle.${aggregator}.Harris`).attr("fill", "blue");
         };
     }
@@ -100,21 +80,8 @@
     <div class="uglygrid">
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
-            {#if demLead !== null && leadHTML !== null}
-                <p class="has-data">
-                    Nagyjából <span
-                        class="compact {demLead > 0 ? 'dem' : 'rep'}"
-                        >{Math.abs((demLead * 100).toFixed(0))}%</span
-                    >-os {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
-                    <span class="container">{@html leadHTML}</span>
-                </p>
-                <p class="label">Választási iránytű</p>
-                <Gauge {demLead} />
-                <p class="info">
-                    A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy
-                    az elektorok számában fej-fej mellett legyenek a
-                    republikánusokkal.
-                </p>
+            {#if dailyAggData.length !== 0}
+                <Gauge {dailyAggData} />
             {/if}
         </article>
         <section id="poll-graph">
@@ -197,10 +164,6 @@
         border-top: 2px solid #333;
         padding: 8px 0;
     }
-    #winner-gauge p:first-of-type {
-        text-align: center;
-        font-size: 22px;
-    }
     #winner-gauge .label {
         text-align: center;
         margin-top: 36px;
@@ -269,16 +232,5 @@
     p {
         font-size: 16px;
         margin-top: 12px;
-    }
-    p.info {
-        margin: 12px 6px;
-        padding: 6px;
-        border-radius: 8px;
-        background-color: #f7f7f7;
-    }
-
-    span.dem.compact,
-    span.rep.compact {
-        padding: 0 3px;
     }
 </style>

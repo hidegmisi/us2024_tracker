@@ -67,9 +67,9 @@ export function drawChart(dailyAggData, dailyData, aggregators) {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
+    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
     drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCateg);
     drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
-    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
     setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
 }
 
@@ -142,8 +142,7 @@ function drawLines(chartGroup, chartElements, dailyAggData, x, y, screenSizeCate
                     avg: d[candidate],
                 }))
             )
-            .attr("class", candidate)
-            .attr("class", "background-line")
+            .attr("class", candidate + " background-line")
             .attr("fill", "none")
             .attr("stroke", colors[candidate])
             .attr("stroke-width", lineWidths[screenSizeCateg])
@@ -178,8 +177,7 @@ function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, scree
                 
                 backgroundCircleGroup
                     .append("circle")
-                    .attr("class", aggregator + " " + candidate)
-                    .attr("class", "background-dot")
+                    .attr("class", aggregator + " " + candidate + " background-dot")
                     .attr(
                         "cx",
                         x(d3.timeParse("%Y-%m-%d")(d[candidate].date))
@@ -271,8 +269,8 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
         .append("g")
         .attr("y1", 0)
         .attr("y2", height)
-        .attr("x1", width - (paddingRightSize + 1))
-        .attr("x2", width - (paddingRightSize + 1));
+        .attr("x1", width - paddingRightSize)
+        .attr("x2", width - paddingRightSize);
 
     const verticalLine = focusDate
         .append("line")
@@ -280,8 +278,8 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
         .attr("stroke-width", 2)
         .attr("y1", 0)
         .attr("y2", height)
-        .attr("x1", width - (paddingRightSize + 1))
-        .attr("x2", width - (paddingRightSize + 1));
+        .attr("x1", width - paddingRightSize)
+        .attr("x2", width - paddingRightSize);
 
     const dateLabel = focusDate
         .append("text")
@@ -336,8 +334,8 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
             verticalLine
                 .attr("y1", 0)
                 .attr("y2", height)
-                .attr("x1", width - (paddingRightSize + 1))
-                .attr("x2", width - (paddingRightSize + 1));
+                .attr("x1", width - paddingRightSize)
+                .attr("x2", width - paddingRightSize);
 
             dateLabel
                 .text(
@@ -346,7 +344,7 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
                         day: "numeric",
                     }),
                 )
-                .attr("x", width - (paddingRightSize + 1))
+                .attr("x", width - paddingRightSize)
                 .attr("y", -6);
 
             updateLabels(focusTexts, dailyData, x, y);
@@ -401,7 +399,7 @@ function handleMouseMove(
     const lineDate = new Date(roundedDate.getTime()); // Subtract 1 day from the date
     const lineXPosition = x(lineDate);
 
-    verticalLine.attr("x1", x(lineDate) - 1).attr("x2", x(lineDate));
+    verticalLine.attr("x1", x(lineDate)).attr("x2", x(lineDate));
     dateLabel
         .text(
             roundedDate.toLocaleDateString("hu-HU", {
