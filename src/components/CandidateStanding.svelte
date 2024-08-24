@@ -6,25 +6,28 @@
     let leaderHTML = "";
     let leaderText = "";
     let leaderColor = "";
+    let currentStanding = "";
 
     // Logic to determine the leader based on demLead
     function setDemLeadAndWinningHTML(demLead: number) {
         if (demLead >= 0.04) {
             leaderHTML =
                 "várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.";
-            leaderText = "Harris az esélyes";
-            leaderColor = "#0000ff88";
+            leaderText = "Harris";
+            leaderColor = "#0000ff";
         } else if (demLead < 0) {
             leaderHTML =
                 "várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.";
-            leaderText = "Trump az esélyes";
-            leaderColor = "#ff000099";
+            leaderText = "Trump";
+            leaderColor = "#ff0000";
         } else {
             leaderHTML =
                 "<span class='compact tossup'>szoros</span> elektori szavazatarány várható.";
             leaderText = "Bizonytalan";
-            leaderColor = "#666";
+            leaderColor = "#333";
         }
+
+        currentStanding = (demLead > 0 ? "Harris +" : demLead < 0 ? "Trump +" : "") + Math.abs(demLead * 100).toFixed(1).replace(".", ",");
     }
 
     setDemLeadAndWinningHTML(demLead);
@@ -62,7 +65,8 @@
         <div class="chartInfos">
             <img src="images/harris.png" alt="Harris" class="dem" />
             <div class="textContainer">
-                <h2 id="leaderText">{leaderText}</h2>
+                <h2 id="leaderText" style="color: {leaderColor}">{leaderText}</h2>
+                <div class="standing">{currentStanding}</div>
             </div>
             <img src="images/trump.png" alt="Trump" class="rep" />
         </div>
@@ -116,16 +120,13 @@
             h2#leaderText {
                 font-size: 1rem;
                 text-align: center;
-                /* color: #fff; */
                 font-weight: 500;
                 padding: 2px 3px;
-        
-                span {
-                    &.dem, &.rep {
-                        background: none;
-                        padding: 0;
-                    }
-                }
+                padding-bottom: 0;
+            }
+            .standing {
+                font-size: 0.9rem;
+                text-align: center;
             }
         }
 
