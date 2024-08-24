@@ -1,15 +1,17 @@
-<script>
+<script lang="ts">
     import * as d3 from "d3";
-    import Gauge from "../components/Gauge.svelte";
+    import CandidateStanding from "../components/CandidateStanding.svelte";
     import Chart from "../components/Chart.svelte";
     import { getPollData, prepareData, aggregators } from "../lib/dataUtils.js";
 
-    export let repo;
+    export let repo: string;
 
     let dailyAggData = [];
     let dailyData = [];
 
     let aggregatorsCurrent = [];
+
+    let demLead: number | null = null;
 
     function setAggregatorsCurrent(data) {
         const lastDay = data[data.length - 1];
@@ -36,12 +38,19 @@
         );
     }
 
+    function getDemLead() {
+        const lastDay = dailyAggData[dailyAggData.length - 1];
+        const demLead = lastDay.Harris - lastDay.Trump;
+        return demLead;
+    }
+
     async function fetchData() {
         try {
             const data = await getPollData(repo);
             ({ dailyAggData, dailyData } = prepareData(data));
 
             setAggregatorsCurrent(dailyData);
+            demLead = getDemLead(dailyAggData)
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -80,8 +89,8 @@
     <div class="uglygrid">
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
-            {#if dailyAggData.length !== 0}
-                <Gauge {dailyAggData} />
+            {#if demLead !== null}
+                <CandidateStanding demLead={0.05} />
             {/if}
         </article>
         <section id="poll-graph">
