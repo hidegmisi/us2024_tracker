@@ -43,7 +43,6 @@ export interface DayData {
 
 export interface CandidateData {
     candidate: string;
-    date: string;
     fivethirtyeight: number | undefined;
     realclearpolling:  number | undefined;
     natesilver: number | undefined;

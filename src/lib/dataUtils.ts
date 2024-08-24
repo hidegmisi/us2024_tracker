@@ -70,7 +70,6 @@ function prepareData(data: RawData[]): DayData[] {
 
             return {
                 candidate,
-                date, // TODO: remove this
                 ...aggregatorData,
                 avg: d3.mean(aggregators.map((p) => aggregatorData[p])),
             } as CandidateData;

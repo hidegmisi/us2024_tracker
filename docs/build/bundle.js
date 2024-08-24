@@ -23881,7 +23881,7 @@ var app = (function () {
 	    const height = width * (4 / 7);
 
 	    const dateExtent = extent$1(dailyData, (d) =>
-	        timeParse("%Y-%m-%d")(d.Trump.date)
+	        timeParse("%Y-%m-%d")(d.date)
 	    );
 
 	    const paddedStartDate = new Date(dateExtent[0]);
@@ -23961,7 +23961,7 @@ var app = (function () {
 	                    .attr("class", aggregator + " " + candidate)
 	                    .attr(
 	                        "cx",
-	                        x(timeParse("%Y-%m-%d")(d[candidate].date))
+	                        x(timeParse("%Y-%m-%d")(d.date))
 	                    )
 	                    .attr("cy", y(d[candidate][aggregator]))
 	                    .attr("r", dotSizes[screenSizeCateg])
@@ -23976,7 +23976,7 @@ var app = (function () {
 	                    .attr("class", aggregator + " " + candidate + " background-dot")
 	                    .attr(
 	                        "cx",
-	                        x(timeParse("%Y-%m-%d")(d[candidate].date))
+	                        x(timeParse("%Y-%m-%d")(d.date))
 	                    )
 	                    .attr("cy", y(d[candidate][aggregator]))
 	                    .attr("r", dotSizes[screenSizeCateg])
@@ -24223,7 +24223,7 @@ var app = (function () {
 
 	function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
 	    if (!lineDate) {
-	        lineDate = max$3(dailyData.map((d) => d.Trump.date));
+	        lineDate = max$3(dailyData.map((d) => d.date));
 	    }
 
 	    let closestValue = { Trump: null, Harris: null };
@@ -24249,7 +24249,7 @@ var app = (function () {
 	                    .text(`${candidate} `)
 	                    .attr(
 	                        "x",
-	                        x(new Date(closestValue[candidate].date)) + 8,
+	                        x(new Date(closestValue.date)) + 8,
 	                    )
 	                    .attr("y", y(closestValue[candidate].avg))
 	                    .append("tspan")
@@ -24456,8 +24456,7 @@ var app = (function () {
 	                aggregator,
 	                mean(candidatePolls.map((d) => d[aggregator])),
 	            ]));
-	            return Object.assign(Object.assign({ candidate,
-	                date }, aggregatorData), { avg: mean(aggregators.map((p) => aggregatorData[p])) });
+	            return Object.assign(Object.assign({ candidate }, aggregatorData), { avg: mean(aggregators.map((p) => aggregatorData[p])) });
 	        });
 	        return Object.assign(Object.assign({}, Object.fromEntries(candidateData.map((d) => [d.candidate, d]))), { date });
 	    });

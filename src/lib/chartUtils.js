@@ -83,7 +83,7 @@ function setupChart(dailyData, screenSizeCateg) {
     const height = width * (4 / 7);
 
     const dateExtent = d3.extent(dailyData, (d) =>
-        d3.timeParse("%Y-%m-%d")(d.Trump.date)
+        d3.timeParse("%Y-%m-%d")(d.date)
     );
 
     const paddedStartDate = new Date(dateExtent[0]);
@@ -165,7 +165,7 @@ function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, scree
                     .attr("class", aggregator + " " + candidate)
                     .attr(
                         "cx",
-                        x(d3.timeParse("%Y-%m-%d")(d[candidate].date))
+                        x(d3.timeParse("%Y-%m-%d")(d.date))
                     )
                     .attr("cy", y(d[candidate][aggregator]))
                     .attr("r", dotSizes[screenSizeCateg])
@@ -180,7 +180,7 @@ function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, scree
                     .attr("class", aggregator + " " + candidate + " background-dot")
                     .attr(
                         "cx",
-                        x(d3.timeParse("%Y-%m-%d")(d[candidate].date))
+                        x(d3.timeParse("%Y-%m-%d")(d.date))
                     )
                     .attr("cy", y(d[candidate][aggregator]))
                     .attr("r", dotSizes[screenSizeCateg])
@@ -430,7 +430,7 @@ function handleMouseMove(
 
 function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
     if (!lineDate) {
-        lineDate = d3.max(dailyData.map((d) => d.Trump.date));
+        lineDate = d3.max(dailyData.map((d) => d.date));
     }
 
     let closestValue = { Trump: null, Harris: null };
@@ -456,7 +456,7 @@ function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
                     .text(`${candidate} `)
                     .attr(
                         "x",
-                        x(new Date(closestValue[candidate].date)) + 8,
+                        x(new Date(closestValue.date)) + 8,
                     )
                     .attr("y", y(closestValue[candidate].avg))
                     .append("tspan")
