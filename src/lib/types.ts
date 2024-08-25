@@ -30,6 +30,7 @@ export interface RawData {
     natesilver: string | null
     nyt: string | null
     realclearpolling: string | null
+    economist: string | null
 }
 
 export interface DayData {
@@ -44,5 +45,6 @@ export interface CandidateData {
     realclearpolling:  number | undefined;
     natesilver: number | undefined;
     nyt:  number | undefined;
+    economist: number | undefined;
     avg: number;
 }

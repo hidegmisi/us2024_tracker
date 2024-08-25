@@ -39,26 +39,13 @@
         <section id="poll-graph">
             <h1>Harris és Trump támogatottsága</h1>
             <p>
-                Az alábbi grafikon az amerikai poll aggregátorokat (<a
-                    target="_blank"
-                    href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/"
-                    >FiveThirtyEight</a
-                >,
-                <a
-                    target="_blank"
-                    href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris"
-                    >RealClear Polling</a
-                >,
-                <a
-                    target="_blank"
-                    href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model"
-                    >Silver Bulletin</a
-                >,
-                <a
-                    target="_blank"
-                    href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html"
-                    >New York Times</a
-                >) átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing
+                Az alábbi grafikon a legfontosabb amerikai poll aggregátorokat
+                (<a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>,
+                <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>,
+                <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>,
+                <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>,
+                <a target="_blank" href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>)
+                átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Sit autem molestiae a sapiente quas! Esse deserunt
                 inventore quidem ipsam labore ducimus debitis, corrupti
                 blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.

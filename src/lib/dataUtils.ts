@@ -6,6 +6,7 @@ const aggregators = [
     "realclearpolling",
     "natesilver",
     "nyt",
+    "economist",
 ];
 
 async function fetchPollData(repo: string): Promise<RawData[]> {

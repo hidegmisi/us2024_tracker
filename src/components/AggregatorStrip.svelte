@@ -20,10 +20,11 @@
         const currentTrump = day.Trump;
         const currentHarris = day.Harris;
         const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: string } = {
-            fivethirtyeight: "538",
-            realclearpolling: "RCP",
-            natesilver: "Silver Bulletin",
             nyt: "NYT",
+            fivethirtyeight: "538",
+            natesilver: "Silver Bulletin",
+            realclearpolling: "RCP",
+            economist: "Economist",
         };
         aggregatorsCurrent = (Object.keys(aggregatorNameMap) as Array<keyof typeof aggregatorNameMap>).map(
             (aggregator) => {

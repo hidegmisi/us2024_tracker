@@ -78,6 +78,13 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
+    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [{
+        date: '2024-08-23',
+        label: 'Kennedy<br>kiszáll',
+        color: '#ccc',
+        width: 2,
+        type: 'dashed',
+    }]);
     drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
     drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
     drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
@@ -167,6 +174,53 @@ function drawLines(
             .attr("opacity", 0.05)
             .attr("d", line);
     }
+}
+
+function drawVerticalLines(
+    chartGroup: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    dailyData: DayData[],
+    x: d3.ScaleTime<number, number, never>,
+    y: d3.ScaleLinear<number, number, never>,
+    screenSizeCateg: keyof typeof screenSizes,
+    verticalLines: { date: string, label: string, color: string, width: number, type: 'solid' | 'dashed' }[]
+) {
+    verticalLines.forEach((line) => {
+        const lineX = x(d3.timeParse("%Y-%m-%d")(line.date));
+
+        chartGroup
+            .append("line")
+            .attr("class", "vertical-line")
+            .attr("x1", lineX)
+            .attr("x2", lineX)
+            .attr("y1", y(0.5))
+            .attr("y2", y(0.35))
+            .attr("stroke", line.color)
+            .attr("stroke-width", line.width)
+            .attr("stroke-dasharray", line.type === 'dashed' ? "5,5" : "none");
+    
+        chartGroup
+            .append("text")
+            .attr("class", "vertical-line-label")
+            .attr("x", lineX)
+            .attr("y", y(0.37))
+            .attr("text-anchor", "middle")
+            .attr("fill", '#bbb')
+            .attr("stroke", "white")
+            .attr("stroke-width", 4)
+            .attr("paint-order", "stroke")
+            .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
+            .append("tspan")
+            .text(line.label.split('<br>')[0])
+            .attr("x", lineX)
+            .attr("dy", "0");
+
+        chartGroup
+            .select(".vertical-line-label")
+            .append("tspan")
+            .attr("x", lineX)
+            .attr("dy", "1.2em")
+            .text(line.label.split('<br>')[1]);
+    });
 }
 
 function drawDots(
@@ -279,7 +333,7 @@ function drawGridlines(
         .call((g) => g.select(".domain").remove())
         .selectAll("line")
         .attr("class", "y-gridline-right")
-        .style("stroke", "#f7f7f7")
+        .style("stroke", "#efefef")
         .attr("transform", `translate(${width}, 0)`);
 
     chartGroup
@@ -375,8 +429,6 @@ function setupInteractivity(
         })
         .on("mouseout", () => {
             verticalLine
-                .attr("y1", 0)
-                .attr("y2", height)
                 .attr("x1", width - paddingRightSize)
                 .attr("x2", width - paddingRightSize);
 
@@ -387,8 +439,7 @@ function setupInteractivity(
                         day: "numeric",
                     }),
                 )
-                .attr("x", width - paddingRightSize)
-                .attr("y", -6);
+                .attr("x", width - paddingRightSize);
 
             updateLabels(focusTexts, dailyData, x, y);
             d3.select("#overlay-clip rect")
@@ -406,6 +457,7 @@ function setupInteractivity(
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+    d3.select(".vertical-line-label").raise();
 }
 
 function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {

@@ -23493,6 +23493,7 @@ var app = (function () {
 	    "realclearpolling",
 	    "natesilver",
 	    "nyt",
+	    "economist",
 	];
 	async function fetchPollData$1(repo) {
 	    const response = await fetch(`https://api.github.com/repos/${repo}/contents/polls.csv`);
@@ -24108,6 +24109,13 @@ var app = (function () {
 	function drawChart(dailyData, aggregators) {
 	    const screenSizeCateg = getScreenSize();
 	    const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
+	    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [{
+	            date: '2024-08-23',
+	            label: 'Kennedy<br>kiszáll',
+	            color: '#ccc',
+	            width: 2,
+	            type: 'dashed',
+	        }]);
 	    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
 	    drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
 	    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
@@ -24166,6 +24174,42 @@ var app = (function () {
 	            .attr("opacity", 0.05)
 	            .attr("d", line$1);
 	    }
+	}
+	function drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, verticalLines) {
+	    verticalLines.forEach((line) => {
+	        const lineX = x(timeParse("%Y-%m-%d")(line.date));
+	        chartGroup
+	            .append("line")
+	            .attr("class", "vertical-line")
+	            .attr("x1", lineX)
+	            .attr("x2", lineX)
+	            .attr("y1", y(0.5))
+	            .attr("y2", y(0.35))
+	            .attr("stroke", line.color)
+	            .attr("stroke-width", line.width)
+	            .attr("stroke-dasharray", line.type === 'dashed' ? "5,5" : "none");
+	        chartGroup
+	            .append("text")
+	            .attr("class", "vertical-line-label")
+	            .attr("x", lineX)
+	            .attr("y", y(0.37))
+	            .attr("text-anchor", "middle")
+	            .attr("fill", '#bbb')
+	            .attr("stroke", "white")
+	            .attr("stroke-width", 4)
+	            .attr("paint-order", "stroke")
+	            .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
+	            .append("tspan")
+	            .text(line.label.split('<br>')[0])
+	            .attr("x", lineX)
+	            .attr("dy", "0");
+	        chartGroup
+	            .select(".vertical-line-label")
+	            .append("tspan")
+	            .attr("x", lineX)
+	            .attr("dy", "1.2em")
+	            .text(line.label.split('<br>')[1]);
+	    });
 	}
 	function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg) {
 	    const circleGroup = chartElements.append("g");
@@ -24239,7 +24283,7 @@ var app = (function () {
 	        .call((g) => g.select(".domain").remove())
 	        .selectAll("line")
 	        .attr("class", "y-gridline-right")
-	        .style("stroke", "#f7f7f7")
+	        .style("stroke", "#efefef")
 	        .attr("transform", `translate(${width}, 0)`);
 	    chartGroup
 	        .selectAll(".y-grid-right")
@@ -24300,8 +24344,6 @@ var app = (function () {
 	    })
 	        .on("mouseout", () => {
 	        verticalLine
-	            .attr("y1", 0)
-	            .attr("y2", height)
 	            .attr("x1", width - paddingRightSize)
 	            .attr("x2", width - paddingRightSize);
 	        dateLabel
@@ -24309,8 +24351,7 @@ var app = (function () {
 	            month: "long",
 	            day: "numeric",
 	        }))
-	            .attr("x", width - paddingRightSize)
-	            .attr("y", -6);
+	            .attr("x", width - paddingRightSize);
 	        updateLabels(focusTexts, dailyData, x, y);
 	        select("#overlay-clip rect")
 	            .attr("width", width - paddingRightSize);
@@ -24323,6 +24364,7 @@ var app = (function () {
 	        setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
 	    });
 	    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+	    select(".vertical-line-label").raise();
 	}
 	function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
 	    const focusTexts = {};
@@ -24545,7 +24587,7 @@ var app = (function () {
 		return child_ctx;
 	}
 
-	// (68:0) {#if aggregatorsCurrent.length !== 0}
+	// (69:0) {#if aggregatorsCurrent.length !== 0}
 	function create_if_block$2(ctx) {
 		let div;
 		let each_value = ensure_array_like_dev(/*aggregatorsCurrent*/ ctx[0]);
@@ -24564,7 +24606,7 @@ var app = (function () {
 				}
 
 				attr_dev(div, "class", "aggregator-bubbles svelte-xwvncs");
-				add_location(div, file$3, 89, 4, 2519);
+				add_location(div, file$3, 90, 4, 2551);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24612,14 +24654,14 @@ var app = (function () {
 			block,
 			id: create_if_block$2.name,
 			type: "if",
-			source: "(68:0) {#if aggregatorsCurrent.length !== 0}",
+			source: "(69:0) {#if aggregatorsCurrent.length !== 0}",
 			ctx
 		});
 
 		return block;
 	}
 
-	// (70:8) {#each aggregatorsCurrent as aggregator}
+	// (71:8) {#each aggregatorsCurrent as aggregator}
 	function create_each_block(ctx) {
 		let div;
 		let t0_value = /*aggregator*/ ctx[6].displayName + "";
@@ -24642,11 +24684,11 @@ var app = (function () {
 				t2 = text$1(t2_value);
 				t3 = space();
 				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[6].leading) + " svelte-xwvncs"));
-				add_location(span, file$3, 93, 16, 2827);
+				add_location(span, file$3, 94, 16, 2859);
 				attr_dev(div, "class", "aggregator svelte-xwvncs");
 				attr_dev(div, "role", "button");
 				attr_dev(div, "tabindex", "0");
-				add_location(div, file$3, 91, 12, 2613);
+				add_location(div, file$3, 92, 12, 2645);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24708,7 +24750,7 @@ var app = (function () {
 			block,
 			id: create_each_block.name,
 			type: "each",
-			source: "(70:8) {#each aggregatorsCurrent as aggregator}",
+			source: "(71:8) {#each aggregatorsCurrent as aggregator}",
 			ctx
 		});
 
@@ -24781,10 +24823,11 @@ var app = (function () {
 			const currentHarris = day.Harris;
 
 			const aggregatorNameMap = {
+				nyt: "NYT",
 				fivethirtyeight: "538",
-				realclearpolling: "RCP",
 				natesilver: "Silver Bulletin",
-				nyt: "NYT"
+				realclearpolling: "RCP",
+				economist: "Economist"
 			};
 
 			$$invalidate(0, aggregatorsCurrent = Object.keys(aggregatorNameMap).map(aggregator => {
@@ -24945,7 +24988,7 @@ var app = (function () {
 		return block;
 	}
 
-	// (60:12) {#if data.dailyData.length !== 0}
+	// (47:12) {#if data.dailyData.length !== 0}
 	function create_if_block$1(ctx) {
 		let aggregatorstrip;
 		let t;
@@ -25010,7 +25053,7 @@ var app = (function () {
 			block,
 			id: create_if_block$1.name,
 			type: "if",
-			source: "(60:12) {#if data.dailyData.length !== 0}",
+			source: "(47:12) {#if data.dailyData.length !== 0}",
 			ctx
 		});
 
@@ -25045,8 +25088,10 @@ var app = (function () {
 		let t16;
 		let a3;
 		let t18;
-		let t19;
+		let a4;
 		let t20;
+		let t21;
+		let t22;
 		let article1;
 		let current;
 		let if_block0 = /*data*/ ctx[0].demLead !== null && create_if_block_1(ctx);
@@ -25077,7 +25122,7 @@ var app = (function () {
 				h11.textContent = "Harris és Trump támogatottsága";
 				t9 = space();
 				p = element("p");
-				t10 = text$1("Az alábbi grafikon az amerikai poll aggregátorokat (");
+				t10 = text$1("Az alábbi grafikon a legfontosabb amerikai poll aggregátorokat\n                (");
 				a0 = element("a");
 				a0.textContent = "FiveThirtyEight";
 				t12 = text$1(",\n                ");
@@ -25089,10 +25134,13 @@ var app = (function () {
 				t16 = text$1(",\n                ");
 				a3 = element("a");
 				a3.textContent = "New York Times";
-				t18 = text$1(") átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing\n                elit. Sit autem molestiae a sapiente quas! Esse deserunt\n                inventore quidem ipsam labore ducimus debitis, corrupti\n                blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.");
-				t19 = space();
+				t18 = text$1(",\n                ");
+				a4 = element("a");
+				a4.textContent = "Economist";
+				t20 = text$1(")\n                átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing\n                elit. Sit autem molestiae a sapiente quas! Esse deserunt\n                inventore quidem ipsam labore ducimus debitis, corrupti\n                blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.");
+				t21 = space();
 				if (if_block1) if_block1.c();
-				t20 = space();
+				t22 = space();
 				article1 = element("article");
 				attr_dev(span0, "class", "svelte-11anfwk");
 				add_location(span0, file$2, 26, 12, 559);
@@ -25114,23 +25162,26 @@ var app = (function () {
 				add_location(h11, file$2, 39, 12, 978);
 				attr_dev(a0, "target", "_blank");
 				attr_dev(a0, "href", "https://projects.fivethirtyeight.com/polls/president-general/2024/national/");
-				add_location(a0, file$2, 41, 68, 1102);
+				add_location(a0, file$2, 42, 17, 1130);
 				attr_dev(a1, "target", "_blank");
 				attr_dev(a1, "href", "https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris");
-				add_location(a1, file$2, 46, 16, 1319);
+				add_location(a1, file$2, 43, 16, 1269);
 				attr_dev(a2, "target", "_blank");
 				attr_dev(a2, "href", "https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model");
-				add_location(a2, file$2, 51, 16, 1540);
+				add_location(a2, file$2, 44, 16, 1412);
 				attr_dev(a3, "target", "_blank");
 				attr_dev(a3, "href", "https://www.nytimes.com/interactive/2024/us/elections/polls-president.html");
-				add_location(a3, file$2, 56, 16, 1758);
+				add_location(a3, file$2, 45, 16, 1552);
+				attr_dev(a4, "target", "_blank");
+				attr_dev(a4, "href", "https://www.economist.com/interactive/us-2024-election/trump-harris-polls/");
+				add_location(a4, file$2, 46, 16, 1689);
 				attr_dev(p, "class", "svelte-11anfwk");
 				add_location(p, file$2, 40, 12, 1030);
 				attr_dev(section, "id", "poll-graph");
 				attr_dev(section, "class", "svelte-11anfwk");
 				add_location(section, file$2, 38, 8, 940);
 				attr_dev(article1, "class", "svelte-11anfwk");
-				add_location(article1, file$2, 70, 8, 2483);
+				add_location(article1, file$2, 57, 8, 2347);
 				attr_dev(div1, "id", "mainGrid");
 				attr_dev(div1, "class", "svelte-11anfwk");
 				add_location(div1, file$2, 31, 4, 724);
@@ -25169,9 +25220,11 @@ var app = (function () {
 				append_dev(p, t16);
 				append_dev(p, a3);
 				append_dev(p, t18);
-				append_dev(section, t19);
+				append_dev(p, a4);
+				append_dev(p, t20);
+				append_dev(section, t21);
 				if (if_block1) if_block1.m(section, null);
-				append_dev(div1, t20);
+				append_dev(div1, t22);
 				append_dev(div1, article1);
 				current = true;
 			},
