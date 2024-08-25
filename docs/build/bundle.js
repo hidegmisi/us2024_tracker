@@ -23622,7 +23622,7 @@ var app = (function () {
 				t3 = text$1("-os ");
 				t4 = text$1(t4_value);
 				t5 = text$1(" vezetésnél");
-				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-z5on5a");
+				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-14z65u9");
 				add_location(span, file$5, 45, 22, 1451);
 			},
 			m: function mount(target, anchor) {
@@ -23637,7 +23637,7 @@ var app = (function () {
 			p: function update(ctx, dirty) {
 				if (dirty & /*demLead*/ 1 && t1_value !== (t1_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(0) + "")) set_data_dev(t1, t1_value);
 
-				if (dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-z5on5a")) {
+				if (dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-14z65u9")) {
 					attr_dev(span, "class", span_class_value);
 				}
 
@@ -23818,42 +23818,42 @@ var app = (function () {
 				p1 = element("p");
 				t12 = text$1("A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.");
 				br = element("br");
-				attr_dev(span0, "class", "container svelte-z5on5a");
+				attr_dev(span0, "class", "container svelte-14z65u9");
 				add_location(span0, file$5, 49, 8, 1659);
 				attr_dev(p0, "id", "expected-result");
-				attr_dev(p0, "class", "has-data svelte-z5on5a");
+				attr_dev(p0, "class", "has-data svelte-14z65u9");
 				add_location(p0, file$5, 41, 4, 1298);
 				attr_dev(div0, "id", "gaugeContainer");
-				attr_dev(div0, "class", "svelte-z5on5a");
+				attr_dev(div0, "class", "svelte-14z65u9");
 				add_location(div0, file$5, 52, 8, 1749);
 				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
 				attr_dev(img0, "alt", "Harris");
-				attr_dev(img0, "class", "dem svelte-z5on5a");
+				attr_dev(img0, "class", "dem svelte-14z65u9");
 				add_location(img0, file$5, 70, 12, 2544);
 				attr_dev(h2, "id", "leaderText");
 				set_style(h2, "color", /*leaderColor*/ ctx[3]);
-				attr_dev(h2, "class", "svelte-z5on5a");
+				attr_dev(h2, "class", "svelte-14z65u9");
 				add_location(h2, file$5, 72, 16, 2657);
 
 				attr_dev(span1, "class", span1_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-z5on5a");
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-14z65u9");
 
 				add_location(span1, file$5, 75, 20, 2859);
-				attr_dev(div1, "class", "standing svelte-z5on5a");
+				attr_dev(div1, "class", "standing svelte-14z65u9");
 				add_location(div1, file$5, 73, 16, 2740);
-				attr_dev(div2, "class", "textContainer svelte-z5on5a");
+				attr_dev(div2, "class", "textContainer svelte-14z65u9");
 				add_location(div2, file$5, 71, 12, 2613);
 				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
 				attr_dev(img1, "alt", "Trump");
-				attr_dev(img1, "class", "rep svelte-z5on5a");
+				attr_dev(img1, "class", "rep svelte-14z65u9");
 				add_location(img1, file$5, 78, 12, 3049);
-				attr_dev(div3, "class", "chartInfos svelte-z5on5a");
+				attr_dev(div3, "class", "chartInfos svelte-14z65u9");
 				add_location(div3, file$5, 69, 8, 2507);
 				add_location(br, file$5, 81, 140, 3271);
-				attr_dev(p1, "class", "svelte-z5on5a");
+				attr_dev(p1, "class", "svelte-14z65u9");
 				add_location(p1, file$5, 80, 8, 3127);
-				attr_dev(div4, "class", "info svelte-z5on5a");
+				attr_dev(div4, "class", "info svelte-14z65u9");
 				add_location(div4, file$5, 51, 4, 1722);
 				add_location(section, file$5, 40, 0, 1284);
 			},
@@ -23923,7 +23923,7 @@ var app = (function () {
 
 				if (!current || dirty & /*demLead*/ 1 && span1_class_value !== (span1_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-z5on5a")) {
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-14z65u9")) {
 					attr_dev(span1, "class", span1_class_value);
 				}
 			},
@@ -24059,12 +24059,12 @@ var app = (function () {
 	let paddingSizes = {
 	    mobile: 100,
 	    small: 120,
-	    large: 150,
+	    large: 120,
 	};
 	let candidateLabelSizes = {
-	    mobile: 1,
-	    small: 1.2,
-	    large: 1.5,
+	    mobile: 1.0,
+	    small: 1.0,
+	    large: 1.1,
 	};
 	let dotSizes = {
 	    mobile: 2,
@@ -24109,13 +24109,26 @@ var app = (function () {
 	function drawChart(dailyData, aggregators) {
 	    const screenSizeCateg = getScreenSize();
 	    const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
-	    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [{
+	    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [
+	        {
+	            date: '2024-07-21',
+	            id: 'biden-out',
+	            label: 'Biden<br>visszalép',
+	            opacity: 0.3,
+	            labelColor: '#888',
+	            width: 1.5,
+	            type: 'dotted',
+	        },
+	        {
 	            date: '2024-08-23',
+	            id: 'kennedy-out',
 	            label: 'Kennedy<br>kiszáll',
-	            color: '#ccc',
-	            width: 2,
-	            type: 'dashed',
-	        }]);
+	            opacity: 0.3,
+	            labelColor: '#888',
+	            width: 1.5,
+	            type: 'dotted',
+	        },
+	    ]);
 	    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
 	    drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
 	    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
@@ -24129,11 +24142,11 @@ var app = (function () {
 	    const height = width * (4 / 7);
 	    const dateExtent = extent$1(dailyData, (d) => timeParse("%Y-%m-%d")(d.date));
 	    const paddedStartDate = new Date(dateExtent[0]);
-	    paddedStartDate.setDate(paddedStartDate.getDate() - 1);
+	    paddedStartDate.setDate(paddedStartDate.getDate() - 7);
 	    const x = time()
 	        .domain([paddedStartDate, dateExtent[1]])
 	        .range([0, width - paddingRightSize]);
-	    const y = linear().domain([0.35, 0.51]).range([height, 0]);
+	    const y = linear().domain([0.35, 0.56]).range([height, 0]);
 	    const chartGroup = svg
 	        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
 	        .attr("preserveAspectRatio", "xMidYMid meet")
@@ -24181,34 +24194,38 @@ var app = (function () {
 	        chartGroup
 	            .append("line")
 	            .attr("class", "vertical-line")
+	            .attr("id", line.id)
 	            .attr("x1", lineX)
 	            .attr("x2", lineX)
-	            .attr("y1", y(0.5))
+	            .attr("y1", y(0.55))
 	            .attr("y2", y(0.35))
-	            .attr("stroke", line.color)
+	            .attr("stroke", '#000')
+	            .attr("opacity", line.opacity)
 	            .attr("stroke-width", line.width)
-	            .attr("stroke-dasharray", line.type === 'dashed' ? "5,5" : "none");
+	            .attr("stroke-dasharray", line.type === 'dotted' ? line.width + "," + line.width : "none");
 	        chartGroup
 	            .append("text")
 	            .attr("class", "vertical-line-label")
+	            .attr("id", line.id + "-label")
 	            .attr("x", lineX)
-	            .attr("y", y(0.37))
+	            .attr("y", y(0.53))
 	            .attr("text-anchor", "middle")
-	            .attr("fill", '#bbb')
+	            .attr("fill", line.labelColor)
 	            .attr("stroke", "white")
-	            .attr("stroke-width", 4)
+	            .attr("stroke-width", 9)
 	            .attr("paint-order", "stroke")
-	            .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
-	            .append("tspan")
-	            .text(line.label.split('<br>')[0])
-	            .attr("x", lineX)
-	            .attr("dy", "0");
-	        chartGroup
-	            .select(".vertical-line-label")
-	            .append("tspan")
-	            .attr("x", lineX)
-	            .attr("dy", "1.2em")
-	            .text(line.label.split('<br>')[1]);
+	            /* .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`) */
+	            .attr("font-size", `0.75rem`);
+	        const labelLines = line.label.split('<br>');
+	        labelLines.forEach((label, i) => {
+	            chartGroup
+	                .select(".vertical-line-label#" + line.id + "-label")
+	                .append("tspan")
+	                .attr("x", lineX)
+	                /* .attr("dy", `${i == 0 ? -(labelLines.length - 1) * 1 : 1}rem`) */
+	                .attr("dy", `${i == 0 ? 0 : 0.9}rem`)
+	                .text(label);
+	        });
 	    });
 	}
 	function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg) {
@@ -24266,9 +24283,9 @@ var app = (function () {
 	        .append("g")
 	        .attr("class", "grid y-grid y-grid-left")
 	        .call(axisLeft(y)
-	        .tickValues([0.35, 0.4, 0.45, 0.5])
+	        .tickValues([0.35, 0.4, 0.45, 0.5, 0.55])
 	        .tickSize(-(width - paddingSizes[screenSizeCateg]))
-	        .tickFormat((d) => `${d * 100}`))
+	        .tickFormat((d) => `${Math.round(d * 100)}`))
 	        .call((g) => g.select(".domain").remove())
 	        .selectAll("line")
 	        .style("stroke", "#ddd")
@@ -24277,7 +24294,7 @@ var app = (function () {
 	        .append("g")
 	        .attr("class", "grid y-grid-right")
 	        .call(axisRight(y)
-	        .tickValues([0.35, 0.4, 0.45, 0.5])
+	        .tickValues([0.35, 0.4, 0.45, 0.5, 0.55])
 	        .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
 	        .tickFormat(""))
 	        .call((g) => g.select(".domain").remove())
@@ -24318,7 +24335,7 @@ var app = (function () {
 	        .attr("fill", "#333")
 	        .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
 	        .text(new Date().toLocaleDateString("hu-HU", {
-	        month: "long",
+	        month: "short",
 	        day: "numeric",
 	    }));
 	    chartGroup.append("defs")
@@ -24348,7 +24365,7 @@ var app = (function () {
 	            .attr("x2", width - paddingRightSize);
 	        dateLabel
 	            .text(new Date().toLocaleDateString("hu-HU", {
-	            month: "long",
+	            month: "short",
 	            day: "numeric",
 	        }))
 	            .attr("x", width - paddingRightSize);
@@ -24364,7 +24381,7 @@ var app = (function () {
 	        setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
 	    });
 	    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
-	    select(".vertical-line-label").raise();
+	    selectAll(".vertical-line-label").raise();
 	}
 	function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
 	    const focusTexts = {};
@@ -24374,9 +24391,11 @@ var app = (function () {
 	            .attr("class", candidate)
 	            .attr("text-anchor", "left")
 	            .attr("alignment-baseline", "middle")
-	            .style("font-size", `${candidateLabelSizes[screenSizeCateg]}rem`)
-	            .style("stroke", "#fff")
-	            .style("stroke-width", 6)
+	            .attr("fill", '#333')
+	            .attr("font-size", `${candidateLabelSizes[screenSizeCateg]}rem`)
+	            .attr("font-weight", 400)
+	            .attr("stroke", "#fff")
+	            .attr("stroke-width", 6)
 	            .attr("paint-order", "stroke");
 	    });
 	    return focusTexts;
@@ -24394,7 +24413,7 @@ var app = (function () {
 	    verticalLine.attr("x1", x(lineDate)).attr("x2", x(lineDate));
 	    dateLabel
 	        .text(roundedDate.toLocaleDateString("hu-HU", {
-	        month: "long",
+	        month: "short",
 	        day: "numeric",
 	    }))
 	        .attr("x", x(lineDate));
@@ -25142,23 +25161,23 @@ var app = (function () {
 				if (if_block1) if_block1.c();
 				t22 = space();
 				article1 = element("article");
-				attr_dev(span0, "class", "svelte-11anfwk");
+				attr_dev(span0, "class", "svelte-1thg4xd");
 				add_location(span0, file$2, 26, 12, 559);
 				set_style(div0, "flex-grow", "1");
 				set_style(div0, "flex-shrink", "1");
 				add_location(div0, file$2, 27, 12, 595);
-				attr_dev(span1, "class", "svelte-11anfwk");
+				attr_dev(span1, "class", "svelte-1thg4xd");
 				add_location(span1, file$2, 28, 12, 657);
-				attr_dev(h10, "class", "svelte-11anfwk");
+				attr_dev(h10, "class", "svelte-1thg4xd");
 				add_location(h10, file$2, 25, 8, 542);
-				attr_dev(header, "class", "svelte-11anfwk");
+				attr_dev(header, "class", "svelte-1thg4xd");
 				add_location(header, file$2, 24, 4, 525);
-				attr_dev(h2, "class", "svelte-11anfwk");
+				attr_dev(h2, "class", "svelte-1thg4xd");
 				add_location(h2, file$2, 33, 12, 792);
 				attr_dev(article0, "id", "winner-gauge");
-				attr_dev(article0, "class", "svelte-11anfwk");
+				attr_dev(article0, "class", "svelte-1thg4xd");
 				add_location(article0, file$2, 32, 8, 752);
-				attr_dev(h11, "class", "svelte-11anfwk");
+				attr_dev(h11, "class", "svelte-1thg4xd");
 				add_location(h11, file$2, 39, 12, 978);
 				attr_dev(a0, "target", "_blank");
 				attr_dev(a0, "href", "https://projects.fivethirtyeight.com/polls/president-general/2024/national/");
@@ -25175,17 +25194,17 @@ var app = (function () {
 				attr_dev(a4, "target", "_blank");
 				attr_dev(a4, "href", "https://www.economist.com/interactive/us-2024-election/trump-harris-polls/");
 				add_location(a4, file$2, 46, 16, 1689);
-				attr_dev(p, "class", "svelte-11anfwk");
+				attr_dev(p, "class", "svelte-1thg4xd");
 				add_location(p, file$2, 40, 12, 1030);
 				attr_dev(section, "id", "poll-graph");
-				attr_dev(section, "class", "svelte-11anfwk");
+				attr_dev(section, "class", "svelte-1thg4xd");
 				add_location(section, file$2, 38, 8, 940);
-				attr_dev(article1, "class", "svelte-11anfwk");
+				attr_dev(article1, "class", "svelte-1thg4xd");
 				add_location(article1, file$2, 57, 8, 2347);
 				attr_dev(div1, "id", "mainGrid");
-				attr_dev(div1, "class", "svelte-11anfwk");
+				attr_dev(div1, "class", "svelte-1thg4xd");
 				add_location(div1, file$2, 31, 4, 724);
-				attr_dev(article2, "class", "svelte-11anfwk");
+				attr_dev(article2, "class", "svelte-1thg4xd");
 				add_location(article2, file$2, 23, 0, 511);
 			},
 			l: function claim(nodes) {

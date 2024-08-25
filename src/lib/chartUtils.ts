@@ -17,13 +17,13 @@ let screenSizes = {
 let paddingSizes = {
     mobile: 100,
     small: 120,
-    large: 150,
+    large: 120,
 };
 
 let candidateLabelSizes = {
-    mobile: 1,
-    small: 1.2,
-    large: 1.5,
+    mobile: 1.0,
+    small: 1.0,
+    large: 1.1,
 }
 
 let dotSizes = {
@@ -78,13 +78,26 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
-    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [{
-        date: '2024-08-23',
-        label: 'Kennedy<br>kiszáll',
-        color: '#ccc',
-        width: 2,
-        type: 'dashed',
-    }]);
+    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [
+        {
+            date: '2024-07-21',
+            id: 'biden-out',
+            label: 'Biden<br>visszalép',
+            opacity: 0.3,
+            labelColor: '#888',
+            width: 1.5,
+            type: 'dotted',
+        },
+        {
+            date: '2024-08-23',
+            id: 'kennedy-out',
+            label: 'Kennedy<br>kiszáll',
+            opacity: 0.3,
+            labelColor: '#888',
+            width: 1.5,
+            type: 'dotted',
+        },
+    ]);
     drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
     drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
     drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
@@ -105,14 +118,14 @@ function setupChart(dailyData: DayData[], screenSizeCateg: keyof typeof screenSi
     ) as [Date, Date];
 
     const paddedStartDate = new Date(dateExtent[0]);
-    paddedStartDate.setDate(paddedStartDate.getDate() - 1);
+    paddedStartDate.setDate(paddedStartDate.getDate() - 7);
 
     const x = d3
         .scaleTime()
         .domain([paddedStartDate, dateExtent[1]])
         .range([0, width - paddingRightSize]);
 
-    const y = d3.scaleLinear().domain([0.35, 0.51]).range([height, 0]);
+    const y = d3.scaleLinear().domain([0.35, 0.56]).range([height, 0]);
 
     const chartGroup = svg
         .attr(
@@ -182,7 +195,7 @@ function drawVerticalLines(
     x: d3.ScaleTime<number, number, never>,
     y: d3.ScaleLinear<number, number, never>,
     screenSizeCateg: keyof typeof screenSizes,
-    verticalLines: { date: string, label: string, color: string, width: number, type: 'solid' | 'dashed' }[]
+    verticalLines: { date: string, id: string, label: string, opacity: number, labelColor: string, width: number, type: 'solid' | 'dotted' }[]
 ) {
     verticalLines.forEach((line) => {
         const lineX = x(d3.timeParse("%Y-%m-%d")(line.date));
@@ -190,36 +203,40 @@ function drawVerticalLines(
         chartGroup
             .append("line")
             .attr("class", "vertical-line")
+            .attr("id", line.id)
             .attr("x1", lineX)
             .attr("x2", lineX)
-            .attr("y1", y(0.5))
+            .attr("y1", y(0.55))
             .attr("y2", y(0.35))
-            .attr("stroke", line.color)
+            .attr("stroke", '#000')
+            .attr("opacity", line.opacity)
             .attr("stroke-width", line.width)
-            .attr("stroke-dasharray", line.type === 'dashed' ? "5,5" : "none");
+            .attr("stroke-dasharray", line.type === 'dotted' ? line.width+","+line.width : "none");
     
         chartGroup
             .append("text")
             .attr("class", "vertical-line-label")
+            .attr("id", line.id + "-label")
             .attr("x", lineX)
-            .attr("y", y(0.37))
+            .attr("y", y(0.53))
             .attr("text-anchor", "middle")
-            .attr("fill", '#bbb')
+            .attr("fill", line.labelColor)
             .attr("stroke", "white")
-            .attr("stroke-width", 4)
+            .attr("stroke-width", 9)
             .attr("paint-order", "stroke")
-            .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
-            .append("tspan")
-            .text(line.label.split('<br>')[0])
-            .attr("x", lineX)
-            .attr("dy", "0");
+            /* .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`) */
+            .attr("font-size", `0.75rem`)
 
-        chartGroup
-            .select(".vertical-line-label")
-            .append("tspan")
-            .attr("x", lineX)
-            .attr("dy", "1.2em")
-            .text(line.label.split('<br>')[1]);
+        const labelLines = line.label.split('<br>');
+        labelLines.forEach((label, i) => {
+            chartGroup
+                .select(".vertical-line-label#"+line.id+"-label")
+                .append("tspan")
+                .attr("x", lineX)
+                /* .attr("dy", `${i == 0 ? -(labelLines.length - 1) * 1 : 1}rem`) */
+                .attr("dy", `${i == 0 ? 0 : 0.9}rem`)
+                .text(label);
+        });
     });
 }
 
@@ -311,9 +328,9 @@ function drawGridlines(
         .call(
             d3
                 .axisLeft(y)
-                .tickValues([0.35, 0.4, 0.45, 0.5])
+                .tickValues([0.35, 0.4, 0.45, 0.5, 0.55])
                 .tickSize(-(width - paddingSizes[screenSizeCateg]))
-                .tickFormat((d) => `${d * 100}`)
+                .tickFormat((d) => `${Math.round(d * 100)}`)
         )
         .call((g) => g.select(".domain").remove())
         .selectAll("line")
@@ -326,7 +343,7 @@ function drawGridlines(
         .call(
             d3
                 .axisRight(y)
-                .tickValues([0.35, 0.4, 0.45, 0.5])
+                .tickValues([0.35, 0.4, 0.45, 0.5, 0.55])
                 .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
                 .tickFormat("")
         )
@@ -385,7 +402,7 @@ function setupInteractivity(
         .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
         .text(
             new Date().toLocaleDateString("hu-HU", {
-                month: "long",
+                month: "short",
                 day: "numeric",
             }),
         );
@@ -435,7 +452,7 @@ function setupInteractivity(
             dateLabel
                 .text(
                     new Date().toLocaleDateString("hu-HU", {
-                        month: "long",
+                        month: "short",
                         day: "numeric",
                     }),
                 )
@@ -457,7 +474,7 @@ function setupInteractivity(
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
-    d3.select(".vertical-line-label").raise();
+    d3.selectAll(".vertical-line-label").raise();
 }
 
 function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
@@ -468,9 +485,11 @@ function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
             .attr("class", candidate)
             .attr("text-anchor", "left")
             .attr("alignment-baseline", "middle")
-            .style("font-size", `${candidateLabelSizes[screenSizeCateg]}rem`)
-            .style("stroke", "#fff")
-            .style("stroke-width", 6)
+            .attr("fill", '#333')
+            .attr("font-size", `${candidateLabelSizes[screenSizeCateg]}rem`)
+            .attr("font-weight", 400)
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 6)
             .attr("paint-order", "stroke");
     });
     return focusTexts;
@@ -502,7 +521,7 @@ function handleMouseMove(
     dateLabel
         .text(
             roundedDate.toLocaleDateString("hu-HU", {
-                month: "long",
+                month: "short",
                 day: "numeric",
             }),
         )

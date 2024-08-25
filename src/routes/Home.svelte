@@ -80,9 +80,9 @@
 
     #mainGrid {
         display: grid;
-        grid-template-columns: 1fr 700px;
+        grid-template-columns: 250px minmax(300px, 1fr);
         grid-template-rows: fit-content 1fr;
-        gap: 24px;
+        gap: 32px;
     }
 
     #winner-gauge {

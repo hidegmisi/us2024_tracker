@@ -128,7 +128,7 @@
             h2#leaderText {
                 font-size: 1rem;
                 text-align: center;
-                font-weight: 500;
+                font-weight: 600;
                 padding: 2px 3px;
                 padding-bottom: 0;
             }
