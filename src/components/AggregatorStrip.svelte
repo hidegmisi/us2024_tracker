@@ -1,10 +1,11 @@
 <script lang="ts">
     import * as d3 from "d3";
     import { onMount } from "svelte";
-    import { aggregators } from "../lib/dataUtils";
+    import { dynamicDayData } from "../stores/dataStore";
     import type { CandidateData, DayData } from "../lib/types";
 
-    export let dailyData;
+    let dailyData: DayData | null = null;
+    $: dailyData = $dynamicDayData;
 
     interface Aggregator {
         name: string;
@@ -15,10 +16,9 @@
     
     let aggregatorsCurrent: Aggregator[] = [];
 
-    function setAggregatorsCurrent(data: DayData[]) {
-        const lastDay = data[data.length - 1];
-        const currentTrump = lastDay.Trump;
-        const currentHarris = lastDay.Harris;
+    function setAggregatorsCurrent(day: DayData) {
+        const currentTrump = day.Trump;
+        const currentHarris = day.Harris;
         const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: string } = {
             fivethirtyeight: "538",
             realclearpolling: "RCP",
@@ -30,16 +30,29 @@
                 const trump = currentTrump[aggregator];
                 const harris = currentHarris[aggregator];
                 
-                let lead = 0
-                if (!!trump && !!harris) {
-                    lead = (harris - trump) * 100;
+                if (!trump || !harris) {
+                    return {
+                        name: aggregator,
+                        displayName: aggregatorNameMap[aggregator],
+                        lead: "No data",
+                        leading: "",
+                    };
+                }
+                
+                const lead = (harris - trump) * 100;
+
+                let leading = ""
+                if (lead > 0) {
+                    leading = "dem";
+                } else if (lead < 0) {
+                    leading = "rep";
                 }
 
                 return {
                     name: aggregator,
                     displayName: aggregatorNameMap[aggregator],
-                    lead: Math.abs(parseFloat(lead.toFixed(1))),
-                    leading: lead > 0 ? "dem" : "rep",
+                    lead: (lead ? "+" : "=") + Math.abs(parseFloat(lead.toFixed(1))).toString().replace(".", ","),
+                    leading,
                 };
             },
         );
@@ -64,6 +77,10 @@
         };
     }
 
+    $: {
+        setAggregatorsCurrent(dailyData);
+    }
+
     onMount(() => {
         setAggregatorsCurrent(dailyData);
     });
@@ -74,9 +91,7 @@
         {#each aggregatorsCurrent as aggregator}
             <div class="aggregator" role="button" tabindex="0" on:mouseenter={setSoloAggregator(aggregator.name)} on:mouseleave={removeSoloAggregator(aggregator.name)}>
                 {aggregator.displayName}
-                <span class={aggregator.leading}
-                    >+{aggregator.lead.toString().replace('.', ',')}</span
-                >
+                <span class={aggregator.leading}>{aggregator.lead}</span>
             </div>
         {/each}
     </div>
@@ -102,6 +117,7 @@
         display: inline-block;
         vertical-align: bottom;
         margin-left: 3px;
+        padding: 0 3px;
         background: transparent;
         cursor: default;
     }

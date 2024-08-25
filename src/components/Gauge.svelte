@@ -49,7 +49,8 @@
         (_, i) => minValue + i * tickInterval,
     );
 
-    const angle = percToDeg(value, gaugeRange);
+    let angle = 0;
+    $: { angle = percToDeg(value, gaugeRange); }
 </script>
 
 <svg width="100%" height="150" viewBox="0 0 250 150">

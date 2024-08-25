@@ -16,9 +16,6 @@ export interface GaugeProps {
     majorTicks?: number[];
     needleColor?: string;
     centerColor?: string;
-    labelFormatter?: (value: number) => string;
-    showLabels?: boolean;
-    animation?: boolean;
 }
 
 export interface PollData {

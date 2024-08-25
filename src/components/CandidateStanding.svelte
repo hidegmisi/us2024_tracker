@@ -1,12 +1,17 @@
 <script lang="ts">
     import Gauge from "./Gauge.svelte";
+    import { dynamicDayData, calculateDemLead } from "../stores/dataStore";
+    
+    let demLead: number = 0;
 
-    export let demLead: number;
+    $: demLead = $dynamicDayData ? calculateDemLead($dynamicDayData) : 0;
 
     let leaderHTML = "";
     let leaderText = "";
     let leaderColor = "";
     let currentStanding = "";
+
+    $: setDemLeadAndWinningHTML(demLead);
 
     // Logic to determine the leader based on demLead
     function setDemLeadAndWinningHTML(demLead: number) {
@@ -15,14 +20,14 @@
                 "várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.";
             leaderText = "Harris";
             leaderColor = "#0000ff";
-        } else if (demLead < 0) {
+        } else if (demLead <= -0.005) {
             leaderHTML =
                 "várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.";
             leaderText = "Trump";
             leaderColor = "#ff0000";
         } else {
             leaderHTML =
-                "<span class='compact tossup'>szoros</span> elektori szavazatarány várható.";
+                "valószínűleg <br><span class='compact tossup'>fej fej mellett</span><br> vannak a jelöltek.";
             leaderText = "Bizonytalan";
             leaderColor = "#333";
         }
@@ -66,7 +71,10 @@
             <img src="images/harris.png" alt="Harris" class="dem" />
             <div class="textContainer">
                 <h2 id="leaderText" style="color: {leaderColor}">{leaderText}</h2>
-                <div class="standing">{currentStanding}</div>
+                <div class="standing">
+                    {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")}
+                    <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span>
+                </div>
             </div>
             <img src="images/trump.png" alt="Trump" class="rep" />
         </div>
@@ -127,6 +135,11 @@
             .standing {
                 font-size: 0.9rem;
                 text-align: center;
+
+                span {
+                    background: none;
+                    padding: 0;
+                }
             }
         }
 

@@ -1,11 +1,13 @@
 import * as d3 from "d3";
+import { dynamicDayData } from "../stores/dataStore";
+import type { DayData } from "./types";
 
 export const colors = {
     Trump: "red",
     Harris: "blue",
 };
 
-let resizeDebounce = null;
+let resizeDebounce: number | null = null;
 
 let screenSizes = {
     mobile: 500,
@@ -42,17 +44,26 @@ let gridLabelSizes = {
     large: 0.9,
 }
 
-function getScreenSize() {
+function setDynamicDemLead(dailyData: DayData[], date: Date) {
+    console.log(date);
+    
+    const day = dailyData.find((d) => new Date(d.date).toDateString() === new Date(date).toDateString());
+    if (day) {
+        dynamicDayData.set(day);
+    }
+}
+
+function getScreenSize(): keyof typeof screenSizes {
     const width = window.innerWidth;
-    for (const [size, minWidth] of Object.entries(screenSizes)) {
+    for (const [size, minWidth] of Object.entries(screenSizes) as [keyof typeof screenSizes, number][]) {
         if (width < minWidth) {
             return size;
         }
     }
-    return "large";
+    return "large" as keyof typeof screenSizes;
 }
 
-export function onResize(dailyData, aggregators) {
+export function onResize(dailyData: DayData[], aggregators: [keyof DayData]) {
     if (resizeDebounce) {
         clearTimeout(resizeDebounce);
     }
@@ -63,7 +74,7 @@ export function onResize(dailyData, aggregators) {
     }, 250);
 }
 
-export function drawChart( dailyData, aggregators) {
+export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
@@ -73,7 +84,7 @@ export function drawChart( dailyData, aggregators) {
     setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
 }
 
-function setupChart(dailyData, screenSizeCateg) {
+function setupChart(dailyData: DayData[], screenSizeCateg: keyof typeof screenSizes) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
 
     const margin = { top: 20, right: 0, bottom: 30, left: 0 };
@@ -84,7 +95,7 @@ function setupChart(dailyData, screenSizeCateg) {
 
     const dateExtent = d3.extent(dailyData, (d) =>
         d3.timeParse("%Y-%m-%d")(d.date)
-    );
+    ) as [Date, Date];
 
     const paddedStartDate = new Date(dateExtent[0]);
     paddedStartDate.setDate(paddedStartDate.getDate() - 1);
@@ -111,7 +122,14 @@ function setupChart(dailyData, screenSizeCateg) {
     return { margin, width, height, x, y, chartGroup, chartElements };
 }
 
-function drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg) {
+function drawLines(
+    chartGroup: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    chartElements: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    dailyData: DayData[],
+    x: d3.ScaleTime<number, number, never>,
+    y: d3.ScaleLinear<number, number, never>,
+    screenSizeCateg: keyof typeof screenSizes
+) {
     for (const candidate of ["Trump", "Harris"]) {
         const line = d3
             .line()
@@ -151,7 +169,15 @@ function drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg) 
     }
 }
 
-function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg) {
+function drawDots(
+    chartGroup: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    chartElements: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    dailyData: DayData[],
+    x: d3.ScaleTime<number, number, never>,
+    y: d3.ScaleLinear<number, number, never>,
+    aggregators: [keyof DayData],
+    screenSizeCateg: keyof typeof screenSizes
+) {
     const circleGroup = chartElements.append("g");
     const backgroundCircleGroup = chartGroup.append("g");
 
@@ -194,7 +220,15 @@ function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, scree
     });
 }
 
-function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg) {
+function drawGridlines(
+    chartGroup: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    chartElements: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    x: d3.ScaleTime<number, number, never>,
+    y: d3.ScaleLinear<number, number, never>,
+    width: number,
+    height: number,
+    screenSizeCateg: keyof typeof screenSizes,
+) {
     chartGroup
         .append("g")
         .attr("class", "grid x-grid")
@@ -262,7 +296,16 @@ function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSiz
     d3.selectAll(".grid text").attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`).attr("fill", "#666");
 }
 
-function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg) {
+function setupInteractivity(
+    chartGroup: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    chartElements: d3.Selection<SVGGElement, unknown, HTMLElement, any>,
+    dailyData: DayData[],
+    x: d3.ScaleTime<number, number, never>,
+    y: d3.ScaleLinear<number, number, never>,
+    width: number,
+    height: number,
+    screenSizeCateg: keyof typeof screenSizes,
+) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
 
     const focusDate = chartGroup
@@ -358,7 +401,11 @@ function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, h
                 .attr("x2", -paddingSizes[screenSizeCateg]);
             
             Object.values(focusTexts).forEach((text) => text.raise());
+
+            setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
         });
+
+    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
 }
 
 function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
@@ -426,6 +473,7 @@ function handleMouseMove(
 
     updateLabels(focusTexts, dailyData, x, y, lineDate);
     fixLabelPositions(focusTexts, x, y, width, height);
+    setDynamicDemLead(dailyData, lineDate)
 }
 
 function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {

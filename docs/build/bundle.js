@@ -2194,7 +2194,7 @@ var app = (function () {
 		return child_ctx;
 	}
 
-	// (30:4) {#each segmentsPathD as pathD, i}
+	// (33:4) {#each segmentsPathD as pathD, i}
 	function create_each_block_1(ctx) {
 		let path;
 		let path_stroke_value;
@@ -2206,7 +2206,7 @@ var app = (function () {
 				attr_dev(path, "fill", "none");
 				attr_dev(path, "stroke", path_stroke_value = /*segments*/ ctx[0][/*i*/ ctx[26]].color);
 				attr_dev(path, "stroke-width", /*strokeWidth*/ ctx[1]);
-				add_location(path, file$6, 56, 8, 1552);
+				add_location(path, file$6, 57, 8, 1572);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, path, anchor);
@@ -2231,14 +2231,14 @@ var app = (function () {
 			block,
 			id: create_each_block_1.name,
 			type: "each",
-			source: "(30:4) {#each segmentsPathD as pathD, i}",
+			source: "(33:4) {#each segmentsPathD as pathD, i}",
 			ctx
 		});
 
 		return block;
 	}
 
-	// (43:8) {#if majorTicks.includes(tick)}
+	// (46:8) {#if majorTicks.includes(tick)}
 	function create_if_block$4(ctx) {
 		let text_1;
 		let t_value = (/*tick*/ ctx[21] ? "+" : "") + Math.abs(/*tick*/ ctx[21]) + "";
@@ -2250,24 +2250,24 @@ var app = (function () {
 			c: function create() {
 				text_1 = svg_element("text");
 				t = text$1(t_value);
-				attr_dev(text_1, "x", text_1_x_value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x);
-				attr_dev(text_1, "y", text_1_y_value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y);
+				attr_dev(text_1, "x", text_1_x_value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x);
+				attr_dev(text_1, "y", text_1_y_value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y);
 				attr_dev(text_1, "fill", "#aaa");
 				attr_dev(text_1, "font-size", "10");
 				attr_dev(text_1, "text-anchor", "middle");
 				attr_dev(text_1, "dominant-baseline", "mathematical");
-				add_location(text_1, file$6, 69, 12, 1928);
+				add_location(text_1, file$6, 70, 12, 1948);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, text_1, anchor);
 				append_dev(text_1, t);
 			},
 			p: function update(ctx, dirty) {
-				if (dirty & /*strokeWidth*/ 2 && text_1_x_value !== (text_1_x_value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x)) {
+				if (dirty & /*strokeWidth*/ 2 && text_1_x_value !== (text_1_x_value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x)) {
 					attr_dev(text_1, "x", text_1_x_value);
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && text_1_y_value !== (text_1_y_value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y)) {
+				if (dirty & /*strokeWidth*/ 2 && text_1_y_value !== (text_1_y_value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 + 12, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y)) {
 					attr_dev(text_1, "y", text_1_y_value);
 				}
 			},
@@ -2282,14 +2282,14 @@ var app = (function () {
 			block,
 			id: create_if_block$4.name,
 			type: "if",
-			source: "(43:8) {#if majorTicks.includes(tick)}",
+			source: "(46:8) {#if majorTicks.includes(tick)}",
 			ctx
 		});
 
 		return block;
 	}
 
-	// (42:4) {#each ticks as tick}
+	// (45:4) {#each ticks as tick}
 	function create_each_block$1(ctx) {
 		let show_if = /*majorTicks*/ ctx[2].includes(/*tick*/ ctx[21]);
 		let line;
@@ -2303,13 +2303,13 @@ var app = (function () {
 			c: function create() {
 				if (if_block) if_block.c();
 				line = svg_element("line");
-				attr_dev(line, "x1", line_x__value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x);
-				attr_dev(line, "y1", line_y__value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y);
-				attr_dev(line, "x2", line_x__value_1 = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x);
-				attr_dev(line, "y2", line_y__value_1 = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y);
+				attr_dev(line, "x1", line_x__value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x);
+				attr_dev(line, "y1", line_y__value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y);
+				attr_dev(line, "x2", line_x__value_1 = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x);
+				attr_dev(line, "y2", line_y__value_1 = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y);
 				attr_dev(line, "stroke", "#aaa");
 				attr_dev(line, "stroke-width", "1");
-				add_location(line, file$6, 90, 8, 2628);
+				add_location(line, file$6, 91, 8, 2648);
 			},
 			m: function mount(target, anchor) {
 				if (if_block) if_block.m(target, anchor);
@@ -2331,19 +2331,19 @@ var app = (function () {
 					if_block = null;
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && line_x__value !== (line_x__value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x)) {
+				if (dirty & /*strokeWidth*/ 2 && line_x__value !== (line_x__value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x)) {
 					attr_dev(line, "x1", line_x__value);
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && line_y__value !== (line_y__value = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y)) {
+				if (dirty & /*strokeWidth*/ 2 && line_y__value !== (line_y__value = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2 - 6, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y)) {
 					attr_dev(line, "y1", line_y__value);
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && line_x__value_1 !== (line_x__value_1 = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).x)) {
+				if (dirty & /*strokeWidth*/ 2 && line_x__value_1 !== (line_x__value_1 = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).x)) {
 					attr_dev(line, "x2", line_x__value_1);
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && line_y__value_1 !== (line_y__value_1 = calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[8])).y)) {
+				if (dirty & /*strokeWidth*/ 2 && line_y__value_1 !== (line_y__value_1 = calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, percToDeg(/*tick*/ ctx[21], /*gaugeRange*/ ctx[9])).y)) {
 					attr_dev(line, "y2", line_y__value_1);
 				}
 			},
@@ -2360,7 +2360,7 @@ var app = (function () {
 			block,
 			id: create_each_block$1.name,
 			type: "each",
-			source: "(42:4) {#each ticks as tick}",
+			source: "(45:4) {#each ticks as tick}",
 			ctx
 		});
 
@@ -2373,15 +2373,16 @@ var app = (function () {
 		let path1;
 		let polygon;
 		let polygon_points_value;
+		let polygon_transform_value;
 		let circle;
-		let each_value_1 = ensure_array_like_dev(/*segmentsPathD*/ ctx[9]);
+		let each_value_1 = ensure_array_like_dev(/*segmentsPathD*/ ctx[10]);
 		let each_blocks_1 = [];
 
 		for (let i = 0; i < each_value_1.length; i += 1) {
 			each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
 		}
 
-		let each_value = ensure_array_like_dev(/*ticks*/ ctx[12]);
+		let each_value = ensure_array_like_dev(/*ticks*/ ctx[13]);
 		let each_blocks = [];
 
 		for (let i = 0; i < each_value.length; i += 1) {
@@ -2405,32 +2406,32 @@ var app = (function () {
 
 				polygon = svg_element("polygon");
 				circle = svg_element("circle");
-				attr_dev(path0, "d", /*arcPathD*/ ctx[10]);
+				attr_dev(path0, "d", /*arcPathD*/ ctx[11]);
 				attr_dev(path0, "fill", "none");
 				attr_dev(path0, "stroke", "#ddd");
 				attr_dev(path0, "stroke-width", "1");
-				add_location(path0, file$6, 64, 4, 1710);
-				attr_dev(path1, "d", /*innerArcPathD*/ ctx[11]);
+				add_location(path0, file$6, 65, 4, 1730);
+				attr_dev(path1, "d", /*innerArcPathD*/ ctx[12]);
 				attr_dev(path1, "fill", "none");
 				attr_dev(path1, "stroke", "#ddd");
 				attr_dev(path1, "stroke-width", "1");
-				add_location(path1, file$6, 65, 4, 1779);
-				attr_dev(polygon, "points", polygon_points_value = "" + (calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, 0).x + "," + calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, 0).y + " " + (/*centerX*/ ctx[6] - 6) + "," + /*centerY*/ ctx[7] + " " + (/*centerX*/ ctx[6] + 6) + "," + /*centerY*/ ctx[7]));
+				add_location(path1, file$6, 66, 4, 1799);
+				attr_dev(polygon, "points", polygon_points_value = "" + (calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, 0).x + "," + calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, 0).y + " " + (/*centerX*/ ctx[7] - 6) + "," + /*centerY*/ ctx[8] + " " + (/*centerX*/ ctx[7] + 6) + "," + /*centerY*/ ctx[8]));
 				attr_dev(polygon, "fill", /*needleColor*/ ctx[3]);
-				attr_dev(polygon, "transform", "rotate(" + /*angle*/ ctx[13] + " " + /*centerX*/ ctx[6] + " " + /*centerY*/ ctx[7] + ")");
-				add_location(polygon, file$6, 120, 4, 3493);
-				attr_dev(circle, "cx", /*centerX*/ ctx[6]);
-				attr_dev(circle, "cy", /*centerY*/ ctx[7]);
+				attr_dev(polygon, "transform", polygon_transform_value = "rotate(" + /*angle*/ ctx[5] + " " + /*centerX*/ ctx[7] + " " + /*centerY*/ ctx[8] + ")");
+				add_location(polygon, file$6, 121, 4, 3513);
+				attr_dev(circle, "cx", /*centerX*/ ctx[7]);
+				attr_dev(circle, "cy", /*centerY*/ ctx[8]);
 				attr_dev(circle, "r", "8");
 				attr_dev(circle, "fill", /*centerColor*/ ctx[4]);
 				set_style(circle, "transform", "translate(0, 1px)");
 				attr_dev(circle, "stroke", "#fff");
 				attr_dev(circle, "stroke-width", "1px");
-				add_location(circle, file$6, 135, 4, 3923);
+				add_location(circle, file$6, 136, 4, 3943);
 				attr_dev(svg, "width", "100%");
 				attr_dev(svg, "height", "150");
 				attr_dev(svg, "viewBox", "0 0 250 150");
-				add_location(svg, file$6, 54, 0, 1452);
+				add_location(svg, file$6, 55, 0, 1472);
 			},
 			l: function claim(nodes) {
 				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2457,8 +2458,8 @@ var app = (function () {
 				append_dev(svg, circle);
 			},
 			p: function update(ctx, [dirty]) {
-				if (dirty & /*segmentsPathD, segments, strokeWidth*/ 515) {
-					each_value_1 = ensure_array_like_dev(/*segmentsPathD*/ ctx[9]);
+				if (dirty & /*segmentsPathD, segments, strokeWidth*/ 1027) {
+					each_value_1 = ensure_array_like_dev(/*segmentsPathD*/ ctx[10]);
 					let i;
 
 					for (i = 0; i < each_value_1.length; i += 1) {
@@ -2480,8 +2481,8 @@ var app = (function () {
 					each_blocks_1.length = each_value_1.length;
 				}
 
-				if (dirty & /*centerX, centerY, radius, strokeWidth, ticks, gaugeRange, Math, majorTicks*/ 4582) {
-					each_value = ensure_array_like_dev(/*ticks*/ ctx[12]);
+				if (dirty & /*centerX, centerY, radius, strokeWidth, ticks, gaugeRange, Math, majorTicks*/ 9158) {
+					each_value = ensure_array_like_dev(/*ticks*/ ctx[13]);
 					let i;
 
 					for (i = 0; i < each_value.length; i += 1) {
@@ -2503,12 +2504,16 @@ var app = (function () {
 					each_blocks.length = each_value.length;
 				}
 
-				if (dirty & /*strokeWidth*/ 2 && polygon_points_value !== (polygon_points_value = "" + (calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, 0).x + "," + calculateCoordinates(/*centerX*/ ctx[6], /*centerY*/ ctx[7], /*radius*/ ctx[5] + /*strokeWidth*/ ctx[1] / 2, 0).y + " " + (/*centerX*/ ctx[6] - 6) + "," + /*centerY*/ ctx[7] + " " + (/*centerX*/ ctx[6] + 6) + "," + /*centerY*/ ctx[7]))) {
+				if (dirty & /*strokeWidth*/ 2 && polygon_points_value !== (polygon_points_value = "" + (calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, 0).x + "," + calculateCoordinates(/*centerX*/ ctx[7], /*centerY*/ ctx[8], /*radius*/ ctx[6] + /*strokeWidth*/ ctx[1] / 2, 0).y + " " + (/*centerX*/ ctx[7] - 6) + "," + /*centerY*/ ctx[8] + " " + (/*centerX*/ ctx[7] + 6) + "," + /*centerY*/ ctx[8]))) {
 					attr_dev(polygon, "points", polygon_points_value);
 				}
 
 				if (dirty & /*needleColor*/ 8) {
 					attr_dev(polygon, "fill", /*needleColor*/ ctx[3]);
+				}
+
+				if (dirty & /*angle*/ 32 && polygon_transform_value !== (polygon_transform_value = "rotate(" + /*angle*/ ctx[5] + " " + /*centerX*/ ctx[7] + " " + /*centerY*/ ctx[8] + ")")) {
+					attr_dev(polygon, "transform", polygon_transform_value);
 				}
 
 				if (dirty & /*centerColor*/ 16) {
@@ -2574,7 +2579,7 @@ var app = (function () {
 			(_, i) => minValue + i * tickInterval
 		);
 
-		const angle = percToDeg(value, gaugeRange);
+		let angle = 0;
 
 		$$self.$$.on_mount.push(function () {
 			if (value === undefined && !('value' in $$props || $$self.$$.bound[$$self.$$.props['value']])) {
@@ -2655,11 +2660,20 @@ var app = (function () {
 			if ('majorTicks' in $$props) $$invalidate(2, majorTicks = $$props.majorTicks);
 			if ('needleColor' in $$props) $$invalidate(3, needleColor = $$props.needleColor);
 			if ('centerColor' in $$props) $$invalidate(4, centerColor = $$props.centerColor);
+			if ('angle' in $$props) $$invalidate(5, angle = $$props.angle);
 		};
 
 		if ($$props && "$$inject" in $$props) {
 			$$self.$inject_state($$props.$$inject);
 		}
+
+		$$self.$$.update = () => {
+			if ($$self.$$.dirty & /*value*/ 16384) {
+				{
+					$$invalidate(5, angle = percToDeg(value, gaugeRange));
+				}
+			}
+		};
 
 		return [
 			segments,
@@ -2667,6 +2681,7 @@ var app = (function () {
 			majorTicks,
 			needleColor,
 			centerColor,
+			angle,
 			radius,
 			centerX,
 			centerY,
@@ -2675,7 +2690,6 @@ var app = (function () {
 			arcPathD,
 			innerArcPathD,
 			ticks,
-			angle,
 			value,
 			minValue,
 			maxValue,
@@ -2780,422 +2794,75 @@ var app = (function () {
 		}
 	}
 
-	/* src/components/CandidateStanding.svelte generated by Svelte v4.2.18 */
-	const file$5 = "src/components/CandidateStanding.svelte";
+	const subscriber_queue = [];
 
-	// (36:8) {:else}
-	function create_else_block(ctx) {
-		let t0;
-		let span;
-		let t1_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(0) + "";
-		let t1;
-		let t2;
-		let span_class_value;
-		let t3;
-		let t4_value = (/*demLead*/ ctx[0] > 0 ? "demokrata" : "republikánus") + "";
-		let t4;
-		let t5;
-
-		const block = {
-			c: function create() {
-				t0 = text$1("Nagyjából ");
-				span = element("span");
-				t1 = text$1(t1_value);
-				t2 = text$1("%");
-				t3 = text$1("-os ");
-				t4 = text$1(t4_value);
-				t5 = text$1(" vezetésnél");
-				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-1frk126");
-				add_location(span, file$5, 40, 22, 1251);
-			},
-			m: function mount(target, anchor) {
-				insert_dev(target, t0, anchor);
-				insert_dev(target, span, anchor);
-				append_dev(span, t1);
-				append_dev(span, t2);
-				insert_dev(target, t3, anchor);
-				insert_dev(target, t4, anchor);
-				insert_dev(target, t5, anchor);
-			},
-			p: function update(ctx, dirty) {
-				if (dirty & /*demLead*/ 1 && t1_value !== (t1_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(0) + "")) set_data_dev(t1, t1_value);
-
-				if (dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-1frk126")) {
-					attr_dev(span, "class", span_class_value);
-				}
-
-				if (dirty & /*demLead*/ 1 && t4_value !== (t4_value = (/*demLead*/ ctx[0] > 0 ? "demokrata" : "republikánus") + "")) set_data_dev(t4, t4_value);
-			},
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach_dev(t0);
-					detach_dev(span);
-					detach_dev(t3);
-					detach_dev(t4);
-					detach_dev(t5);
-				}
-			}
-		};
-
-		dispatch_dev("SvelteRegisterBlock", {
-			block,
-			id: create_else_block.name,
-			type: "else",
-			source: "(36:8) {:else}",
-			ctx
-		});
-
-		return block;
-	}
-
-	// (34:8) {#if demLead == 0}
-	function create_if_block$3(ctx) {
-		let t;
-
-		const block = {
-			c: function create() {
-				t = text$1("Fej-fej mellett van a két jelölt,");
-			},
-			m: function mount(target, anchor) {
-				insert_dev(target, t, anchor);
-			},
-			p: noop$4,
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach_dev(t);
-				}
-			}
-		};
-
-		dispatch_dev("SvelteRegisterBlock", {
-			block,
-			id: create_if_block$3.name,
-			type: "if",
-			source: "(34:8) {#if demLead == 0}",
-			ctx
-		});
-
-		return block;
-	}
-
-	function create_fragment$6(ctx) {
-		let section;
-		let p0;
-		let t0;
-		let span;
-		let t1;
-		let div4;
-		let div0;
-		let gauge;
-		let t2;
-		let div3;
-		let img0;
-		let img0_src_value;
-		let t3;
-		let div2;
-		let h2;
-		let t4;
-		let t5;
-		let div1;
-		let t6;
-		let t7;
-		let img1;
-		let img1_src_value;
-		let t8;
-		let p1;
-		let t9;
-		let br;
-		let current;
-
-		function select_block_type(ctx, dirty) {
-			if (/*demLead*/ ctx[0] == 0) return create_if_block$3;
-			return create_else_block;
-		}
-
-		let current_block_type = select_block_type(ctx);
-		let if_block = current_block_type(ctx);
-
-		gauge = new Gauge({
-				props: {
-					value: -/*demLead*/ ctx[0] * 100,
-					minValue: -12,
-					maxValue: 12,
-					segments: [
-						{
-							start: -12,
-							end: -9,
-							color: "#0000ff69",
-							label: "Likely Dem"
-						},
-						{
-							start: -9,
-							end: -4,
-							color: "#0000ff32",
-							label: "Leaning Dem"
-						},
-						{
-							start: -4,
-							end: 0,
-							color: "#f7f7f7",
-							label: "Tossup"
-						},
-						{
-							start: 0,
-							end: 5,
-							color: "#ff000035",
-							label: "Leaning Rep"
-						},
-						{
-							start: 5,
-							end: 12,
-							color: "#ff000073",
-							label: "Likely Rep"
+	/**
+	 * Create a `Writable` store that allows both updating and reading by subscription.
+	 *
+	 * https://svelte.dev/docs/svelte-store#writable
+	 * @template T
+	 * @param {T} [value] initial value
+	 * @param {import('./public.js').StartStopNotifier<T>} [start]
+	 * @returns {import('./public.js').Writable<T>}
+	 */
+	function writable(value, start = noop$4) {
+		/** @type {import('./public.js').Unsubscriber} */
+		let stop;
+		/** @type {Set<import('./private.js').SubscribeInvalidateTuple<T>>} */
+		const subscribers = new Set();
+		/** @param {T} new_value
+		 * @returns {void}
+		 */
+		function set(new_value) {
+			if (safe_not_equal(value, new_value)) {
+				value = new_value;
+				if (stop) {
+					// store is ready
+					const run_queue = !subscriber_queue.length;
+					for (const subscriber of subscribers) {
+						subscriber[1]();
+						subscriber_queue.push(subscriber, value);
+					}
+					if (run_queue) {
+						for (let i = 0; i < subscriber_queue.length; i += 2) {
+							subscriber_queue[i][0](subscriber_queue[i + 1]);
 						}
-					],
-					strokeWidth: 70,
-					tickInterval: 1,
-					majorTicks: [-9, -4, 0, 5]
-				},
-				$$inline: true
-			});
-
-		const block = {
-			c: function create() {
-				section = element("section");
-				p0 = element("p");
-				if_block.c();
-				t0 = space();
-				span = element("span");
-				t1 = space();
-				div4 = element("div");
-				div0 = element("div");
-				create_component(gauge.$$.fragment);
-				t2 = space();
-				div3 = element("div");
-				img0 = element("img");
-				t3 = space();
-				div2 = element("div");
-				h2 = element("h2");
-				t4 = text$1(/*leaderText*/ ctx[2]);
-				t5 = space();
-				div1 = element("div");
-				t6 = text$1(/*currentStanding*/ ctx[4]);
-				t7 = space();
-				img1 = element("img");
-				t8 = space();
-				p1 = element("p");
-				t9 = text$1("A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.");
-				br = element("br");
-				attr_dev(span, "class", "container svelte-1frk126");
-				add_location(span, file$5, 44, 8, 1459);
-				attr_dev(p0, "id", "expected-result");
-				attr_dev(p0, "class", "has-data svelte-1frk126");
-				add_location(p0, file$5, 36, 4, 1098);
-				attr_dev(div0, "id", "gaugeContainer");
-				attr_dev(div0, "class", "svelte-1frk126");
-				add_location(div0, file$5, 47, 8, 1549);
-				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
-				attr_dev(img0, "alt", "Harris");
-				attr_dev(img0, "class", "dem svelte-1frk126");
-				add_location(img0, file$5, 65, 12, 2344);
-				attr_dev(h2, "id", "leaderText");
-				set_style(h2, "color", /*leaderColor*/ ctx[3]);
-				attr_dev(h2, "class", "svelte-1frk126");
-				add_location(h2, file$5, 67, 16, 2457);
-				attr_dev(div1, "class", "standing svelte-1frk126");
-				add_location(div1, file$5, 68, 16, 2540);
-				attr_dev(div2, "class", "textContainer svelte-1frk126");
-				add_location(div2, file$5, 66, 12, 2413);
-				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
-				attr_dev(img1, "alt", "Trump");
-				attr_dev(img1, "class", "rep svelte-1frk126");
-				add_location(img1, file$5, 70, 12, 2617);
-				attr_dev(div3, "class", "chartInfos svelte-1frk126");
-				add_location(div3, file$5, 64, 8, 2307);
-				add_location(br, file$5, 73, 140, 2839);
-				attr_dev(p1, "class", "svelte-1frk126");
-				add_location(p1, file$5, 72, 8, 2695);
-				attr_dev(div4, "class", "info svelte-1frk126");
-				add_location(div4, file$5, 46, 4, 1522);
-				add_location(section, file$5, 35, 0, 1084);
-			},
-			l: function claim(nodes) {
-				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-			},
-			m: function mount(target, anchor) {
-				insert_dev(target, section, anchor);
-				append_dev(section, p0);
-				if_block.m(p0, null);
-				append_dev(p0, t0);
-				append_dev(p0, span);
-				span.innerHTML = /*leaderHTML*/ ctx[1];
-				append_dev(section, t1);
-				append_dev(section, div4);
-				append_dev(div4, div0);
-				mount_component(gauge, div0, null);
-				append_dev(div4, t2);
-				append_dev(div4, div3);
-				append_dev(div3, img0);
-				append_dev(div3, t3);
-				append_dev(div3, div2);
-				append_dev(div2, h2);
-				append_dev(h2, t4);
-				append_dev(div2, t5);
-				append_dev(div2, div1);
-				append_dev(div1, t6);
-				append_dev(div3, t7);
-				append_dev(div3, img1);
-				append_dev(div4, t8);
-				append_dev(div4, p1);
-				append_dev(p1, t9);
-				append_dev(p1, br);
-				current = true;
-			},
-			p: function update(ctx, [dirty]) {
-				if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
-					if_block.p(ctx, dirty);
-				} else {
-					if_block.d(1);
-					if_block = current_block_type(ctx);
-
-					if (if_block) {
-						if_block.c();
-						if_block.m(p0, t0);
+						subscriber_queue.length = 0;
 					}
 				}
+			}
+		}
 
-				if (!current || dirty & /*leaderHTML*/ 2) span.innerHTML = /*leaderHTML*/ ctx[1];			const gauge_changes = {};
-				if (dirty & /*demLead*/ 1) gauge_changes.value = -/*demLead*/ ctx[0] * 100;
-				gauge.$set(gauge_changes);
-				if (!current || dirty & /*leaderText*/ 4) set_data_dev(t4, /*leaderText*/ ctx[2]);
+		/**
+		 * @param {import('./public.js').Updater<T>} fn
+		 * @returns {void}
+		 */
+		function update(fn) {
+			set(fn(value));
+		}
 
-				if (!current || dirty & /*leaderColor*/ 8) {
-					set_style(h2, "color", /*leaderColor*/ ctx[3]);
+		/**
+		 * @param {import('./public.js').Subscriber<T>} run
+		 * @param {import('./private.js').Invalidator<T>} [invalidate]
+		 * @returns {import('./public.js').Unsubscriber}
+		 */
+		function subscribe(run, invalidate = noop$4) {
+			/** @type {import('./private.js').SubscribeInvalidateTuple<T>} */
+			const subscriber = [run, invalidate];
+			subscribers.add(subscriber);
+			if (subscribers.size === 1) {
+				stop = start(set, update) || noop$4;
+			}
+			run(value);
+			return () => {
+				subscribers.delete(subscriber);
+				if (subscribers.size === 0 && stop) {
+					stop();
+					stop = null;
 				}
-
-				if (!current || dirty & /*currentStanding*/ 16) set_data_dev(t6, /*currentStanding*/ ctx[4]);
-			},
-			i: function intro(local) {
-				if (current) return;
-				transition_in(gauge.$$.fragment, local);
-				current = true;
-			},
-			o: function outro(local) {
-				transition_out(gauge.$$.fragment, local);
-				current = false;
-			},
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach_dev(section);
-				}
-
-				if_block.d();
-				destroy_component(gauge);
-			}
-		};
-
-		dispatch_dev("SvelteRegisterBlock", {
-			block,
-			id: create_fragment$6.name,
-			type: "component",
-			source: "",
-			ctx
-		});
-
-		return block;
-	}
-
-	function instance$6($$self, $$props, $$invalidate) {
-		let { $$slots: slots = {}, $$scope } = $$props;
-		validate_slots('CandidateStanding', slots, []);
-		let { demLead } = $$props;
-		let leaderHTML = "";
-		let leaderText = "";
-		let leaderColor = "";
-		let currentStanding = "";
-
-		// Logic to determine the leader based on demLead
-		function setDemLeadAndWinningHTML(demLead) {
-			if (demLead >= 0.04) {
-				$$invalidate(1, leaderHTML = "várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.");
-				$$invalidate(2, leaderText = "Harris");
-				$$invalidate(3, leaderColor = "#0000ff");
-			} else if (demLead < 0) {
-				$$invalidate(1, leaderHTML = "várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.");
-				$$invalidate(2, leaderText = "Trump");
-				$$invalidate(3, leaderColor = "#ff0000");
-			} else {
-				$$invalidate(1, leaderHTML = "<span class='compact tossup'>szoros</span> elektori szavazatarány várható.");
-				$$invalidate(2, leaderText = "Bizonytalan");
-				$$invalidate(3, leaderColor = "#333");
-			}
-
-			$$invalidate(4, currentStanding = (demLead > 0 ? "Harris +" : demLead < 0 ? "Trump +" : "") + Math.abs(demLead * 100).toFixed(1).replace(".", ","));
+			};
 		}
-
-		setDemLeadAndWinningHTML(demLead);
-
-		$$self.$$.on_mount.push(function () {
-			if (demLead === undefined && !('demLead' in $$props || $$self.$$.bound[$$self.$$.props['demLead']])) {
-				console.warn("<CandidateStanding> was created without expected prop 'demLead'");
-			}
-		});
-
-		const writable_props = ['demLead'];
-
-		Object.keys($$props).forEach(key => {
-			if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CandidateStanding> was created with unknown prop '${key}'`);
-		});
-
-		$$self.$$set = $$props => {
-			if ('demLead' in $$props) $$invalidate(0, demLead = $$props.demLead);
-		};
-
-		$$self.$capture_state = () => ({
-			Gauge,
-			demLead,
-			leaderHTML,
-			leaderText,
-			leaderColor,
-			currentStanding,
-			setDemLeadAndWinningHTML
-		});
-
-		$$self.$inject_state = $$props => {
-			if ('demLead' in $$props) $$invalidate(0, demLead = $$props.demLead);
-			if ('leaderHTML' in $$props) $$invalidate(1, leaderHTML = $$props.leaderHTML);
-			if ('leaderText' in $$props) $$invalidate(2, leaderText = $$props.leaderText);
-			if ('leaderColor' in $$props) $$invalidate(3, leaderColor = $$props.leaderColor);
-			if ('currentStanding' in $$props) $$invalidate(4, currentStanding = $$props.currentStanding);
-		};
-
-		if ($$props && "$$inject" in $$props) {
-			$$self.$inject_state($$props.$$inject);
-		}
-
-		return [demLead, leaderHTML, leaderText, leaderColor, currentStanding];
-	}
-
-	class CandidateStanding extends SvelteComponentDev {
-		constructor(options) {
-			super(options);
-			init$1(this, options, instance$6, create_fragment$6, safe_not_equal, { demLead: 0 });
-
-			dispatch_dev("SvelteRegisterComponent", {
-				component: this,
-				tagName: "CandidateStanding",
-				options,
-				id: create_fragment$6.name
-			});
-		}
-
-		get demLead() {
-			throw new Error("<CandidateStanding>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-		}
-
-		set demLead(value) {
-			throw new Error("<CandidateStanding>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-		}
+		return { set, update, subscribe };
 	}
 
 	function ascending$3(a, b) {
@@ -23821,48 +23488,605 @@ var app = (function () {
 		zoomTransform: transform
 	});
 
+	const aggregators = [
+	    "fivethirtyeight",
+	    "realclearpolling",
+	    "natesilver",
+	    "nyt",
+	];
+	async function fetchPollData$1(repo) {
+	    const response = await fetch(`https://api.github.com/repos/${repo}/contents/polls.csv`);
+	    const json = await response.json();
+	    const csvData = atob(json.content);
+	    return csvParse(csvData);
+	}
+	function isDataStale() {
+	    const oneHour = 1000 * 60 * 60;
+	    const now = new Date();
+	    const lastUpdated = new Date(sessionStorage.getItem("pollsDataUpdated") || 0);
+	    const diff = now.getTime() - lastUpdated.getTime();
+	    return (sessionStorage.getItem("pollsData") == null ||
+	        sessionStorage.getItem("pollsDataUpdated") == null ||
+	        diff >= oneHour);
+	}
+	async function getPollData(repo) {
+	    if (isDataStale()) {
+	        const pollData = await fetchPollData$1(repo);
+	        const now = new Date();
+	        sessionStorage.setItem("pollsData", JSON.stringify(pollData));
+	        sessionStorage.setItem("pollsDataUpdated", now.toString());
+	        return pollData;
+	    }
+	    else {
+	        const storedData = sessionStorage.getItem("pollsData");
+	        if (storedData === null)
+	            return false;
+	        return JSON.parse(storedData);
+	    }
+	}
+	function prepareData(data) {
+	    const candidates = ["Trump", "Harris"];
+	    data.forEach((d) => {
+	        aggregators.forEach((p) => {
+	            d[p] = d[p] || null;
+	        });
+	    });
+	    const dates = Array.from(new Set(data.map((d) => d.date)));
+	    const dailyCandidateData = dates.map((date) => {
+	        const dateData = data.filter((d) => d.date === date);
+	        const candidateData = candidates.map((candidate) => {
+	            const candidatePolls = dateData.filter((d) => d.candidate === candidate);
+	            const aggregatorData = Object.fromEntries(aggregators.map((aggregator) => [
+	                aggregator,
+	                mean(candidatePolls.map((d) => d[aggregator])),
+	            ]));
+	            return Object.assign(Object.assign({ candidate }, aggregatorData), { avg: mean(aggregators.map((p) => aggregatorData[p])) });
+	        });
+	        return Object.assign(Object.assign({}, Object.fromEntries(candidateData.map((d) => [d.candidate, d]))), { date });
+	    });
+	    return dailyCandidateData;
+	}
+
+	const pollData = writable({
+	    dailyData: [],
+	    demLead: null,
+	});
+	const dynamicDayData = writable({
+	    date: '',
+	    Trump: {
+	        candidate: "Trump",
+	        avg: 0,
+	        fivethirtyeight: undefined,
+	        realclearpolling: undefined,
+	        natesilver: undefined,
+	        nyt: undefined,
+	    },
+	    Harris: {
+	        candidate: "Harris",
+	        avg: 0,
+	        fivethirtyeight: undefined,
+	        realclearpolling: undefined,
+	        natesilver: undefined,
+	        nyt: undefined,
+	    },
+	});
+	async function fetchPollData(repo) {
+	    try {
+	        const data = await getPollData(repo);
+	        if (!data) {
+	            throw new Error('Could not import data.');
+	        }
+	        const dailyData = prepareData(data);
+	        const lastDay = dailyData[dailyData.length - 1];
+	        const demLead = calculateDemLead(lastDay);
+	        pollData.set({
+	            dailyData,
+	            demLead,
+	        });
+	    }
+	    catch (error) {
+	        console.error('Error fetching data:', error);
+	        pollData.set({
+	            dailyData: [],
+	            demLead: null,
+	        });
+	    }
+	}
+	function calculateDemLead(day) {
+	    return parseFloat((day.Harris.avg - day.Trump.avg).toFixed(5));
+	}
+
+	/* src/components/CandidateStanding.svelte generated by Svelte v4.2.18 */
+	const file$5 = "src/components/CandidateStanding.svelte";
+
+	// (39:8) {:else}
+	function create_else_block(ctx) {
+		let t0;
+		let span;
+		let t1_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(0) + "";
+		let t1;
+		let t2;
+		let span_class_value;
+		let t3;
+		let t4_value = (/*demLead*/ ctx[0] > 0 ? "demokrata" : "republikánus") + "";
+		let t4;
+		let t5;
+
+		const block = {
+			c: function create() {
+				t0 = text$1("Nagyjából ");
+				span = element("span");
+				t1 = text$1(t1_value);
+				t2 = text$1("%");
+				t3 = text$1("-os ");
+				t4 = text$1(t4_value);
+				t5 = text$1(" vezetésnél");
+				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-z5on5a");
+				add_location(span, file$5, 45, 22, 1451);
+			},
+			m: function mount(target, anchor) {
+				insert_dev(target, t0, anchor);
+				insert_dev(target, span, anchor);
+				append_dev(span, t1);
+				append_dev(span, t2);
+				insert_dev(target, t3, anchor);
+				insert_dev(target, t4, anchor);
+				insert_dev(target, t5, anchor);
+			},
+			p: function update(ctx, dirty) {
+				if (dirty & /*demLead*/ 1 && t1_value !== (t1_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(0) + "")) set_data_dev(t1, t1_value);
+
+				if (dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-z5on5a")) {
+					attr_dev(span, "class", span_class_value);
+				}
+
+				if (dirty & /*demLead*/ 1 && t4_value !== (t4_value = (/*demLead*/ ctx[0] > 0 ? "demokrata" : "republikánus") + "")) set_data_dev(t4, t4_value);
+			},
+			d: function destroy(detaching) {
+				if (detaching) {
+					detach_dev(t0);
+					detach_dev(span);
+					detach_dev(t3);
+					detach_dev(t4);
+					detach_dev(t5);
+				}
+			}
+		};
+
+		dispatch_dev("SvelteRegisterBlock", {
+			block,
+			id: create_else_block.name,
+			type: "else",
+			source: "(39:8) {:else}",
+			ctx
+		});
+
+		return block;
+	}
+
+	// (37:8) {#if demLead == 0}
+	function create_if_block$3(ctx) {
+		let t;
+
+		const block = {
+			c: function create() {
+				t = text$1("Fej-fej mellett van a két jelölt,");
+			},
+			m: function mount(target, anchor) {
+				insert_dev(target, t, anchor);
+			},
+			p: noop$4,
+			d: function destroy(detaching) {
+				if (detaching) {
+					detach_dev(t);
+				}
+			}
+		};
+
+		dispatch_dev("SvelteRegisterBlock", {
+			block,
+			id: create_if_block$3.name,
+			type: "if",
+			source: "(37:8) {#if demLead == 0}",
+			ctx
+		});
+
+		return block;
+	}
+
+	function create_fragment$6(ctx) {
+		let section;
+		let p0;
+		let t0;
+		let span0;
+		let t1;
+		let div4;
+		let div0;
+		let gauge;
+		let t2;
+		let div3;
+		let img0;
+		let img0_src_value;
+		let t3;
+		let div2;
+		let h2;
+		let t4;
+		let t5;
+		let div1;
+
+		let t6_value = (/*demLead*/ ctx[0] > 0
+		? "Harris"
+		: /*demLead*/ ctx[0] < 0 ? "Trump" : "") + "";
+
+		let t6;
+		let t7;
+		let span1;
+		let t8;
+		let t9_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(1).replace(".", ",") + "";
+		let t9;
+		let span1_class_value;
+		let t10;
+		let img1;
+		let img1_src_value;
+		let t11;
+		let p1;
+		let t12;
+		let br;
+		let current;
+
+		function select_block_type(ctx, dirty) {
+			if (/*demLead*/ ctx[0] == 0) return create_if_block$3;
+			return create_else_block;
+		}
+
+		let current_block_type = select_block_type(ctx);
+		let if_block = current_block_type(ctx);
+
+		gauge = new Gauge({
+				props: {
+					value: -/*demLead*/ ctx[0] * 100,
+					minValue: -12,
+					maxValue: 12,
+					segments: [
+						{
+							start: -12,
+							end: -9,
+							color: "#0000ff69",
+							label: "Likely Dem"
+						},
+						{
+							start: -9,
+							end: -4,
+							color: "#0000ff32",
+							label: "Leaning Dem"
+						},
+						{
+							start: -4,
+							end: 0,
+							color: "#f7f7f7",
+							label: "Tossup"
+						},
+						{
+							start: 0,
+							end: 5,
+							color: "#ff000035",
+							label: "Leaning Rep"
+						},
+						{
+							start: 5,
+							end: 12,
+							color: "#ff000073",
+							label: "Likely Rep"
+						}
+					],
+					strokeWidth: 70,
+					tickInterval: 1,
+					majorTicks: [-9, -4, 0, 5]
+				},
+				$$inline: true
+			});
+
+		const block = {
+			c: function create() {
+				section = element("section");
+				p0 = element("p");
+				if_block.c();
+				t0 = space();
+				span0 = element("span");
+				t1 = space();
+				div4 = element("div");
+				div0 = element("div");
+				create_component(gauge.$$.fragment);
+				t2 = space();
+				div3 = element("div");
+				img0 = element("img");
+				t3 = space();
+				div2 = element("div");
+				h2 = element("h2");
+				t4 = text$1(/*leaderText*/ ctx[2]);
+				t5 = space();
+				div1 = element("div");
+				t6 = text$1(t6_value);
+				t7 = space();
+				span1 = element("span");
+				t8 = text$1("+");
+				t9 = text$1(t9_value);
+				t10 = space();
+				img1 = element("img");
+				t11 = space();
+				p1 = element("p");
+				t12 = text$1("A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.");
+				br = element("br");
+				attr_dev(span0, "class", "container svelte-z5on5a");
+				add_location(span0, file$5, 49, 8, 1659);
+				attr_dev(p0, "id", "expected-result");
+				attr_dev(p0, "class", "has-data svelte-z5on5a");
+				add_location(p0, file$5, 41, 4, 1298);
+				attr_dev(div0, "id", "gaugeContainer");
+				attr_dev(div0, "class", "svelte-z5on5a");
+				add_location(div0, file$5, 52, 8, 1749);
+				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
+				attr_dev(img0, "alt", "Harris");
+				attr_dev(img0, "class", "dem svelte-z5on5a");
+				add_location(img0, file$5, 70, 12, 2544);
+				attr_dev(h2, "id", "leaderText");
+				set_style(h2, "color", /*leaderColor*/ ctx[3]);
+				attr_dev(h2, "class", "svelte-z5on5a");
+				add_location(h2, file$5, 72, 16, 2657);
+
+				attr_dev(span1, "class", span1_class_value = "compact " + (/*demLead*/ ctx[0] > 0
+				? "dem"
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-z5on5a");
+
+				add_location(span1, file$5, 75, 20, 2859);
+				attr_dev(div1, "class", "standing svelte-z5on5a");
+				add_location(div1, file$5, 73, 16, 2740);
+				attr_dev(div2, "class", "textContainer svelte-z5on5a");
+				add_location(div2, file$5, 71, 12, 2613);
+				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
+				attr_dev(img1, "alt", "Trump");
+				attr_dev(img1, "class", "rep svelte-z5on5a");
+				add_location(img1, file$5, 78, 12, 3049);
+				attr_dev(div3, "class", "chartInfos svelte-z5on5a");
+				add_location(div3, file$5, 69, 8, 2507);
+				add_location(br, file$5, 81, 140, 3271);
+				attr_dev(p1, "class", "svelte-z5on5a");
+				add_location(p1, file$5, 80, 8, 3127);
+				attr_dev(div4, "class", "info svelte-z5on5a");
+				add_location(div4, file$5, 51, 4, 1722);
+				add_location(section, file$5, 40, 0, 1284);
+			},
+			l: function claim(nodes) {
+				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			},
+			m: function mount(target, anchor) {
+				insert_dev(target, section, anchor);
+				append_dev(section, p0);
+				if_block.m(p0, null);
+				append_dev(p0, t0);
+				append_dev(p0, span0);
+				span0.innerHTML = /*leaderHTML*/ ctx[1];
+				append_dev(section, t1);
+				append_dev(section, div4);
+				append_dev(div4, div0);
+				mount_component(gauge, div0, null);
+				append_dev(div4, t2);
+				append_dev(div4, div3);
+				append_dev(div3, img0);
+				append_dev(div3, t3);
+				append_dev(div3, div2);
+				append_dev(div2, h2);
+				append_dev(h2, t4);
+				append_dev(div2, t5);
+				append_dev(div2, div1);
+				append_dev(div1, t6);
+				append_dev(div1, t7);
+				append_dev(div1, span1);
+				append_dev(span1, t8);
+				append_dev(span1, t9);
+				append_dev(div3, t10);
+				append_dev(div3, img1);
+				append_dev(div4, t11);
+				append_dev(div4, p1);
+				append_dev(p1, t12);
+				append_dev(p1, br);
+				current = true;
+			},
+			p: function update(ctx, [dirty]) {
+				if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+					if_block.p(ctx, dirty);
+				} else {
+					if_block.d(1);
+					if_block = current_block_type(ctx);
+
+					if (if_block) {
+						if_block.c();
+						if_block.m(p0, t0);
+					}
+				}
+
+				if (!current || dirty & /*leaderHTML*/ 2) span0.innerHTML = /*leaderHTML*/ ctx[1];			const gauge_changes = {};
+				if (dirty & /*demLead*/ 1) gauge_changes.value = -/*demLead*/ ctx[0] * 100;
+				gauge.$set(gauge_changes);
+				if (!current || dirty & /*leaderText*/ 4) set_data_dev(t4, /*leaderText*/ ctx[2]);
+
+				if (!current || dirty & /*leaderColor*/ 8) {
+					set_style(h2, "color", /*leaderColor*/ ctx[3]);
+				}
+
+				if ((!current || dirty & /*demLead*/ 1) && t6_value !== (t6_value = (/*demLead*/ ctx[0] > 0
+				? "Harris"
+				: /*demLead*/ ctx[0] < 0 ? "Trump" : "") + "")) set_data_dev(t6, t6_value);
+
+				if ((!current || dirty & /*demLead*/ 1) && t9_value !== (t9_value = Math.abs(/*demLead*/ ctx[0] * 100).toFixed(1).replace(".", ",") + "")) set_data_dev(t9, t9_value);
+
+				if (!current || dirty & /*demLead*/ 1 && span1_class_value !== (span1_class_value = "compact " + (/*demLead*/ ctx[0] > 0
+				? "dem"
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-z5on5a")) {
+					attr_dev(span1, "class", span1_class_value);
+				}
+			},
+			i: function intro(local) {
+				if (current) return;
+				transition_in(gauge.$$.fragment, local);
+				current = true;
+			},
+			o: function outro(local) {
+				transition_out(gauge.$$.fragment, local);
+				current = false;
+			},
+			d: function destroy(detaching) {
+				if (detaching) {
+					detach_dev(section);
+				}
+
+				if_block.d();
+				destroy_component(gauge);
+			}
+		};
+
+		dispatch_dev("SvelteRegisterBlock", {
+			block,
+			id: create_fragment$6.name,
+			type: "component",
+			source: "",
+			ctx
+		});
+
+		return block;
+	}
+
+	function instance$6($$self, $$props, $$invalidate) {
+		let $dynamicDayData;
+		validate_store(dynamicDayData, 'dynamicDayData');
+		component_subscribe($$self, dynamicDayData, $$value => $$invalidate(4, $dynamicDayData = $$value));
+		let { $$slots: slots = {}, $$scope } = $$props;
+		validate_slots('CandidateStanding', slots, []);
+		let demLead = 0;
+		let leaderHTML = "";
+		let leaderText = "";
+		let leaderColor = "";
+		let currentStanding = "";
+
+		// Logic to determine the leader based on demLead
+		function setDemLeadAndWinningHTML(demLead) {
+			if (demLead >= 0.04) {
+				$$invalidate(1, leaderHTML = "várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.");
+				$$invalidate(2, leaderText = "Harris");
+				$$invalidate(3, leaderColor = "#0000ff");
+			} else if (demLead <= -0.005) {
+				$$invalidate(1, leaderHTML = "várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.");
+				$$invalidate(2, leaderText = "Trump");
+				$$invalidate(3, leaderColor = "#ff0000");
+			} else {
+				$$invalidate(1, leaderHTML = "valószínűleg <br><span class='compact tossup'>fej fej mellett</span><br> vannak a jelöltek.");
+				$$invalidate(2, leaderText = "Bizonytalan");
+				$$invalidate(3, leaderColor = "#333");
+			}
+
+			currentStanding = (demLead > 0 ? "Harris +" : demLead < 0 ? "Trump +" : "") + Math.abs(demLead * 100).toFixed(1).replace(".", ",");
+		}
+
+		setDemLeadAndWinningHTML(demLead);
+		const writable_props = [];
+
+		Object.keys($$props).forEach(key => {
+			if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CandidateStanding> was created with unknown prop '${key}'`);
+		});
+
+		$$self.$capture_state = () => ({
+			Gauge,
+			dynamicDayData,
+			calculateDemLead,
+			demLead,
+			leaderHTML,
+			leaderText,
+			leaderColor,
+			currentStanding,
+			setDemLeadAndWinningHTML,
+			$dynamicDayData
+		});
+
+		$$self.$inject_state = $$props => {
+			if ('demLead' in $$props) $$invalidate(0, demLead = $$props.demLead);
+			if ('leaderHTML' in $$props) $$invalidate(1, leaderHTML = $$props.leaderHTML);
+			if ('leaderText' in $$props) $$invalidate(2, leaderText = $$props.leaderText);
+			if ('leaderColor' in $$props) $$invalidate(3, leaderColor = $$props.leaderColor);
+			if ('currentStanding' in $$props) currentStanding = $$props.currentStanding;
+		};
+
+		if ($$props && "$$inject" in $$props) {
+			$$self.$inject_state($$props.$$inject);
+		}
+
+		$$self.$$.update = () => {
+			if ($$self.$$.dirty & /*$dynamicDayData*/ 16) {
+				$$invalidate(0, demLead = $dynamicDayData ? calculateDemLead($dynamicDayData) : 0);
+			}
+
+			if ($$self.$$.dirty & /*demLead*/ 1) {
+				setDemLeadAndWinningHTML(demLead);
+			}
+		};
+
+		return [demLead, leaderHTML, leaderText, leaderColor, $dynamicDayData];
+	}
+
+	class CandidateStanding extends SvelteComponentDev {
+		constructor(options) {
+			super(options);
+			init$1(this, options, instance$6, create_fragment$6, safe_not_equal, {});
+
+			dispatch_dev("SvelteRegisterComponent", {
+				component: this,
+				tagName: "CandidateStanding",
+				options,
+				id: create_fragment$6.name
+			});
+		}
+	}
+
 	const colors = {
 	    Trump: "red",
 	    Harris: "blue",
 	};
-
 	let resizeDebounce = null;
-
 	let screenSizes = {
 	    mobile: 500,
 	    small: 700,
 	};
-
 	let paddingSizes = {
 	    mobile: 100,
 	    small: 120,
 	    large: 150,
 	};
-
 	let candidateLabelSizes = {
 	    mobile: 1,
 	    small: 1.2,
 	    large: 1.5,
 	};
-
 	let dotSizes = {
 	    mobile: 2,
 	    small: 3,
 	    large: 3,
 	};
-
 	let lineWidths = {
 	    mobile: 5,
 	    small: 7,
 	    large: 9,
 	};
-
 	let gridLabelSizes = {
 	    mobile: 0.65,
 	    small: 0.8,
 	    large: 0.9,
 	};
-
+	function setDynamicDemLead(dailyData, date) {
+	    console.log(date);
+	    const day = dailyData.find((d) => new Date(d.date).toDateString() === new Date(date).toDateString());
+	    if (day) {
+	        dynamicDayData.set(day);
+	    }
+	}
 	function getScreenSize() {
 	    const width = window.innerWidth;
 	    for (const [size, minWidth] of Object.entries(screenSizes)) {
@@ -23872,95 +24096,69 @@ var app = (function () {
 	    }
 	    return "large";
 	}
-
 	function onResize(dailyData, aggregators) {
 	    if (resizeDebounce) {
 	        clearTimeout(resizeDebounce);
 	    }
-	    
 	    resizeDebounce = setTimeout(() => {
 	        selectAll(".polls").selectAll("*").remove();
 	        drawChart(dailyData, aggregators);
 	    }, 250);
 	}
-
-	function drawChart( dailyData, aggregators) {
+	function drawChart(dailyData, aggregators) {
 	    const screenSizeCateg = getScreenSize();
 	    const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
-
 	    drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
 	    drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
 	    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
 	    setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
 	}
-
 	function setupChart(dailyData, screenSizeCateg) {
 	    const paddingRightSize = paddingSizes[screenSizeCateg];
-
 	    const margin = { top: 20, right: 0, bottom: 30, left: 0 };
 	    const svg = select(".polls");
-
 	    const width = parseInt(svg.style("width")) - margin.left - margin.right;
 	    const height = width * (4 / 7);
-
-	    const dateExtent = extent$1(dailyData, (d) =>
-	        timeParse("%Y-%m-%d")(d.date)
-	    );
-
+	    const dateExtent = extent$1(dailyData, (d) => timeParse("%Y-%m-%d")(d.date));
 	    const paddedStartDate = new Date(dateExtent[0]);
 	    paddedStartDate.setDate(paddedStartDate.getDate() - 1);
-
 	    const x = time()
 	        .domain([paddedStartDate, dateExtent[1]])
 	        .range([0, width - paddingRightSize]);
-
 	    const y = linear().domain([0.35, 0.51]).range([height, 0]);
-
 	    const chartGroup = svg
-	        .attr(
-	            "viewBox",
-	            `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`
-	        )
+	        .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
 	        .attr("preserveAspectRatio", "xMidYMid meet")
 	        .append("g");
-
 	    const chartElements = chartGroup
 	        .append("g")
 	        .attr("class", "chart-elements");
-
 	    return { margin, width, height, x, y, chartGroup, chartElements };
 	}
-
 	function drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg) {
 	    for (const candidate of ["Trump", "Harris"]) {
 	        const line$1 = line()
 	            .x((d) => x(d.date))
 	            .y((d) => y(d.avg))
 	            .curve(monotoneX);
-
 	        chartElements
 	            .append("path")
-	            .datum(
-	                dailyData.map((d) => ({
-	                    date: timeParse("%Y-%m-%d")(d.date),
-	                    avg: d[candidate].avg,
-	                }))
-	            )
+	            .datum(dailyData.map((d) => ({
+	            date: timeParse("%Y-%m-%d")(d.date),
+	            avg: d[candidate].avg,
+	        })))
 	            .attr("class", candidate)
 	            .attr("fill", "none")
 	            .attr("stroke", colors[candidate])
 	            .attr("stroke-width", lineWidths[screenSizeCateg])
 	            .attr("opacity", 0.425)
 	            .attr("d", line$1);
-
 	        chartGroup
 	            .append("path")
-	            .datum(
-	                dailyData.map((d) => ({
-	                    date: timeParse("%Y-%m-%d")(d.date),
-	                    avg: d[candidate].avg,
-	                }))
-	            )
+	            .datum(dailyData.map((d) => ({
+	            date: timeParse("%Y-%m-%d")(d.date),
+	            avg: d[candidate].avg,
+	        })))
 	            .attr("class", candidate + " background-line")
 	            .attr("fill", "none")
 	            .attr("stroke", colors[candidate])
@@ -23969,23 +24167,18 @@ var app = (function () {
 	            .attr("d", line$1);
 	    }
 	}
-
 	function drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg) {
 	    const circleGroup = chartElements.append("g");
 	    const backgroundCircleGroup = chartGroup.append("g");
-
 	    dailyData.forEach((d) => {
 	        for (const candidate of ["Trump", "Harris"]) {
 	            aggregators.forEach((aggregator) => {
-	                if (!d[candidate][aggregator]) return;
-
+	                if (!d[candidate][aggregator])
+	                    return;
 	                circleGroup
 	                    .append("circle")
 	                    .attr("class", aggregator + " " + candidate)
-	                    .attr(
-	                        "cx",
-	                        x(timeParse("%Y-%m-%d")(d.date))
-	                    )
+	                    .attr("cx", x(timeParse("%Y-%m-%d")(d.date)))
 	                    .attr("cy", y(d[candidate][aggregator]))
 	                    .attr("r", dotSizes[screenSizeCateg])
 	                    .attr("fill", colors[candidate])
@@ -23993,14 +24186,10 @@ var app = (function () {
 	                    .attr("stroke", "white")
 	                    .attr("stroke-width", 0)
 	                    .attr("paint-order", "stroke");
-	                
 	                backgroundCircleGroup
 	                    .append("circle")
 	                    .attr("class", aggregator + " " + candidate + " background-dot")
-	                    .attr(
-	                        "cx",
-	                        x(timeParse("%Y-%m-%d")(d.date))
-	                    )
+	                    .attr("cx", x(timeParse("%Y-%m-%d")(d.date)))
 	                    .attr("cy", y(d[candidate][aggregator]))
 	                    .attr("r", dotSizes[screenSizeCateg])
 	                    .attr("fill", colors[candidate])
@@ -24012,82 +24201,65 @@ var app = (function () {
 	        }
 	    });
 	}
-
 	function drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg) {
 	    chartGroup
 	        .append("g")
 	        .attr("class", "grid x-grid")
 	        .attr("transform", `translate(0,${height})`)
-	        .call(
-	            axisBottom(x)
-	                .ticks(timeSunday.every(1))
-	                .tickSizeInner(-6)
-	                .tickPadding(10)
-	                .tickFormat((d) =>
-	                    new Date(d).toLocaleDateString("hu-HU", {
-	                        month: "short",
-	                        day: "numeric",
-	                    })
-	                )
-	        )
+	        .call(axisBottom(x)
+	        .ticks(timeSunday.every(1))
+	        .tickSizeInner(-6)
+	        .tickPadding(10)
+	        .tickFormat((d) => new Date(d).toLocaleDateString("hu-HU", {
+	        month: "short",
+	        day: "numeric",
+	    })))
 	        .call((g) => g.select(".domain").remove())
 	        .selectAll("line")
 	        .style("stroke", "#ccc")
 	        .style("stroke-opacity", 1);
-
 	    chartGroup
 	        .append("g")
 	        .attr("class", "grid y-grid y-grid-left")
-	        .call(
-	            axisLeft(y)
-	                .tickValues([0.35, 0.4, 0.45, 0.5])
-	                .tickSize(-(width - paddingSizes[screenSizeCateg]))
-	                .tickFormat((d) => `${d * 100}`)
-	        )
+	        .call(axisLeft(y)
+	        .tickValues([0.35, 0.4, 0.45, 0.5])
+	        .tickSize(-(width - paddingSizes[screenSizeCateg]))
+	        .tickFormat((d) => `${d * 100}`))
 	        .call((g) => g.select(".domain").remove())
 	        .selectAll("line")
 	        .style("stroke", "#ddd")
 	        .style("stroke-opacity", 1);
-
 	    chartGroup
 	        .append("g")
 	        .attr("class", "grid y-grid-right")
-	        .call(
-	            axisRight(y)
-	                .tickValues([0.35, 0.4, 0.45, 0.5])
-	                .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
-	                .tickFormat("")
-	        )
+	        .call(axisRight(y)
+	        .tickValues([0.35, 0.4, 0.45, 0.5])
+	        .tickSize(-paddingSizes[screenSizeCateg]) // Adjusted for the padding
+	        .tickFormat(""))
 	        .call((g) => g.select(".domain").remove())
 	        .selectAll("line")
 	        .attr("class", "y-gridline-right")
 	        .style("stroke", "#f7f7f7")
 	        .attr("transform", `translate(${width}, 0)`);
-
 	    chartGroup
 	        .selectAll(".y-grid-right")
 	        .selectAll("text")
 	        .remove();
-
 	    chartGroup
 	        .selectAll(".y-grid")
 	        .selectAll("text")
 	        .attr("dx", "1.5em")
 	        .attr("dy", "-0.5em");
-
 	    selectAll(".grid text").attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`).attr("fill", "#666");
 	}
-
 	function setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg) {
 	    const paddingRightSize = paddingSizes[screenSizeCateg];
-
 	    const focusDate = chartGroup
 	        .append("g")
 	        .attr("y1", 0)
 	        .attr("y2", height)
 	        .attr("x1", width - paddingRightSize)
 	        .attr("x2", width - paddingRightSize);
-
 	    const verticalLine = focusDate
 	        .append("line")
 	        .attr("stroke", "black")
@@ -24096,19 +24268,15 @@ var app = (function () {
 	        .attr("y2", height)
 	        .attr("x1", width - paddingRightSize)
 	        .attr("x2", width - paddingRightSize);
-
 	    const dateLabel = focusDate
 	        .append("text")
 	        .attr("text-anchor", "middle")
 	        .attr("fill", "#333")
 	        .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`)
-	        .text(
-	            new Date().toLocaleDateString("hu-HU", {
-	                month: "long",
-	                day: "numeric",
-	            }),
-	        );
-
+	        .text(new Date().toLocaleDateString("hu-HU", {
+	        month: "long",
+	        day: "numeric",
+	    }));
 	    chartGroup.append("defs")
 	        .append("clipPath")
 	        .attr("id", "overlay-clip")
@@ -24117,66 +24285,45 @@ var app = (function () {
 	        .attr("y", 0)
 	        .attr("width", width - paddingRightSize)
 	        .attr("height", height);
-
 	    chartElements.attr("clip-path", "url(#overlay-clip)");
-
 	    dateLabel.attr("x", width - paddingRightSize).attr("y", -6);
-
 	    const focusTexts = initializeFocusTexts(chartGroup, colors, screenSizeCateg);
 	    updateLabels(focusTexts, dailyData, x, y);
-
 	    const svg = select(chartGroup.node().parentNode);
-
 	    svg.append("rect")
 	        .attr("width", width - paddingRightSize)
 	        .attr("height", height)
 	        .style("fill", "none")
 	        .style("pointer-events", "all")
 	        .on("mousemove", function (event) {
-	            handleMouseMove(
-	                event,
-	                chartGroup,
-	                dailyData,
-	                x,
-	                y,
-	                width,
-	                height,
-	                verticalLine,
-	                dateLabel,
-	                focusTexts,
-	            );
-	        })
+	        handleMouseMove(event, chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+	    })
 	        .on("mouseout", () => {
-	            verticalLine
-	                .attr("y1", 0)
-	                .attr("y2", height)
-	                .attr("x1", width - paddingRightSize)
-	                .attr("x2", width - paddingRightSize);
-
-	            dateLabel
-	                .text(
-	                    new Date().toLocaleDateString("hu-HU", {
-	                        month: "long",
-	                        day: "numeric",
-	                    }),
-	                )
-	                .attr("x", width - paddingRightSize)
-	                .attr("y", -6);
-
-	            updateLabels(focusTexts, dailyData, x, y);
-	            select("#overlay-clip rect")
-	                .attr("width", width - paddingRightSize);
-
-	            chartGroup.selectAll(".y-grid-left line")
-	                .attr("x2", (width - paddingRightSize));
-	            chartGroup.selectAll(".y-grid-right line")
-	                .attr("x1", 0)
-	                .attr("x2", -paddingSizes[screenSizeCateg]);
-	            
-	            Object.values(focusTexts).forEach((text) => text.raise());
-	        });
+	        verticalLine
+	            .attr("y1", 0)
+	            .attr("y2", height)
+	            .attr("x1", width - paddingRightSize)
+	            .attr("x2", width - paddingRightSize);
+	        dateLabel
+	            .text(new Date().toLocaleDateString("hu-HU", {
+	            month: "long",
+	            day: "numeric",
+	        }))
+	            .attr("x", width - paddingRightSize)
+	            .attr("y", -6);
+	        updateLabels(focusTexts, dailyData, x, y);
+	        select("#overlay-clip rect")
+	            .attr("width", width - paddingRightSize);
+	        chartGroup.selectAll(".y-grid-left line")
+	            .attr("x2", (width - paddingRightSize));
+	        chartGroup.selectAll(".y-grid-right line")
+	            .attr("x1", 0)
+	            .attr("x2", -paddingSizes[screenSizeCateg]);
+	        Object.values(focusTexts).forEach((text) => text.raise());
+	        setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+	    });
+	    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
 	}
-
 	function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
 	    const focusTexts = {};
 	    Object.keys(colors).forEach((candidate) => {
@@ -24192,19 +24339,7 @@ var app = (function () {
 	    });
 	    return focusTexts;
 	}
-
-	function handleMouseMove(
-	    event,
-	    chartGroup,
-	    dailyData,
-	    x,
-	    y,
-	    width,
-	    height,
-	    verticalLine,
-	    dateLabel,
-	    focusTexts,
-	) {
+	function handleMouseMove(event, chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts) {
 	    const mouse = pointer(event);
 	    const mouseDate = x.invert(mouse[0]);
 	    const roundedDate = new Date(mouseDate);
@@ -24214,95 +24349,65 @@ var app = (function () {
 	    }
 	    const lineDate = new Date(roundedDate.getTime()); // Subtract 1 day from the date
 	    const lineXPosition = x(lineDate);
-
 	    verticalLine.attr("x1", x(lineDate)).attr("x2", x(lineDate));
 	    dateLabel
-	        .text(
-	            roundedDate.toLocaleDateString("hu-HU", {
-	                month: "long",
-	                day: "numeric",
-	            }),
-	        )
+	        .text(roundedDate.toLocaleDateString("hu-HU", {
+	        month: "long",
+	        day: "numeric",
+	    }))
 	        .attr("x", x(lineDate));
-
 	    select("#overlay-clip rect")
 	        .attr("x", 0)
 	        .attr("width", x(lineDate));
-
 	    // Adjust the gridlines' positions to match the date marker
 	    chartGroup.selectAll(".y-grid-left line")
 	        .attr("x2", lineXPosition);
-
 	    chartGroup.selectAll(".y-grid-right line")
 	        .attr("x1", 0)
 	        .attr("x2", -(width - lineXPosition));
-
 	    // Put the labels at the end of the svg rendering order
 	    Object.values(focusTexts).forEach((text) => text.raise());
-
 	    updateLabels(focusTexts, dailyData, x, y, lineDate);
 	    fixLabelPositions(focusTexts);
+	    setDynamicDemLead(dailyData, lineDate);
 	}
-
 	function updateLabels(focusTexts, dailyData, x, y, lineDate = null) {
 	    if (!lineDate) {
 	        lineDate = max$3(dailyData.map((d) => d.date));
 	    }
-
 	    let closestValue = { Trump: null, Harris: null };
 	    let closestDate = null;
 	    let minDiff = { Trump: Infinity, Harris: Infinity };
-
 	    // Find the closest data point for each candidate
 	    dailyData.forEach((day) => {
 	        for (const candidate of ["Trump", "Harris"]) {
 	            const candidateObj = day[candidate];
-
-	            const diff = Math.abs(
-	                new Date(lineDate) - new Date(day.date),
-	            );
-
+	            const diff = Math.abs(new Date(lineDate) - new Date(day.date));
 	            if (diff < minDiff[candidate]) {
 	                closestValue[candidate] = candidateObj;
 	                closestDate = day.date;
 	                minDiff[candidate] = diff;
 	            }
-
 	            // Update focus text
 	            if (closestValue[candidate]) {
 	                focusTexts[candidate]
 	                    .text(`${candidate} `)
-	                    .attr(
-	                        "x",
-	                        x(new Date(closestDate)) + 8,
-	                    )
+	                    .attr("x", x(new Date(closestDate)) + 8)
 	                    .attr("y", y(closestValue[candidate].avg))
 	                    .append("tspan")
-	                    .text(
-	                        `${(closestValue[candidate].avg * 100).toFixed(1).replace(".", ",")}`,
-	                    )
-	                    .attr(
-	                        "style",
-	                        `fill: ${colors[candidate]}; font-weight: 500; /* font-family: 'courier'; */ dominant-baseline: middle;`,
-	                    );
+	                    .text(`${(closestValue[candidate].avg * 100).toFixed(1).replace(".", ",")}`)
+	                    .attr("style", `fill: ${colors[candidate]}; font-weight: 500; /* font-family: 'courier'; */ dominant-baseline: middle;`);
 	            }
 	        }
 	    });
 	}
-
 	function fixLabelPositions(focusTexts, x, y, width, height) {
-	    const y_positions = Object.values(focusTexts).map((text) =>
-	        parseFloat(text.attr("y")),
-	    );
+	    const y_positions = Object.values(focusTexts).map((text) => parseFloat(text.attr("y")));
 	    const difference = Math.abs(y_positions[0] - y_positions[1]);
 	    const average_y = (y_positions[0] + y_positions[1]) / 2;
-
 	    if (difference < 30) {
-	        const topCandidate =
-	            y_positions[0] > y_positions[1] ? "Trump" : "Harris";
-	        const bottomCandidate =
-	            y_positions[0] > y_positions[1] ? "Harris" : "Trump";
-
+	        const topCandidate = y_positions[0] > y_positions[1] ? "Trump" : "Harris";
+	        const bottomCandidate = y_positions[0] > y_positions[1] ? "Harris" : "Trump";
 	        focusTexts[topCandidate].attr("y", average_y + 15);
 	        focusTexts[bottomCandidate].attr("y", average_y - 15);
 	    }
@@ -24429,166 +24534,6 @@ var app = (function () {
 		}
 	}
 
-	const aggregators = [
-	    "fivethirtyeight",
-	    "realclearpolling",
-	    "natesilver",
-	    "nyt",
-	];
-	async function fetchPollData$1(repo) {
-	    const response = await fetch(`https://api.github.com/repos/${repo}/contents/polls.csv`);
-	    const json = await response.json();
-	    const csvData = atob(json.content);
-	    return csvParse(csvData);
-	}
-	function isDataStale() {
-	    const oneHour = 1000 * 60 * 60;
-	    const now = new Date();
-	    const lastUpdated = new Date(sessionStorage.getItem("pollsDataUpdated") || 0);
-	    const diff = now.getTime() - lastUpdated.getTime();
-	    return (sessionStorage.getItem("pollsData") == null ||
-	        sessionStorage.getItem("pollsDataUpdated") == null ||
-	        diff >= oneHour);
-	}
-	async function getPollData(repo) {
-	    if (isDataStale()) {
-	        const pollData = await fetchPollData$1(repo);
-	        const now = new Date();
-	        sessionStorage.setItem("pollsData", JSON.stringify(pollData));
-	        sessionStorage.setItem("pollsDataUpdated", now.toString());
-	        return pollData;
-	    }
-	    else {
-	        const storedData = sessionStorage.getItem("pollsData");
-	        if (storedData === null)
-	            return false;
-	        return JSON.parse(storedData);
-	    }
-	}
-	function prepareData(data) {
-	    const candidates = ["Trump", "Harris"];
-	    data.forEach((d) => {
-	        aggregators.forEach((p) => {
-	            d[p] = d[p] || null;
-	        });
-	    });
-	    const dates = Array.from(new Set(data.map((d) => d.date)));
-	    const dailyCandidateData = dates.map((date) => {
-	        const dateData = data.filter((d) => d.date === date);
-	        const candidateData = candidates.map((candidate) => {
-	            const candidatePolls = dateData.filter((d) => d.candidate === candidate);
-	            const aggregatorData = Object.fromEntries(aggregators.map((aggregator) => [
-	                aggregator,
-	                mean(candidatePolls.map((d) => d[aggregator])),
-	            ]));
-	            return Object.assign(Object.assign({ candidate }, aggregatorData), { avg: mean(aggregators.map((p) => aggregatorData[p])) });
-	        });
-	        return Object.assign(Object.assign({}, Object.fromEntries(candidateData.map((d) => [d.candidate, d]))), { date });
-	    });
-	    return dailyCandidateData;
-	}
-
-	const subscriber_queue = [];
-
-	/**
-	 * Create a `Writable` store that allows both updating and reading by subscription.
-	 *
-	 * https://svelte.dev/docs/svelte-store#writable
-	 * @template T
-	 * @param {T} [value] initial value
-	 * @param {import('./public.js').StartStopNotifier<T>} [start]
-	 * @returns {import('./public.js').Writable<T>}
-	 */
-	function writable(value, start = noop$4) {
-		/** @type {import('./public.js').Unsubscriber} */
-		let stop;
-		/** @type {Set<import('./private.js').SubscribeInvalidateTuple<T>>} */
-		const subscribers = new Set();
-		/** @param {T} new_value
-		 * @returns {void}
-		 */
-		function set(new_value) {
-			if (safe_not_equal(value, new_value)) {
-				value = new_value;
-				if (stop) {
-					// store is ready
-					const run_queue = !subscriber_queue.length;
-					for (const subscriber of subscribers) {
-						subscriber[1]();
-						subscriber_queue.push(subscriber, value);
-					}
-					if (run_queue) {
-						for (let i = 0; i < subscriber_queue.length; i += 2) {
-							subscriber_queue[i][0](subscriber_queue[i + 1]);
-						}
-						subscriber_queue.length = 0;
-					}
-				}
-			}
-		}
-
-		/**
-		 * @param {import('./public.js').Updater<T>} fn
-		 * @returns {void}
-		 */
-		function update(fn) {
-			set(fn(value));
-		}
-
-		/**
-		 * @param {import('./public.js').Subscriber<T>} run
-		 * @param {import('./private.js').Invalidator<T>} [invalidate]
-		 * @returns {import('./public.js').Unsubscriber}
-		 */
-		function subscribe(run, invalidate = noop$4) {
-			/** @type {import('./private.js').SubscribeInvalidateTuple<T>} */
-			const subscriber = [run, invalidate];
-			subscribers.add(subscriber);
-			if (subscribers.size === 1) {
-				stop = start(set, update) || noop$4;
-			}
-			run(value);
-			return () => {
-				subscribers.delete(subscriber);
-				if (subscribers.size === 0 && stop) {
-					stop();
-					stop = null;
-				}
-			};
-		}
-		return { set, update, subscribe };
-	}
-
-	const pollData = writable({
-	    dailyData: [],
-	    demLead: null,
-	});
-	async function fetchPollData(repo) {
-	    try {
-	        const data = await getPollData(repo);
-	        if (!data) {
-	            throw new Error('Could not import data.');
-	        }
-	        const dailyData = prepareData(data);
-	        const demLead = calculateDemLead(dailyData);
-	        pollData.set({
-	            dailyData,
-	            demLead,
-	        });
-	    }
-	    catch (error) {
-	        console.error('Error fetching data:', error);
-	        pollData.set({
-	            dailyData: [],
-	            demLead: null,
-	        });
-	    }
-	}
-	function calculateDemLead(dailyData) {
-	    const lastDay = dailyData[dailyData.length - 1];
-	    return parseFloat((lastDay.Harris.avg - lastDay.Trump.avg).toFixed(5));
-	}
-
 	/* src/components/AggregatorStrip.svelte generated by Svelte v4.2.18 */
 
 	const { Object: Object_1 } = globals;
@@ -24596,11 +24541,11 @@ var app = (function () {
 
 	function get_each_context(ctx, list, i) {
 		const child_ctx = ctx.slice();
-		child_ctx[5] = list[i];
+		child_ctx[6] = list[i];
 		return child_ctx;
 	}
 
-	// (53:0) {#if aggregatorsCurrent.length !== 0}
+	// (68:0) {#if aggregatorsCurrent.length !== 0}
 	function create_if_block$2(ctx) {
 		let div;
 		let each_value = ensure_array_like_dev(/*aggregatorsCurrent*/ ctx[0]);
@@ -24618,8 +24563,8 @@ var app = (function () {
 					each_blocks[i].c();
 				}
 
-				attr_dev(div, "class", "aggregator-bubbles svelte-e1cfa5");
-				add_location(div, file$3, 72, 4, 2137);
+				attr_dev(div, "class", "aggregator-bubbles svelte-xwvncs");
+				add_location(div, file$3, 89, 4, 2519);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24667,25 +24612,24 @@ var app = (function () {
 			block,
 			id: create_if_block$2.name,
 			type: "if",
-			source: "(53:0) {#if aggregatorsCurrent.length !== 0}",
+			source: "(68:0) {#if aggregatorsCurrent.length !== 0}",
 			ctx
 		});
 
 		return block;
 	}
 
-	// (55:8) {#each aggregatorsCurrent as aggregator}
+	// (70:8) {#each aggregatorsCurrent as aggregator}
 	function create_each_block(ctx) {
 		let div;
-		let t0_value = /*aggregator*/ ctx[5].displayName + "";
+		let t0_value = /*aggregator*/ ctx[6].displayName + "";
 		let t0;
 		let t1;
 		let span;
+		let t2_value = /*aggregator*/ ctx[6].lead + "";
 		let t2;
-		let t3_value = /*aggregator*/ ctx[5].lead.toString().replace('.', ',') + "";
-		let t3;
 		let span_class_value;
-		let t4;
+		let t3;
 		let mounted;
 		let dispose;
 
@@ -24695,15 +24639,14 @@ var app = (function () {
 				t0 = text$1(t0_value);
 				t1 = space();
 				span = element("span");
-				t2 = text$1("+");
-				t3 = text$1(t3_value);
-				t4 = space();
-				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[5].leading) + " svelte-e1cfa5"));
-				add_location(span, file$3, 76, 16, 2445);
-				attr_dev(div, "class", "aggregator svelte-e1cfa5");
+				t2 = text$1(t2_value);
+				t3 = space();
+				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[6].leading) + " svelte-xwvncs"));
+				add_location(span, file$3, 93, 16, 2827);
+				attr_dev(div, "class", "aggregator svelte-xwvncs");
 				attr_dev(div, "role", "button");
 				attr_dev(div, "tabindex", "0");
-				add_location(div, file$3, 74, 12, 2231);
+				add_location(div, file$3, 91, 12, 2613);
 			},
 			m: function mount(target, anchor) {
 				insert_dev(target, div, anchor);
@@ -24711,8 +24654,7 @@ var app = (function () {
 				append_dev(div, t1);
 				append_dev(div, span);
 				append_dev(span, t2);
-				append_dev(span, t3);
-				append_dev(div, t4);
+				append_dev(div, t3);
 
 				if (!mounted) {
 					dispose = [
@@ -24720,7 +24662,7 @@ var app = (function () {
 							div,
 							"mouseenter",
 							function () {
-								if (is_function(/*setSoloAggregator*/ ctx[1](/*aggregator*/ ctx[5].name))) /*setSoloAggregator*/ ctx[1](/*aggregator*/ ctx[5].name).apply(this, arguments);
+								if (is_function(/*setSoloAggregator*/ ctx[1](/*aggregator*/ ctx[6].name))) /*setSoloAggregator*/ ctx[1](/*aggregator*/ ctx[6].name).apply(this, arguments);
 							},
 							false,
 							false,
@@ -24731,7 +24673,7 @@ var app = (function () {
 							div,
 							"mouseleave",
 							function () {
-								if (is_function(/*removeSoloAggregator*/ ctx[2](/*aggregator*/ ctx[5].name))) /*removeSoloAggregator*/ ctx[2](/*aggregator*/ ctx[5].name).apply(this, arguments);
+								if (is_function(/*removeSoloAggregator*/ ctx[2](/*aggregator*/ ctx[6].name))) /*removeSoloAggregator*/ ctx[2](/*aggregator*/ ctx[6].name).apply(this, arguments);
 							},
 							false,
 							false,
@@ -24745,10 +24687,10 @@ var app = (function () {
 			},
 			p: function update(new_ctx, dirty) {
 				ctx = new_ctx;
-				if (dirty & /*aggregatorsCurrent*/ 1 && t0_value !== (t0_value = /*aggregator*/ ctx[5].displayName + "")) set_data_dev(t0, t0_value);
-				if (dirty & /*aggregatorsCurrent*/ 1 && t3_value !== (t3_value = /*aggregator*/ ctx[5].lead.toString().replace('.', ',') + "")) set_data_dev(t3, t3_value);
+				if (dirty & /*aggregatorsCurrent*/ 1 && t0_value !== (t0_value = /*aggregator*/ ctx[6].displayName + "")) set_data_dev(t0, t0_value);
+				if (dirty & /*aggregatorsCurrent*/ 1 && t2_value !== (t2_value = /*aggregator*/ ctx[6].lead + "")) set_data_dev(t2, t2_value);
 
-				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[5].leading) + " svelte-e1cfa5"))) {
+				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[6].leading) + " svelte-xwvncs"))) {
 					attr_dev(span, "class", span_class_value);
 				}
 			},
@@ -24766,7 +24708,7 @@ var app = (function () {
 			block,
 			id: create_each_block.name,
 			type: "each",
-			source: "(55:8) {#each aggregatorsCurrent as aggregator}",
+			source: "(70:8) {#each aggregatorsCurrent as aggregator}",
 			ctx
 		});
 
@@ -24826,15 +24768,17 @@ var app = (function () {
 	}
 
 	function instance$4($$self, $$props, $$invalidate) {
+		let $dynamicDayData;
+		validate_store(dynamicDayData, 'dynamicDayData');
+		component_subscribe($$self, dynamicDayData, $$value => $$invalidate(4, $dynamicDayData = $$value));
 		let { $$slots: slots = {}, $$scope } = $$props;
 		validate_slots('AggregatorStrip', slots, []);
-		let { dailyData } = $$props;
+		let dailyData = null;
 		let aggregatorsCurrent = [];
 
-		function setAggregatorsCurrent(data) {
-			const lastDay = data[data.length - 1];
-			const currentTrump = lastDay.Trump;
-			const currentHarris = lastDay.Harris;
+		function setAggregatorsCurrent(day) {
+			const currentTrump = day.Trump;
+			const currentHarris = day.Harris;
 
 			const aggregatorNameMap = {
 				fivethirtyeight: "538",
@@ -24846,17 +24790,30 @@ var app = (function () {
 			$$invalidate(0, aggregatorsCurrent = Object.keys(aggregatorNameMap).map(aggregator => {
 				const trump = currentTrump[aggregator];
 				const harris = currentHarris[aggregator];
-				let lead = 0;
 
-				if (!!trump && !!harris) {
-					lead = (harris - trump) * 100;
+				if (!trump || !harris) {
+					return {
+						name: aggregator,
+						displayName: aggregatorNameMap[aggregator],
+						lead: "No data",
+						leading: ""
+					};
+				}
+
+				const lead = (harris - trump) * 100;
+				let leading = "";
+
+				if (lead > 0) {
+					leading = "dem";
+				} else if (lead < 0) {
+					leading = "rep";
 				}
 
 				return {
 					name: aggregator,
 					displayName: aggregatorNameMap[aggregator],
-					lead: Math.abs(parseFloat(lead.toFixed(1))),
-					leading: lead > 0 ? "dem" : "rep"
+					lead: (lead ? "+" : "=") + Math.abs(parseFloat(lead.toFixed(1))).toString().replace(".", ","),
+					leading
 				};
 			}));
 		}
@@ -24884,31 +24841,22 @@ var app = (function () {
 			setAggregatorsCurrent(dailyData);
 		});
 
-		$$self.$$.on_mount.push(function () {
-			if (dailyData === undefined && !('dailyData' in $$props || $$self.$$.bound[$$self.$$.props['dailyData']])) {
-				console.warn("<AggregatorStrip> was created without expected prop 'dailyData'");
-			}
-		});
-
-		const writable_props = ['dailyData'];
+		const writable_props = [];
 
 		Object_1.keys($$props).forEach(key => {
 			if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<AggregatorStrip> was created with unknown prop '${key}'`);
 		});
 
-		$$self.$$set = $$props => {
-			if ('dailyData' in $$props) $$invalidate(3, dailyData = $$props.dailyData);
-		};
-
 		$$self.$capture_state = () => ({
 			d3,
 			onMount,
-			aggregators,
+			dynamicDayData,
 			dailyData,
 			aggregatorsCurrent,
 			setAggregatorsCurrent,
 			setSoloAggregator,
-			removeSoloAggregator
+			removeSoloAggregator,
+			$dynamicDayData
 		});
 
 		$$self.$inject_state = $$props => {
@@ -24920,13 +24868,31 @@ var app = (function () {
 			$$self.$inject_state($$props.$$inject);
 		}
 
-		return [aggregatorsCurrent, setSoloAggregator, removeSoloAggregator, dailyData];
+		$$self.$$.update = () => {
+			if ($$self.$$.dirty & /*$dynamicDayData*/ 16) {
+				$$invalidate(3, dailyData = $dynamicDayData);
+			}
+
+			if ($$self.$$.dirty & /*dailyData*/ 8) {
+				{
+					setAggregatorsCurrent(dailyData);
+				}
+			}
+		};
+
+		return [
+			aggregatorsCurrent,
+			setSoloAggregator,
+			removeSoloAggregator,
+			dailyData,
+			$dynamicDayData
+		];
 	}
 
 	class AggregatorStrip extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init$1(this, options, instance$4, create_fragment$4, safe_not_equal, { dailyData: 3 });
+			init$1(this, options, instance$4, create_fragment$4, safe_not_equal, {});
 
 			dispatch_dev("SvelteRegisterComponent", {
 				component: this,
@@ -24934,14 +24900,6 @@ var app = (function () {
 				options,
 				id: create_fragment$4.name
 			});
-		}
-
-		get dailyData() {
-			throw new Error("<AggregatorStrip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-		}
-
-		set dailyData(value) {
-			throw new Error("<AggregatorStrip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 		}
 	}
 
@@ -24952,11 +24910,7 @@ var app = (function () {
 	function create_if_block_1(ctx) {
 		let candidatestanding;
 		let current;
-
-		candidatestanding = new CandidateStanding({
-				props: { demLead: /*data*/ ctx[0].demLead },
-				$$inline: true
-			});
+		candidatestanding = new CandidateStanding({ $$inline: true });
 
 		const block = {
 			c: function create() {
@@ -24965,11 +24919,6 @@ var app = (function () {
 			m: function mount(target, anchor) {
 				mount_component(candidatestanding, target, anchor);
 				current = true;
-			},
-			p: function update(ctx, dirty) {
-				const candidatestanding_changes = {};
-				if (dirty & /*data*/ 1) candidatestanding_changes.demLead = /*data*/ ctx[0].demLead;
-				candidatestanding.$set(candidatestanding_changes);
 			},
 			i: function intro(local) {
 				if (current) return;
@@ -25162,26 +25111,26 @@ var app = (function () {
 				attr_dev(article0, "class", "svelte-11anfwk");
 				add_location(article0, file$2, 32, 8, 752);
 				attr_dev(h11, "class", "svelte-11anfwk");
-				add_location(h11, file$2, 39, 12, 1001);
+				add_location(h11, file$2, 39, 12, 978);
 				attr_dev(a0, "target", "_blank");
 				attr_dev(a0, "href", "https://projects.fivethirtyeight.com/polls/president-general/2024/national/");
-				add_location(a0, file$2, 41, 68, 1125);
+				add_location(a0, file$2, 41, 68, 1102);
 				attr_dev(a1, "target", "_blank");
 				attr_dev(a1, "href", "https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris");
-				add_location(a1, file$2, 46, 16, 1342);
+				add_location(a1, file$2, 46, 16, 1319);
 				attr_dev(a2, "target", "_blank");
 				attr_dev(a2, "href", "https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model");
-				add_location(a2, file$2, 51, 16, 1563);
+				add_location(a2, file$2, 51, 16, 1540);
 				attr_dev(a3, "target", "_blank");
 				attr_dev(a3, "href", "https://www.nytimes.com/interactive/2024/us/elections/polls-president.html");
-				add_location(a3, file$2, 56, 16, 1781);
+				add_location(a3, file$2, 56, 16, 1758);
 				attr_dev(p, "class", "svelte-11anfwk");
-				add_location(p, file$2, 40, 12, 1053);
+				add_location(p, file$2, 40, 12, 1030);
 				attr_dev(section, "id", "poll-graph");
 				attr_dev(section, "class", "svelte-11anfwk");
-				add_location(section, file$2, 38, 8, 963);
+				add_location(section, file$2, 38, 8, 940);
 				attr_dev(article1, "class", "svelte-11anfwk");
-				add_location(article1, file$2, 70, 8, 2506);
+				add_location(article1, file$2, 70, 8, 2483);
 				attr_dev(div1, "id", "mainGrid");
 				attr_dev(div1, "class", "svelte-11anfwk");
 				add_location(div1, file$2, 31, 4, 724);
@@ -25229,8 +25178,6 @@ var app = (function () {
 			p: function update(ctx, [dirty]) {
 				if (/*data*/ ctx[0].demLead !== null) {
 					if (if_block0) {
-						if_block0.p(ctx, dirty);
-
 						if (dirty & /*data*/ 1) {
 							transition_in(if_block0, 1);
 						}

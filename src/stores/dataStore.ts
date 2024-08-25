@@ -1,10 +1,30 @@
 import { writable } from 'svelte/store';
 import { getPollData, prepareData } from '../lib/dataUtils';
-import type { PollData } from '../lib/types';
+import type { DayData, PollData } from '../lib/types';
 
 export const pollData = writable<PollData>({
     dailyData: [],
     demLead: null,
+});
+
+export const dynamicDayData = writable<DayData>({
+    date: '',
+    Trump: {
+        candidate: "Trump",
+        avg: 0,
+        fivethirtyeight: undefined,
+        realclearpolling: undefined,
+        natesilver: undefined,
+        nyt: undefined,
+    },
+    Harris: {
+        candidate: "Harris",
+        avg: 0,
+        fivethirtyeight: undefined,
+        realclearpolling: undefined,
+        natesilver: undefined,
+        nyt: undefined,
+    },
 });
 
 export async function fetchPollData(repo: string) {
@@ -15,7 +35,8 @@ export async function fetchPollData(repo: string) {
         }
         
         const dailyData = prepareData(data);
-        const demLead = calculateDemLead(dailyData);
+        const lastDay = dailyData[dailyData.length - 1];
+        const demLead = calculateDemLead(lastDay);
 
         pollData.set({
             dailyData,
@@ -30,7 +51,6 @@ export async function fetchPollData(repo: string) {
     }
 }
 
-function calculateDemLead(dailyData: any[]): number {    
-    const lastDay = dailyData[dailyData.length - 1];
-    return parseFloat((lastDay.Harris.avg - lastDay.Trump.avg).toFixed(5));
+export function calculateDemLead(day: DayData): number {    
+    return parseFloat((day.Harris.avg - day.Trump.avg).toFixed(5));
 }

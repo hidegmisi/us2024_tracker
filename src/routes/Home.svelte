@@ -33,7 +33,7 @@
         <article id="winner-gauge">
             <h2>Várható győztes</h2>
             {#if data.demLead !== null}
-                <CandidateStanding demLead={data.demLead} />
+                <CandidateStanding />
             {/if}
         </article>
         <section id="poll-graph">
