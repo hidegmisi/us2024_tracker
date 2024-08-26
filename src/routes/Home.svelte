@@ -6,6 +6,7 @@
     import { onMount } from "svelte";
     import AggregatorStrip from "../components/AggregatorStrip.svelte";
     import type { PollData } from "../lib/types";
+    import LineChart from "../components/LineChart.svelte";
 
     export let repo: string;
 
@@ -55,7 +56,40 @@
                 <Chart dailyData={data.dailyData} {aggregators} />
             {/if}
         </section>
-        <article></article>
+        <section id="aggregator-charts" class="wide">
+            <h2>Jelöltek közti különbség egyes aggregátoroknál (%)</h2>
+            <div class="chart-grid">
+                {#if data.dailyData.length !== 0}
+                    {#each aggregators as aggregator}
+                        <article>
+                            <h4>{aggregatorNameMap[aggregator].full}</h4>
+                            <div class="chart-container">
+                                <LineChart
+                                    data={data.dailyData.map((d) => { 
+                                        if (!!d.Harris[aggregator] && !!d.Trump[aggregator]) {
+                                            return {
+                                                date: d.date,
+                                                demLead: d.Harris[aggregator] - d.Trump[aggregator]
+                                            }
+                                        } else {
+                                            return {
+                                                date: d.date,
+                                                demLead: undefined,
+                                            }
+                                        }
+                                    } )}
+                                    xKey="date"
+                                    yKey="demLead"
+                                    yDomain={[-0.06, 0.07]}
+                                    xLabel="Dátum"
+                                    yLabel="Demokrata vezetés"
+                                />
+                            </div>
+                        </article>
+                    {/each}
+                {/if}
+            </div>
+        </section>
     </div>
 </article>
 
@@ -91,6 +125,10 @@
         grid-template-columns: 250px minmax(300px, 1fr);
         grid-template-rows: fit-content 1fr;
         gap: 32px;
+
+        section.wide {
+            grid-column: 1 / 3;
+        }
     }
 
     #winner-gauge {
@@ -103,16 +141,41 @@
 
     #poll-graph {
         grid-column: 2 / 3;
-        grid-row: 1 / 3;
+        grid-row: 1 / 2;
         border-top: 2px solid #888;
         padding: 8px 1rem;
     }
 
-    article {
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 8px 16px;
+    #aggregator-charts {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+        padding: 8px 6px;
+        background-color: #f7f7f7;
+        border-top: 2px solid #ddd;
+
+        h2 {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 1rem 0;
+            
+            article {
+                
+                h4 {
+                    font-size: 0.9rem;
+                    font-weight: 400;
+                    margin-bottom: -18px;
+                    margin-left: 32px;
+                    color: #666;
+                }
+            }
+        }
     }
 
     h1 {
@@ -124,6 +187,11 @@
         font-size: 22px;
         font-weight: 500;
         text-align: center;
+    }
+
+    h4 {
+        font-size: 16px;
+        font-weight: 500;
     }
 
     p {
