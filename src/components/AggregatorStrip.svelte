@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { dynamicDayData } from "../stores/dataStore";
     import type { CandidateData, DayData } from "../lib/types";
+    import { aggregatorNameMap } from "../lib/dataUtils";
 
     let dailyData: DayData | null = null;
     $: dailyData = $dynamicDayData;
@@ -19,13 +20,6 @@
     function setAggregatorsCurrent(day: DayData) {
         const currentTrump = day.Trump;
         const currentHarris = day.Harris;
-        const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: string } = {
-            nyt: "NYT",
-            fivethirtyeight: "538",
-            natesilver: "Silver Bulletin",
-            realclearpolling: "RCP",
-            economist: "Economist",
-        };
         aggregatorsCurrent = (Object.keys(aggregatorNameMap) as Array<keyof typeof aggregatorNameMap>).map(
             (aggregator) => {
                 const trump = currentTrump[aggregator];
@@ -34,7 +28,7 @@
                 if (!trump || !harris) {
                     return {
                         name: aggregator,
-                        displayName: aggregatorNameMap[aggregator],
+                        displayName: aggregatorNameMap[aggregator].abv,
                         lead: "No data",
                         leading: "",
                     };
@@ -51,7 +45,7 @@
 
                 return {
                     name: aggregator,
-                    displayName: aggregatorNameMap[aggregator],
+                    displayName: aggregatorNameMap[aggregator].abv,
                     lead: (lead ? "+" : "=") + Math.abs(parseFloat(lead.toFixed(1))).toString().replace(".", ","),
                     leading,
                 };

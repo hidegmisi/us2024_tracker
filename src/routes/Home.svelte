@@ -1,7 +1,7 @@
 <script lang="ts">
     import CandidateStanding from "../components/CandidateStanding.svelte";
     import Chart from "../components/Chart.svelte";
-    import { aggregators } from "../lib/dataUtils";
+    import { aggregators, aggregatorNameMap } from "../lib/dataUtils";
     import { pollData, fetchPollData } from "../stores/dataStore";
     import { onMount } from "svelte";
     import AggregatorStrip from "../components/AggregatorStrip.svelte";
@@ -21,7 +21,7 @@
     $: data = $pollData;
 </script>
 
-<article>
+<article id="appContainer">
     <header>
         <h1>
             <span>Vox Populi</span>
@@ -59,7 +59,15 @@
     </div>
 </article>
 
-<style>
+<style lang="scss">
+    #appContainer {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 8px 16px;
+        padding-bottom: 40vh;
+    }
+
     header {
         margin-bottom: 32px;
         background-color: #ddd;

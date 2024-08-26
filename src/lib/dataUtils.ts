@@ -1,13 +1,15 @@
 import * as d3 from "d3";
 import type { CandidateData, DayData, RawData } from "./types";
 
-const aggregators = [
-    "fivethirtyeight",
-    "realclearpolling",
-    "natesilver",
-    "nyt",
-    "economist",
-];
+const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: {abv: string, full: string, link: string} } = {
+    fivethirtyeight: {abv: "538", full: "538 (ABC News)", link: "https://projects.fivethirtyeight.com/polls/president-general/2024/national/"},
+    natesilver: {abv: "Nate Silver", full: "Silver Bulletin", link: "https://www.natesilver.net/p/we-removed-rfk-jr-from-our-model"},
+    nyt: {abv: "NYT", full: "New York Times", link: "https://www.nytimes.com/interactive/2024/us/elections/polls-president.html"},
+    realclearpolling: {abv: "RCP", full: "RealClear Politics", link: "https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris"},
+    economist: {abv: "Economist", full: "The Economist", link: "https://www.economist.com/interactive/us-2024-election/trump-harris-polls"},
+};
+
+const aggregators = Object.keys(aggregatorNameMap) as (keyof typeof aggregatorNameMap)[];
 
 async function fetchPollData(repo: string): Promise<RawData[]> {
     const response = await fetch(
@@ -84,4 +86,4 @@ function prepareData(data: RawData[]): DayData[] {
     return dailyCandidateData;
 }
 
-export { getPollData, prepareData, aggregators };
+export { getPollData, prepareData, aggregators, aggregatorNameMap };
