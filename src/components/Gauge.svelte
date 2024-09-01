@@ -51,6 +51,16 @@
 
     let angle = 0;
     $: { angle = percToDeg(value, gaugeRange); }
+
+    function calculateColor(party: 'dem' | 'rep', winProbability: number, maxOpacity = 0.4): string {
+        const color = party === "dem" ? "#0000ff" : "#ff0000";
+        const transformedProbability = Math.pow(winProbability, 3);
+        console.log(winProbability, transformedProbability);
+        
+
+        const opacity = Math.floor(transformedProbability * 255 * maxOpacity);
+        return color + opacity.toString(16);
+    }
 </script>
 
 <svg width="100%" height="150" viewBox="0 0 250 150">
@@ -58,7 +68,7 @@
         <path
             d={pathD}
             fill="none"
-            stroke={segments[i].color}
+            stroke={calculateColor(segments[i].leadingParty, segments[i].probability)}
             stroke-width={strokeWidth}
         />
     {/each}

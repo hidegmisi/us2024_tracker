@@ -1,6 +1,7 @@
 <script lang="ts">
     import Gauge from "./Gauge.svelte";
     import { dynamicDayData, calculateDemLead } from "../stores/dataStore";
+    import type { Segment } from "../lib/types";
     
     let demLead: number = 0;
 
@@ -11,23 +12,41 @@
     let leaderColor = "";
     let currentStanding = "";
 
+    const segments: Segment[] = [
+        { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
+        { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
+        { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
+        { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
+        { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
+        { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
+        { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
+        { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
+        { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
+        { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
+        { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
+    ]
+
     $: setDemLeadAndWinningHTML(demLead);
 
     // Logic to determine the leader based on demLead
     function setDemLeadAndWinningHTML(demLead: number) {
-        if (demLead >= 0.04) {
-            leaderHTML =
-                "várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.";
+        const band = segments.find((segment) => -demLead * 100 >= segment.start && -demLead * 100 < segment.end);
+        if (band) {
+            leaderHTML = `várhatóan <br><span class='compact ${band.leadingParty}'>${band.leadingParty === "dem" ? "Kamala Harris" : "Donald Trump"}</span><br> nyeri az elnökválasztást.`;
+            leaderText = band.leadingParty === "dem" ? "Harris" : "Trump";
+            leaderColor = band.leadingParty === "dem" ? "#0000ff" : "#ff0000";
+        } else if (demLead >= 0.07) {
+            leaderHTML = `várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.`;
             leaderText = "Harris";
             leaderColor = "#0000ff";
-        } else if (demLead <= -0.005) {
-            leaderHTML =
-                "várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.";
+        } else if (demLead <= -7) {
+            leaderHTML = `várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.`;
             leaderText = "Trump";
             leaderColor = "#ff0000";
-        } else {
-            leaderHTML =
-                "valószínűleg <br><span class='compact tossup'>fej fej mellett</span><br> vannak a jelöltek.";
+        }
+
+        if (band?.probability < 0.4) {
+            leaderHTML = `valószínűleg <br><span class='compact tossup'>fej fej mellett</span><br> vannak a jelöltek.`;
             leaderText = "Bizonytalan";
             leaderColor = "#333";
         }
@@ -53,18 +72,24 @@
         <div id="gaugeContainer">
             <Gauge
                 value={-demLead * 100}
-                minValue={-12}
-                maxValue={12}
+                minValue={-7}
+                maxValue={7}
                 segments={[
-                    { start: -12, end: -9, color: "#0000ff69", label: "Likely Dem" },
-                    { start: -9, end: -4, color: "#0000ff32", label: "Leaning Dem" },
-                    { start: -4, end: 0, color: "#f7f7f7", label: "Tossup" },
-                    { start: 0, end: 5, color: "#ff000035", label: "Leaning Rep" },
-                    { start: 5, end: 12, color: "#ff000073", label: "Likely Rep" },
+                    { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
+                    { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
+                    { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
+                    { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
+                    { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
+                    { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
+                    { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
+                    { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
+                    { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
+                    { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
+                    { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
                 ]}
                 strokeWidth={70}
                 tickInterval={1}
-                majorTicks={[-9, -4, 0, 5]}
+                majorTicks={[-4, -2, 0, 2, 4]}
             />
         </div>
         <div class="chartInfos">
@@ -78,9 +103,10 @@
             </div>
             <img src="images/trump.png" alt="Trump" class="rep" />
         </div>
-        <p>
-            A demokratáknak körülbelül 2%-kal kell vezetniük ahhoz, hogy az elektorok számában fej-fej mellett legyenek a republikánusokkal.<br>
-        </p>
+        <p>A demokraták akkor esélyesek több elektori szavazotot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
+        <p class="source">Forrás: <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">Nate Silver</a></p>
+        <p><a href="https://24.hu/kulfold/2020/07/27/amerikai-elnokvalasztas-elektori-rendszer-magyarazo-kisokos/">A választási rendszerről
+        </a></p>
     </div>
 </section>
 
@@ -156,6 +182,11 @@
             border-top: 1px solid #eee;
             padding-top: 6px;
             margin-top: 12px;
+
+            &.source {
+                border-top: none;
+                padding-top: 0;
+            }
 
             span {
                 display: inline-block;

@@ -15,13 +15,19 @@ let screenSizes = {
 };
 
 let paddingSizes = {
-    mobile: 100,
-    small: 120,
-    large: 120,
+    mobile: 70,
+    small: 100,
+    large: 100,
 };
 
+let paddingLeftSizes = {
+    mobile: 20,
+    small: 0,
+    large: 0,
+}
+
 let candidateLabelSizes = {
-    mobile: 1.0,
+    mobile: 0.65,
     small: 1.0,
     large: 1.1,
 }
@@ -42,6 +48,12 @@ let gridLabelSizes = {
     mobile: 0.65,
     small: 0.8,
     large: 0.9,
+}
+
+let verticalLineLabelSizes = {
+    mobile: 0.65,
+    small: 0.7,
+    large: 0.75,
 }
 
 function setDynamicDemLead(dailyData: DayData[], date: Date) {
@@ -91,7 +103,7 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
         {
             date: '2024-08-23',
             id: 'kennedy-out',
-            label: 'Kennedy<br>kiszáll',
+            label: 'Kennedy kiszáll,<br>részben új adatsorok',
             opacity: 0.3,
             labelColor: '#888',
             width: 1.5,
@@ -106,6 +118,7 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
 
 function setupChart(dailyData: DayData[], screenSizeCateg: keyof typeof screenSizes) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
+    const paddingLeftSize = paddingLeftSizes[screenSizeCateg];
 
     const margin = { top: 20, right: 0, bottom: 30, left: 0 };
     const svg = d3.select(".polls");
@@ -123,7 +136,7 @@ function setupChart(dailyData: DayData[], screenSizeCateg: keyof typeof screenSi
     const x = d3
         .scaleTime()
         .domain([paddedStartDate, dateExtent[1]])
-        .range([0, width - paddingRightSize]);
+        .range([0 + paddingLeftSize, width - paddingRightSize]);
 
     const y = d3.scaleLinear().domain([0.35, 0.56]).range([height, 0]);
 
@@ -225,7 +238,7 @@ function drawVerticalLines(
             .attr("stroke-width", 9)
             .attr("paint-order", "stroke")
             /* .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`) */
-            .attr("font-size", `0.75rem`)
+            .attr("font-size", `${verticalLineLabelSizes[screenSizeCateg]}rem`)
 
         const labelLines = line.label.split('<br>');
         labelLines.forEach((label, i) => {
@@ -474,7 +487,7 @@ function setupInteractivity(
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
-    d3.selectAll(".vertical-line-label").raise();
+    /* d3.selectAll(".vertical-line-label").raise(); */
 }
 
 function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {

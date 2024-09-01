@@ -2,7 +2,8 @@ export interface Segment {
     start: number;
     end: number;
     color: string;
-    label?: string;
+    leadingParty: 'dem' | 'rep';
+    probability: number;
 }
 
 export interface GaugeProps {
