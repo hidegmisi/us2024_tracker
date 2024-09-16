@@ -24582,6 +24582,25 @@ var app = (function () {
 	        handleMouseMove(event, chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
 	    })
 	        .on("mouseout", () => {
+	        resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+	    })
+	        .on("touchmove", function (event) {
+	        event.preventDefault();
+	        if (event.touches[0].clientX < 0 || event.touches[0].clientX > width) {
+	            return;
+	        }
+	        const touch = event.touches[0];
+	        handleMouseMove(touch, chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+	    })
+	        .on("touchstart", function (event) {
+	        event.preventDefault(); // Disable default tap behavior
+	    })
+	        .on("touchend", () => {
+	        resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+	    });
+	    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+	    /* d3.selectAll(".vertical-line-label").raise(); */
+	    function resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts) {
 	        verticalLine
 	            .attr("x1", width - paddingRightSize)
 	            .attr("x2", width - paddingRightSize);
@@ -24601,9 +24620,7 @@ var app = (function () {
 	            .attr("x2", -paddingSizes[screenSizeCateg]);
 	        Object.values(focusTexts).forEach((text) => text.raise());
 	        setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
-	    });
-	    setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
-	    /* d3.selectAll(".vertical-line-label").raise(); */
+	    }
 	}
 	function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
 	    const focusTexts = {};

@@ -473,37 +473,69 @@ function setupInteractivity(
             );
         })
         .on("mouseout", () => {
-            verticalLine
-                .attr("x1", width - paddingRightSize)
-                .attr("x2", width - paddingRightSize);
+            resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+        })
+        .on("touchmove", function (event) {
+            event.preventDefault();
 
-            dateLabel
-                .text(
-                    new Date().toLocaleDateString("hu-HU", {
-                        month: "short",
-                        day: "numeric",
-                    }),
-                )
-                .attr("x", width - paddingRightSize);
-
-            updateLabels(focusTexts, dailyData, x, y);
-            d3.select("#overlay-clip rect")
-                .attr("width", width - paddingRightSize);
-
-            chartGroup.selectAll(".y-grid-left line")
-                .attr("x2", (width - paddingRightSize));
-            chartGroup.selectAll(".y-grid-right line")
-                .attr("x1", 0)
-                .attr("x2", -paddingSizes[screenSizeCateg]);
+            if (event.touches[0].clientX < 0 || event.touches[0].clientX > width) {
+                return;
+            }
             
-            Object.values(focusTexts).forEach((text) => text.raise());
-
-            setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+            const touch = event.touches[0];
+            handleMouseMove(
+                touch,
+                chartGroup,
+                dailyData,
+                x,
+                y,
+                width,
+                height,
+                verticalLine,
+                dateLabel,
+                focusTexts,
+            );
+        })
+        .on("touchstart", function (event) {
+            event.preventDefault(); // Disable default tap behavior
+        })
+        .on("touchend", () => {
+            resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
     /* d3.selectAll(".vertical-line-label").raise(); */
+
+    function resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts) {
+        verticalLine
+            .attr("x1", width - paddingRightSize)
+            .attr("x2", width - paddingRightSize);
+    
+        dateLabel
+            .text(
+                new Date().toLocaleDateString("hu-HU", {
+                    month: "short",
+                    day: "numeric",
+                }),
+            )
+            .attr("x", width - paddingRightSize);
+    
+        updateLabels(focusTexts, dailyData, x, y);
+        d3.select("#overlay-clip rect")
+            .attr("width", width - paddingRightSize);
+    
+        chartGroup.selectAll(".y-grid-left line")
+            .attr("x2", (width - paddingRightSize));
+        chartGroup.selectAll(".y-grid-right line")
+            .attr("x1", 0)
+            .attr("x2", -paddingSizes[screenSizeCateg]);
+    
+        Object.values(focusTexts).forEach((text) => text.raise());
+    
+        setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+    }
 }
+
 
 function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
     const focusTexts = {};
