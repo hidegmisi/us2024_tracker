@@ -1,6 +1,14 @@
 import * as d3 from "d3";
 import type { CandidateData, DayData, RawData } from "./types";
 
+const aggregatorImportNameMap = {
+    '538': 'fivethirtyeight',
+    'NS': 'natesilver',
+    'NYT': 'nyt',
+    'RCP': 'realclearpolling',
+    'Economist': 'economist',
+}
+
 const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date' | 'avg'>]: {abv: string, full: string, link: string} } = {
     fivethirtyeight: {abv: "538", full: "538 (ABC News)", link: "https://projects.fivethirtyeight.com/polls/president-general/2024/national/"},
     natesilver: {abv: "Nate Silver", full: "Silver Bulletin", link: "https://www.natesilver.net/p/we-removed-rfk-jr-from-our-model"},
@@ -13,7 +21,7 @@ const aggregators = Object.keys(aggregatorNameMap) as (keyof typeof aggregatorNa
 
 async function fetchPollData(repo: string): Promise<RawData[]> {
     const response = await fetch(
-        `https://api.github.com/repos/${repo}/contents/polls.csv`,
+        `https://api.github.com/repos/${repo}/contents/daily_aggregates.csv`,
     );
     const json = await response.json();
     const csvData = atob(json.content);
@@ -50,15 +58,34 @@ async function getPollData(repo: string): Promise<RawData[] | false> {
 function prepareData(data: RawData[]): DayData[] {
     const candidates = ["Trump", "Harris"];
 
-    data.forEach((d) => {
-        aggregators.forEach((p) => {
-            d[p] = d[p] || null;
+    const dates = Array.from(new Set(data.map((d) => d.date))).slice(3);
+    dates.sort();
+
+    const dailyData = dates.map((date) => {
+        const dateData = data.filter((d) => d.date === date);
+        const candidateData = candidates.map((candidate) => {
+            const candidateDateData = dateData.filter(
+                (d) => d.candidate === candidate,
+            );
+            
+            const aggregatorData = Object.fromEntries(
+                candidateDateData.map((d) => [(d.aggregator == 'Average') ? 'avg' : aggregatorImportNameMap[d.aggregator], d.value]),
+            );
+
+            return {
+                candidate,
+                ...aggregatorData,
+            } as CandidateData;
         });
+        return {
+            ...Object.fromEntries(candidateData.map((d) => [d.candidate, d])),
+            date,
+        } as DayData;
     });
 
-    const dates = Array.from(new Set(data.map((d) => d.date)));
+    return dailyData;
 
-    const dailyCandidateData = dates.map((date) => {
+   /*  const dailyCandidateData = dates.map((date) => {
         const dateData = data.filter((d) => d.date === date);
         const candidateData = candidates.map((candidate) => {
             const candidatePolls = dateData.filter(
@@ -81,9 +108,7 @@ function prepareData(data: RawData[]): DayData[] {
             ...Object.fromEntries( candidateData.map((d) => [d.candidate, d]) ),
             date,
         } as DayData;
-    });
-    
-    return dailyCandidateData;
+    }); */
 }
 
 export { getPollData, prepareData, aggregators, aggregatorNameMap };

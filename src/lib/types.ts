@@ -23,15 +23,15 @@ export interface PollData {
     dailyData: DayData[];
     demLead: number | null;
 }
+
+export type Aggregator = '538' | 'Economist' | 'NS' | 'NYT' | 'RCP' | 'Average';
+
 export interface RawData {
-    candidate: string
-    created_time: string | null
-    date: string
-    fivethirtyeight: string | null
-    natesilver: string | null
-    nyt: string | null
-    realclearpolling: string | null
-    economist: string | null
+    date: string;
+    aggregator: Aggregator;
+    candidate: string;
+    value: number;
+    added_time: string | null;
 }
 
 export interface DayData {
@@ -42,10 +42,5 @@ export interface DayData {
 
 export interface CandidateData {
     candidate: string;
-    fivethirtyeight: number | undefined;
-    realclearpolling:  number | undefined;
-    natesilver: number | undefined;
-    nyt:  number | undefined;
-    economist: number | undefined;
-    avg: number;
+    [aggregator: Aggregator]: number;
 }
