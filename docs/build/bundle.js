@@ -25210,13 +25210,12 @@ var app = (function () {
     <a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>,
     <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>,
     <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>,
-    <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>) adatait összegezzük. Ezek mindannyian az összes releváns kutatások adatait foglalják össze különböző módokon (ld. <a href='#sources'>Források</a>). Az öt oldal egy-egy napra vonatkozó legfrissebb becslését pontok jelzik. A napi információkat a kurzor mozgatásával tanulmányozhatja részletesebben. Az ezekre illesztett trendvonal az öt becslés általunk számított egyszerű napi átlaga.
+    <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>) adatait összegezzük. Ezek mindannyian az összes releváns kutatások adatait foglalják össze különböző módokon (ld. alább a Források címszó alatt). Az öt oldal egy-egy napra vonatkozó legfrissebb becslését pontok jelzik. A napi információkat a kurzor mozgatásával tanulmányozhatja részletesebben. Az ezekre illesztett trendvonal az öt becslés általunk számított egyszerű napi átlaga.
 </p>
 <p>
     Az USA elnökválasztásán nem az a jelölt győz, aki a legtöbb szavazatot
-    kapja, <a href='https://24.hu/kulfold/2020/07/27/amerikai-elnokvalasztas-elektori-rendszer-magyarazo-kisokos/'>
-    hanem aki megszerzi a szavazók által az egyes államokban
-    megválasztott elektorok többségének támogatását</a>. Ábránk Nate Silver
+    kapja, hanem aki megszerzi a szavazók által az egyes államokban
+    megválasztott elektorok többségének támogatását. Ábránk Nate Silver
     becsléseire támaszkodó saját számításunkat mutatja be arról, hogy a
     pillanatnyilag várható országos szavazatarányok alapján mekkora a
     valószínűsége az éppen legesélyesebb jelölt megválasztásának. Silver
@@ -25242,7 +25241,7 @@ var app = (function () {
     nem tévesztendő össze azokkal a rendkívül különböző igényességű és
     megalapozottságú esélybecslésekkel, amelyeket számos amerikai oldal közöl
     arról, hogy jelenleg mi a legjobb becslésük arról, hogy november 5-én ki
-    lehet a győztes. A „<a href='#sources'>Források</a>” rovat végén indokoljuk meg, hogy miért
+    lehet a győztes. A „Források” rovat végén indokoljuk meg, hogy miért
     mellőzzük ezek ismertetését.
 </p>
 <h3 id="sources">Források</h3>
