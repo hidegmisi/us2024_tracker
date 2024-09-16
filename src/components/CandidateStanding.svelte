@@ -237,10 +237,6 @@
     }
 
     @media (min-width: 450px) {
-        /* #candidateStanding {
-            background-color: #f7f7f7;
-            border-top: 2px solid #ddd;
-        } */
         .info {
             max-width: 595px;
             grid-template-columns: 220px 1fr;

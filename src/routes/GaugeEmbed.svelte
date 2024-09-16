@@ -46,11 +46,15 @@ article {
     border-right: 1px solid red;
     border-bottom: 1px solid red;
 
+    :global(#candidateStanding main) {
+        background-color: #eee;
+    }
+
     .chartContainer {
         width: 100%;
         margin: 1rem;
     }
-    
+
     .hidden {
         display: none;
     }

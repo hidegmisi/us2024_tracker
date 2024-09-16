@@ -23742,54 +23742,54 @@ var app = (function () {
 				a = element("a");
 				a.textContent = "esélyesebb";
 				t21 = text$1(" Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.");
-				attr_dev(br, "class", "svelte-1v9fvgb");
+				attr_dev(br, "class", "svelte-2y6tpl");
 				add_location(br, file$6, 48, 60, 1952);
-				attr_dev(strong, "class", "svelte-1v9fvgb");
+				attr_dev(strong, "class", "svelte-2y6tpl");
 				add_location(strong, file$6, 48, 29, 1921);
 
 				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1v9fvgb");
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-2y6tpl");
 
 				add_location(span, file$6, 48, 140, 2032);
-				attr_dev(p0, "class", "label svelte-1v9fvgb");
+				attr_dev(p0, "class", "label svelte-2y6tpl");
 				add_location(p0, file$6, 48, 12, 1904);
 				attr_dev(div0, "id", "gaugeContainer");
-				attr_dev(div0, "class", "svelte-1v9fvgb");
+				attr_dev(div0, "class", "svelte-2y6tpl");
 				add_location(div0, file$6, 49, 12, 2184);
 				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
 				attr_dev(img0, "alt", "Harris");
-				attr_dev(img0, "class", "dem svelte-1v9fvgb");
+				attr_dev(img0, "class", "dem svelte-2y6tpl");
 				add_location(img0, file$6, 61, 16, 2599);
 				attr_dev(h20, "id", "leaderText");
-				attr_dev(h20, "class", "svelte-1v9fvgb");
+				attr_dev(h20, "class", "svelte-2y6tpl");
 				add_location(h20, file$6, 63, 20, 2720);
-				attr_dev(div1, "class", "standing svelte-1v9fvgb");
+				attr_dev(div1, "class", "standing svelte-2y6tpl");
 				add_location(div1, file$6, 64, 20, 2776);
-				attr_dev(div2, "class", "textContainer svelte-1v9fvgb");
+				attr_dev(div2, "class", "textContainer svelte-2y6tpl");
 				add_location(div2, file$6, 62, 16, 2672);
 				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
 				attr_dev(img1, "alt", "Trump");
-				attr_dev(img1, "class", "rep svelte-1v9fvgb");
+				attr_dev(img1, "class", "rep svelte-2y6tpl");
 				add_location(img1, file$6, 68, 16, 2902);
-				attr_dev(div3, "class", "chartInfos svelte-1v9fvgb");
+				attr_dev(div3, "class", "chartInfos svelte-2y6tpl");
 				add_location(div3, file$6, 60, 12, 2558);
-				attr_dev(main, "class", "svelte-1v9fvgb");
+				attr_dev(main, "class", "svelte-2y6tpl");
 				add_location(main, file$6, 47, 8, 1885);
-				attr_dev(h21, "class", "svelte-1v9fvgb");
+				attr_dev(h21, "class", "svelte-2y6tpl");
 				add_location(h21, file$6, 72, 12, 3040);
-				attr_dev(p1, "class", "svelte-1v9fvgb");
+				attr_dev(p1, "class", "svelte-2y6tpl");
 				add_location(p1, file$6, 73, 12, 3077);
-				attr_dev(div4, "class", "textContainer svelte-1v9fvgb");
+				attr_dev(div4, "class", "textContainer svelte-2y6tpl");
 				add_location(div4, file$6, 71, 8, 3000);
 				attr_dev(a, "href", "https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true");
 				add_location(a, file$6, 77, 24, 3311);
-				attr_dev(p2, "class", "svelte-1v9fvgb");
+				attr_dev(p2, "class", "svelte-2y6tpl");
 				add_location(p2, file$6, 77, 8, 3295);
-				attr_dev(div5, "class", "info svelte-1v9fvgb");
+				attr_dev(div5, "class", "info svelte-2y6tpl");
 				add_location(div5, file$6, 46, 4, 1858);
 				attr_dev(section, "id", "candidateStanding");
-				attr_dev(section, "class", "svelte-1v9fvgb");
+				attr_dev(section, "class", "svelte-2y6tpl");
 				add_location(section, file$6, 45, 0, 1821);
 			},
 			l: function claim(nodes) {
@@ -23845,7 +23845,7 @@ var app = (function () {
 
 				if (!current || dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1v9fvgb")) {
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-2y6tpl")) {
 					attr_dev(span, "class", span_class_value);
 				}
 
@@ -25995,7 +25995,7 @@ var app = (function () {
 			c: function create() {
 				div = element("div");
 				create_component(candidatestanding.$$.fragment);
-				attr_dev(div, "class", "chartContainer svelte-1jmfaut");
+				attr_dev(div, "class", "chartContainer svelte-17hbhcx");
 				add_location(div, file, 25, 4, 559);
 			},
 			m: function mount(target, anchor) {
@@ -26119,9 +26119,9 @@ var app = (function () {
 				t = space();
 				div = element("div");
 				if (if_block1) if_block1.c();
-				attr_dev(div, "class", "hidden svelte-1jmfaut");
+				attr_dev(div, "class", "hidden svelte-17hbhcx");
 				add_location(div, file, 29, 4, 643);
-				attr_dev(article, "class", "svelte-1jmfaut");
+				attr_dev(article, "class", "svelte-17hbhcx");
 				add_location(article, file, 23, 0, 513);
 			},
 			l: function claim(nodes) {
