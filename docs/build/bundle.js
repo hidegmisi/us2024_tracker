@@ -23652,7 +23652,7 @@ var app = (function () {
 				span = element("span");
 				t1 = text$1(t1_value);
 				t2 = text$1("%");
-				t3 = text$1("-os ");
+				t3 = text$1("-os országos ");
 				t4 = text$1(t4_value);
 				t5 = text$1(" vezetésnél");
 				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0 ? 'dem' : 'rep') + " svelte-1dwsfea");
@@ -23907,11 +23907,11 @@ var app = (function () {
 				t14 = text$1("A demokraták akkor ");
 				a = element("a");
 				a.textContent = "esélyesek";
-				t16 = text$1(" több elektori szavazotot kapni, ha több, mint 2%-kal nyernek az országos választáson.");
+				t16 = text$1(" több elektori szavazatot kapni, ha több, mint 2%-kal nyernek az országos választáson.");
 				attr_dev(h20, "class", "svelte-1dwsfea");
 				add_location(h20, file$5, 61, 8, 2840);
 				attr_dev(span0, "class", "container svelte-1dwsfea");
-				add_location(span0, file$5, 70, 12, 3266);
+				add_location(span0, file$5, 70, 12, 3275);
 				attr_dev(p0, "id", "expected-result");
 				attr_dev(p0, "class", "has-data svelte-1dwsfea");
 				add_location(p0, file$5, 62, 8, 2873);
@@ -23919,37 +23919,37 @@ var app = (function () {
 				add_location(div0, file$5, 60, 4, 2804);
 				attr_dev(div1, "id", "gaugeContainer");
 				attr_dev(div1, "class", "svelte-1dwsfea");
-				add_location(div1, file$5, 74, 8, 3371);
+				add_location(div1, file$5, 74, 8, 3380);
 				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
 				attr_dev(img0, "alt", "Harris");
 				attr_dev(img0, "class", "dem svelte-1dwsfea");
-				add_location(img0, file$5, 98, 12, 4890);
+				add_location(img0, file$5, 98, 12, 4899);
 				attr_dev(h21, "id", "leaderText");
 				set_style(h21, "color", /*leaderColor*/ ctx[3]);
 				attr_dev(h21, "class", "svelte-1dwsfea");
-				add_location(h21, file$5, 100, 16, 5003);
+				add_location(h21, file$5, 100, 16, 5012);
 
 				attr_dev(span1, "class", span1_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
 				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1dwsfea");
 
-				add_location(span1, file$5, 103, 20, 5205);
+				add_location(span1, file$5, 103, 20, 5214);
 				attr_dev(div2, "class", "standing svelte-1dwsfea");
-				add_location(div2, file$5, 101, 16, 5086);
+				add_location(div2, file$5, 101, 16, 5095);
 				attr_dev(div3, "class", "textContainer svelte-1dwsfea");
-				add_location(div3, file$5, 99, 12, 4959);
+				add_location(div3, file$5, 99, 12, 4968);
 				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
 				attr_dev(img1, "alt", "Trump");
 				attr_dev(img1, "class", "rep svelte-1dwsfea");
-				add_location(img1, file$5, 106, 12, 5395);
+				add_location(img1, file$5, 106, 12, 5404);
 				attr_dev(div4, "class", "chartInfos svelte-1dwsfea");
-				add_location(div4, file$5, 97, 8, 4853);
+				add_location(div4, file$5, 97, 8, 4862);
 				attr_dev(a, "href", "https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true");
-				add_location(a, file$5, 108, 30, 5495);
+				add_location(a, file$5, 108, 30, 5504);
 				attr_dev(p1, "class", "svelte-1dwsfea");
-				add_location(p1, file$5, 108, 8, 5473);
+				add_location(p1, file$5, 108, 8, 5482);
 				attr_dev(div5, "class", "info svelte-1dwsfea");
-				add_location(div5, file$5, 73, 4, 3344);
+				add_location(div5, file$5, 73, 4, 3353);
 				attr_dev(section, "id", "candidateStanding");
 				attr_dev(section, "class", "svelte-1dwsfea");
 				add_location(section, file$5, 59, 0, 2767);

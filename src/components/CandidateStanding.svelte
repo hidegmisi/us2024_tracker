@@ -66,7 +66,7 @@
             {:else}
                 Nagyjából <span class="compact {demLead > 0 ? 'dem' : 'rep'}"
                     >{Math.abs(demLead * 100).toFixed(0)}%</span
-                >-os {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
+                >-os országos {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
             {/if}
             <span class="container">{@html leaderHTML}</span>
         </p>
@@ -106,7 +106,7 @@
             </div>
             <img src="images/trump.png" alt="Trump" class="rep" />
         </div>
-        <p>A demokraták akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesek</a> több elektori szavazotot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
+        <p>A demokraták akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesek</a> több elektori szavazatot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
     </div>
 </section>
 
