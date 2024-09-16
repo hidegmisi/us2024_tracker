@@ -105,6 +105,7 @@
 <style lang="scss">
     .aggregator-bubbles {
         display: flex;
+        flex-wrap: wrap;
         gap: 8px;
         margin: 1rem 0;
     }

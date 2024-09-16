@@ -335,7 +335,7 @@ function drawGridlines(
         .call(
             d3
                 .axisBottom(x)
-                .ticks(d3.timeWeek.every(1))
+                .ticks(d3.timeMonth.every(1))
                 .tickSizeInner(-6)
                 .tickPadding(10)
                 .tickFormat((d) =>

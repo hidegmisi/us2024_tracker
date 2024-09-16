@@ -6,6 +6,7 @@
     import { onMount } from "svelte";
     import AggregatorStrip from "../components/AggregatorStrip.svelte";
     import type { PollData } from "../lib/types";
+    import { body } from "$lib/content/mainBody"
 
     export let repo: string;
 
@@ -31,7 +32,6 @@
     </header>
     <div id="mainGrid">
         <article id="winner-gauge">
-            <h2>Várható győztes</h2>
             {#if data.demLead !== null}
                 <CandidateStanding />
             {/if}
@@ -39,16 +39,8 @@
         <section id="poll-graph">
             <h1>Harris és Trump támogatottsága</h1>
             <p>
+                Ábránk percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag hány százalék esély mutatkozik arra, hogy egyik vagy másik jelölt többséget szerezzen az elnök személyéről végső soron döntő <a href="https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma">elektori testületben</a>. Minden tudnivaló az ábrák alatt. 
                 Az alábbi grafikon a legfontosabb amerikai poll aggregátorokat
-                (<a target="_blank" href="https://projects.fivethirtyeight.com/polls/president-general/2024/national/">FiveThirtyEight</a>,
-                <a target="_blank" href="https://www.realclearpolling.com/polls/president/general/2024/trump-vs-harris">RealClear Polling</a>,
-                <a target="_blank" href="https://www.natesilver.net/p/nate-silver-2024-president-election-polls-model">Silver Bulletin</a>,
-                <a target="_blank" href="https://www.nytimes.com/interactive/2024/us/elections/polls-president.html">New York Times</a>,
-                <a target="_blank" href="https://www.economist.com/interactive/us-2024-election/trump-harris-polls/">Economist</a>)
-                átlagolja. Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Sit autem molestiae a sapiente quas! Esse deserunt
-                inventore quidem ipsam labore ducimus debitis, corrupti
-                blanditiis, quisquam, ipsum in consequuntur expedita reiciendis.
             </p>
             {#if data.dailyData.length !== 0}
                 <AggregatorStrip dailyData={data.dailyData} />
@@ -56,6 +48,9 @@
             {/if}
         </section>
         <article></article>
+        <article class="bodyContainer">
+            {@html body}
+        </article>
     </div>
 </article>
 
@@ -90,7 +85,7 @@
         display: grid;
         grid-template-columns: 250px minmax(300px, 1fr);
         grid-template-rows: fit-content 1fr;
-        gap: 32px;
+        gap: 0 32px;
     }
 
     #winner-gauge {
@@ -103,9 +98,21 @@
 
     #poll-graph {
         grid-column: 2 / 3;
-        grid-row: 1 / 3;
+        grid-row: 1 / 2;
         border-top: 2px solid #888;
         padding: 8px 1rem;
+    }
+
+    .bodyContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        max-width: 700px;
+        line-height: 1.4;
+    }
+
+    :global(.bodyContainer p) {
+        /* font-size: 18px; */
     }
 
     article {
@@ -129,5 +136,33 @@
     p {
         font-size: 16px;
         margin-top: 12px;
+    }
+
+    @media (max-width: 700px) {
+        header {
+            padding: 8px;
+
+            h1 {
+                font-size: 1rem;
+            }
+        }
+        #mainGrid {
+            grid-template-columns: 1fr;
+            grid-template-rows: fit-content 1fr;
+        }
+
+        #poll-graph {
+            grid-column: unset;
+            grid-row: 1 / 2;
+        }
+
+        #winner-gauge {
+            grid-column: unset;
+            grid-row: 2 / 3;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
     }
 </style>

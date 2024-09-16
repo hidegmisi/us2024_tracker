@@ -57,17 +57,20 @@
     setDemLeadAndWinningHTML(demLead);
 </script>
 
-<section>
-    <p id="expected-result" class="has-data">
-        {#if demLead == 0}
-            Fej-fej mellett van a két jelölt,
-        {:else}
-            Nagyjából <span class="compact {demLead > 0 ? 'dem' : 'rep'}"
-                >{Math.abs(demLead * 100).toFixed(0)}%</span
-            >-os {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
-        {/if}
-        <span class="container">{@html leaderHTML}</span>
-    </p>
+<section id="candidateStanding">
+    <div class="textContainer">
+        <h2>Várható győztes</h2>
+        <p id="expected-result" class="has-data">
+            {#if demLead == 0}
+                Fej-fej mellett van a két jelölt,
+            {:else}
+                Nagyjából <span class="compact {demLead > 0 ? 'dem' : 'rep'}"
+                    >{Math.abs(demLead * 100).toFixed(0)}%</span
+                >-os {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
+            {/if}
+            <span class="container">{@html leaderHTML}</span>
+        </p>
+    </div>
     <div class="info">
         <div id="gaugeContainer">
             <Gauge
@@ -103,14 +106,30 @@
             </div>
             <img src="images/trump.png" alt="Trump" class="rep" />
         </div>
-        <p>A demokraták akkor esélyesek több elektori szavazotot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
-        <p class="source">Forrás: <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">Nate Silver</a></p>
-        <p><a href="https://24.hu/kulfold/2020/07/27/amerikai-elnokvalasztas-elektori-rendszer-magyarazo-kisokos/">A választási rendszerről
-        </a></p>
+        <p>A demokraták akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesek</a> több elektori szavazotot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
     </div>
 </section>
 
 <style lang="scss">
+    #candidateStanding {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .textContainer {
+        padding: 1rem;
+
+        h2 {
+            font-size: 22px;
+            font-weight: 500;
+            text-align: center;
+        }
+    }
+
+
     #gaugeContainer {
         margin-top: -12px;
         width: 100%;
@@ -173,7 +192,6 @@
 
 
     .info {
-        margin: 2rem 0;
         padding: 8px 6px;
         background-color: #f7f7f7;
         border-top: 2px solid #ddd;
@@ -206,5 +224,26 @@
     span.rep.compact,
     :global(span.tossup.compact) {
         padding: 0 3px;
+    }
+
+    @media (min-width: 550px) {
+        #candidateStanding {
+            grid-template-columns: 1fr 1fr;
+            max-width: unset;
+        }
+    }
+
+    @media (min-width: 700px) {
+        #candidateStanding {
+            grid-template-columns: 1fr;
+        }
+
+        .textContainer {
+            padding: 0;
+        }
+        
+        .info {
+            margin: 1rem 0;
+        }
     }
 </style>
