@@ -57,8 +57,6 @@ let verticalLineLabelSizes = {
 }
 
 function setDynamicDemLead(dailyData: DayData[], date: Date) {
-    console.log(date);
-    
     const day = dailyData.find((d) => new Date(d.date).toDateString() === new Date(date).toDateString());
     if (day) {
         dynamicDayData.set(day);
@@ -101,9 +99,27 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
             type: 'dotted',
         },
         {
+            date: '2024-08-05',
+            id: 'harris-nomination',
+            label: 'Harris<br>jelölése',
+            opacity: 0.3,
+            labelColor: '#888',
+            width: 1.5,
+            type: 'dotted',
+        },
+        /* {
             date: '2024-08-23',
             id: 'kennedy-out',
-            label: 'Kennedy kiszáll,<br>részben új adatsorok',
+            label: 'Kennedy<br>visszalép',
+            opacity: 0.3,
+            labelColor: '#888',
+            width: 1.5,
+            type: 'dotted',
+        }, */
+        {
+            date: '2024-09-10',
+            id: 'debate-1',
+            label: 'Elnökjelölti<br>vita',
             opacity: 0.3,
             labelColor: '#888',
             width: 1.5,
@@ -240,14 +256,13 @@ function drawVerticalLines(
             /* .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`) */
             .attr("font-size", `${verticalLineLabelSizes[screenSizeCateg]}rem`)
 
-        const labelLines = line.label.split('<br>');
+        const labelLines = line.label.split('<br>').reverse();
         labelLines.forEach((label, i) => {
             chartGroup
                 .select(".vertical-line-label#"+line.id+"-label")
                 .append("tspan")
                 .attr("x", lineX)
-                /* .attr("dy", `${i == 0 ? -(labelLines.length - 1) * 1 : 1}rem`) */
-                .attr("dy", `${i == 0 ? 0 : 0.9}rem`)
+                .attr("dy", `${i == 0 ? 0.9 * (labelLines.length - 1) : -0.9}rem`)
                 .text(label);
         });
     });
@@ -280,7 +295,7 @@ function drawDots(
                     .attr("cy", y(d[candidate][aggregator]))
                     .attr("r", dotSizes[screenSizeCateg])
                     .attr("fill", colors[candidate])
-                    .attr("opacity", 0.2)
+                    .attr("opacity", 0.12)
                     .attr("stroke", "white")
                     .attr("stroke-width", 0)
                     .attr("paint-order", "stroke");
@@ -295,7 +310,7 @@ function drawDots(
                     .attr("cy", y(d[candidate][aggregator]))
                     .attr("r", dotSizes[screenSizeCateg])
                     .attr("fill", colors[candidate])
-                    .attr("opacity", 0.1)
+                    .attr("opacity", 0.03)
                     .attr("stroke", "white")
                     .attr("stroke-width", 0)
                     .attr("paint-order", "stroke");

@@ -55,8 +55,6 @@
     function calculateColor(party: 'dem' | 'rep', winProbability: number, maxOpacity = 0.4): string {
         const color = party === "dem" ? "#0000ff" : "#ff0000";
         const transformedProbability = Math.pow(winProbability, 3);
-        console.log(winProbability, transformedProbability);
-        
 
         const opacity = Math.floor(transformedProbability * 255 * maxOpacity);
         return color + opacity.toString(16);
