@@ -10,6 +10,8 @@
 
     export let dailyData: DayData[] = [];
 
+    let screenSize;
+
     interface AggregatorObject {
         name: string;
         displayName: string;
@@ -65,8 +67,13 @@
 
     function setSoloAggregator(aggregator: string) {
         return () => {
-            d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 3).attr("stroke-width", 0);
-            d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 4).attr("fill", "transparent").attr("stroke-width", 1.5).attr("stroke", "blue");
+            if (screenSize < 500) {
+                d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 2).attr("stroke-width", 0);
+                d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 2).attr("stroke-width", 0);
+            } else {
+                d3.selectAll(`circle.${aggregator}.Trump`).attr("opacity", 1).attr("r", 3).attr("stroke-width", 0);
+                d3.selectAll(`circle.${aggregator}.Harris`).attr("opacity", 1).attr("r", 4).attr("fill", "transparent").attr("stroke-width", 1.5).attr("stroke", "blue");
+            }
             d3.selectAll(`circle:is(.Trump, .Harris):not(.${aggregator})`).attr("opacity", 0.05);
             d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.05);
         };
@@ -88,6 +95,12 @@
 
     onMount(() => {
         setAggregatorsCurrent(lastDayData, dailyData);
+        
+        screenSize = window.innerWidth;
+
+        window.addEventListener("resize", () => {
+            screenSize = window.innerWidth;
+        });
     });
 </script>
 

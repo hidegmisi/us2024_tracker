@@ -478,7 +478,7 @@ function setupInteractivity(
         .on("touchmove", function (event) {
             event.preventDefault();
 
-            if (event.touches[0].clientX < 0 || event.touches[0].clientX > width) {
+            if (event.touches[0].clientX < 50 || event.touches[0].clientX > width) {
                 return;
             }
             
@@ -494,6 +494,7 @@ function setupInteractivity(
                 verticalLine,
                 dateLabel,
                 focusTexts,
+                true
             );
         })
         .on("touchstart", function (event) {
@@ -566,9 +567,27 @@ function handleMouseMove(
     verticalLine,
     dateLabel,
     focusTexts,
-) {
-    const mouse = d3.pointer(event);
+    isTouch = false
+) { 
+    let mouse;
+
+    if (isTouch) {
+        const boundingRect = chartGroup.node().getBoundingClientRect();
+        
+        mouse = [
+            event.clientX - boundingRect.left,
+            event.clientY - boundingRect.top
+        ];
+    } else {
+        mouse = d3.pointer(event, chartGroup.node());
+    }
+
+    console.log(mouse);
+    
+
     const mouseDate = x.invert(mouse[0]);
+    console.log(mouse);
+    
     const roundedDate = new Date(mouseDate);
     roundedDate.setHours(0, 0, 0, 0);
     if (mouseDate.getHours() >= 12) {

@@ -9,12 +9,11 @@ export const body = `<p>
     Az USA elnökválasztásán nem az a jelölt győz, aki a legtöbb szavazatot
     kapja, hanem aki megszerzi a szavazók által az egyes államokban
     megválasztott elektorok többségének támogatását. Ábránk Nate Silver
-    becsléseire támaszkodó saját számításunkat mutatja be arról, hogy a
-    pillanatnyilag várható országos szavazatarányok alapján mekkora a
-    valószínűsége az éppen legesélyesebb jelölt megválasztásának. Silver
-    becslései e tekintetben pusztán azon alapulnak, amit az egyes államok
-    választási eredménye és az országos eredmény közötti összefüggésekről,
-    illetve az egyes államok elektori szavazatainak számáról tudható.
+    becsléseire támaszkodó saját ítéletünket mutatja be arról, hogy a
+    pillanatnyilag melyik jelölt esélyesebb az Elektori Kollégiumban aratott
+    győzelemre. Silver becslései e tekintetben pusztán azon alapulnak, amit az
+    egyes államok választási eredménye és az országos eredmény közötti
+    összefüggésekről, illetve az egyes államok elektori szavazatainak számáról tudható.
 </p>
 <p>
     Általános szabályként arra érdemes emlékezni, hogy a választási rendszer a

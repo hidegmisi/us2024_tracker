@@ -58,55 +58,52 @@
 </script>
 
 <section id="candidateStanding">
-    <div class="textContainer">
-        <h2>Várható győztes</h2>
-        <p id="expected-result" class="has-data">
-            {#if demLead == 0}
-                Fej-fej mellett van a két jelölt,
-            {:else}
-                Nagyjából <span class="compact {demLead > 0 ? 'dem' : 'rep'}"
-                    >{Math.abs(demLead * 100).toFixed(0)}%</span
-                >-os országos {demLead > 0 ? "demokrata" : "republikánus"} vezetésnél
-            {/if}
-            <span class="container">{@html leaderHTML}</span>
-        </p>
-    </div>
     <div class="info">
-        <div id="gaugeContainer">
-            <Gauge
-                value={-demLead * 100}
-                minValue={-7}
-                maxValue={7}
-                segments={[
-                    { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
-                    { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
-                    { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
-                    { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
-                    { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
-                    { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
-                    { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
-                    { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
-                    { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
-                    { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
-                    { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
-                ]}
-                strokeWidth={70}
-                tickInterval={1}
-                majorTicks={[-4, -2, 0, 2, 4]}
-            />
-        </div>
-        <div class="chartInfos">
-            <img src="images/harris.png" alt="Harris" class="dem" />
-            <div class="textContainer">
-                <h2 id="leaderText" style="color: {leaderColor}">{leaderText}</h2>
-                <div class="standing">
-                    {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")}
-                    <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span>
-                </div>
+        <main>
+            <p class="label"><strong>Aktuális szavazatarány-<br>különbség:</strong> {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")} <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span></p>
+            
+                        
+            <div id="gaugeContainer">
+                <Gauge
+                    value={-demLead * 100}
+                    minValue={-7}
+                    maxValue={7}
+                    segments={[
+                        { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
+                        { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
+                        { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
+                        { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
+                        { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
+                        { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
+                        { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
+                        { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
+                        { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
+                        { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
+                        { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
+                    ]}
+                    strokeWidth={70}
+                    tickInterval={1}
+                    majorTicks={[-4, -2, 0, 2, 4]}
+                />
             </div>
-            <img src="images/trump.png" alt="Trump" class="rep" />
+            <div class="chartInfos">
+                <img src="images/harris.png" alt="Harris" class="dem" />
+                <div class="textContainer">
+                    <h2 id="leaderText">Prognózis:</h2>
+                    <div class="standing">
+                        Harris az esélyesebb
+                    </div>
+                </div>
+                <img src="images/trump.png" alt="Trump" class="rep" />
+            </div>
+        </main>
+        <div class="textContainer">
+            <h2>Várható győztes</h2>
+            <p>
+                Ábránk Nate Silver becsléseire támaszkodó saját ítéletünket mutatja arról, hogy a melyik jelölt esélyesebb éppen az Elektori Kollégiumban aratott győzelemre.
+            </p>
         </div>
-        <p>A demokraták akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesek</a> több elektori szavazatot kapni, ha több, mint 2%-kal nyernek az országos választáson.</p>
+        <p>Harris akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesebb</a> Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.</p>
     </div>
 </section>
 
@@ -115,29 +112,33 @@
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr;
-        max-width: 300px;
         margin: 0 auto;
+
+        padding: 8px 6px;
     }
 
     .textContainer {
-        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         h2 {
             font-size: 22px;
             font-weight: 500;
-            text-align: center;
+        }
+
+        :global(br) {
+            display: none;
         }
     }
 
 
     #gaugeContainer {
-        margin-top: -12px;
         width: 100%;
         aspect-ratio: 250 / 150;
     }
 
     p#expected-result {
-        text-align: center;
         font-size: 1.2rem;
         margin-top: 24px;
 
@@ -171,14 +172,14 @@
             align-self: center;
             
             h2#leaderText {
-                font-size: 1rem;
-                text-align: center;
+                font-size: 0.9rem;
                 font-weight: 600;
                 padding: 2px 3px;
                 padding-bottom: 0;
             }
             .standing {
-                font-size: 0.9rem;
+                margin-top: 3px;
+                font-size: 0.8rem;
                 text-align: center;
 
                 span {
@@ -192,11 +193,31 @@
 
 
     .info {
-        padding: 8px 6px;
-        background-color: #f7f7f7;
-        border-top: 2px solid #ddd;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
 
-        p {
+        main {
+            grid-row: span 2;
+            max-height: fit-content;
+            background-color: #f7f7f7;
+            border-top: 2px solid #ddd;
+            padding-bottom: 8px;
+
+            .label {
+                font-family: 'Helvetica Neue';
+                margin: 3px;
+                font-size: 0.8rem;
+                color: #666;
+                text-align: center;
+            }
+        }
+
+        & > .textContainer {
+            grid-row: 1 / 2;
+        }
+
+        & > p {
             border-top: 1px solid #eee;
             padding-top: 6px;
             margin-top: 12px;
@@ -207,7 +228,7 @@
             }
 
             span {
-                display: inline-block;
+                /* display: inline-block; */
                 margin-top: 8px;
             }
     
@@ -217,6 +238,7 @@
                 font-weight: 600;
             }
         }
+
 
     }
 
@@ -228,14 +250,31 @@
 
     @media (min-width: 550px) {
         #candidateStanding {
-            grid-template-columns: 1fr 1fr;
-            max-width: unset;
+            background-color: #f7f7f7;
+            border-top: 2px solid #ddd;
+        }
+        .info {
+            grid-template-columns: 250px minmax(250px, 300px);
+            gap: 1rem;
+            border: none;
+            background-color: unset;
+
+            & > .textContainer {
+                grid-row: unset;
+            }
+
+            main #gaugeContainer {
+                background-color: unset;
+                border-top: unset;
+            }
         }
     }
 
-    @media (min-width: 700px) {
+    @media (min-width: 900px) {
         #candidateStanding {
             grid-template-columns: 1fr;
+            background-color: unset;
+            border-top: unset;
         }
 
         .textContainer {
@@ -243,7 +282,17 @@
         }
         
         .info {
-            margin: 1rem 0;
+            grid-template-columns: 1fr;
+            gap: 0;
+
+            & > .textContainer {
+                grid-row: 1 / 2;
+            }
+
+            #gaugeContainer {
+                background-color: #f7f7f7;
+                border-top: 2px solid #ddd;
+            }
         }
     }
 </style>
