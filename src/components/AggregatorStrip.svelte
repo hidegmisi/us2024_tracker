@@ -125,7 +125,8 @@
 
     .aggregator {
         background-color: #f7f7f7;
-        padding-left: 8px;
+        padding: 6px 12px;
+        border-radius: 1rem;
         font-size: 14px;
         color: #666;
         cursor: default;

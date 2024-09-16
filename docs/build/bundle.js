@@ -23817,51 +23817,54 @@ var app = (function () {
 				a = element("a");
 				a.textContent = "esélyesebb";
 				t21 = text$1(" Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.");
+				attr_dev(br, "class", "svelte-1v9fvgb");
 				add_location(br, file$5, 62, 60, 2898);
+				attr_dev(strong, "class", "svelte-1v9fvgb");
 				add_location(strong, file$5, 62, 29, 2867);
 
 				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-12lpetv");
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1v9fvgb");
 
 				add_location(span, file$5, 62, 140, 2978);
-				attr_dev(p0, "class", "label svelte-12lpetv");
+				attr_dev(p0, "class", "label svelte-1v9fvgb");
 				add_location(p0, file$5, 62, 12, 2850);
 				attr_dev(div0, "id", "gaugeContainer");
-				attr_dev(div0, "class", "svelte-12lpetv");
-				add_location(div0, file$5, 65, 12, 3168);
+				attr_dev(div0, "class", "svelte-1v9fvgb");
+				add_location(div0, file$5, 63, 12, 3130);
 				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
 				attr_dev(img0, "alt", "Harris");
-				attr_dev(img0, "class", "dem svelte-12lpetv");
-				add_location(img0, file$5, 89, 16, 4783);
+				attr_dev(img0, "class", "dem svelte-1v9fvgb");
+				add_location(img0, file$5, 87, 16, 4745);
 				attr_dev(h20, "id", "leaderText");
-				attr_dev(h20, "class", "svelte-12lpetv");
-				add_location(h20, file$5, 91, 20, 4904);
-				attr_dev(div1, "class", "standing svelte-12lpetv");
-				add_location(div1, file$5, 92, 20, 4960);
-				attr_dev(div2, "class", "textContainer svelte-12lpetv");
-				add_location(div2, file$5, 90, 16, 4856);
+				attr_dev(h20, "class", "svelte-1v9fvgb");
+				add_location(h20, file$5, 89, 20, 4866);
+				attr_dev(div1, "class", "standing svelte-1v9fvgb");
+				add_location(div1, file$5, 90, 20, 4922);
+				attr_dev(div2, "class", "textContainer svelte-1v9fvgb");
+				add_location(div2, file$5, 88, 16, 4818);
 				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
 				attr_dev(img1, "alt", "Trump");
-				attr_dev(img1, "class", "rep svelte-12lpetv");
-				add_location(img1, file$5, 96, 16, 5094);
-				attr_dev(div3, "class", "chartInfos svelte-12lpetv");
-				add_location(div3, file$5, 88, 12, 4742);
-				attr_dev(main, "class", "svelte-12lpetv");
+				attr_dev(img1, "class", "rep svelte-1v9fvgb");
+				add_location(img1, file$5, 94, 16, 5056);
+				attr_dev(div3, "class", "chartInfos svelte-1v9fvgb");
+				add_location(div3, file$5, 86, 12, 4704);
+				attr_dev(main, "class", "svelte-1v9fvgb");
 				add_location(main, file$5, 61, 8, 2831);
-				attr_dev(h21, "class", "svelte-12lpetv");
-				add_location(h21, file$5, 100, 12, 5232);
-				add_location(p1, file$5, 101, 12, 5269);
-				attr_dev(div4, "class", "textContainer svelte-12lpetv");
-				add_location(div4, file$5, 99, 8, 5192);
+				attr_dev(h21, "class", "svelte-1v9fvgb");
+				add_location(h21, file$5, 98, 12, 5194);
+				attr_dev(p1, "class", "svelte-1v9fvgb");
+				add_location(p1, file$5, 99, 12, 5231);
+				attr_dev(div4, "class", "textContainer svelte-1v9fvgb");
+				add_location(div4, file$5, 97, 8, 5154);
 				attr_dev(a, "href", "https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true");
-				add_location(a, file$5, 105, 24, 5503);
-				attr_dev(p2, "class", "svelte-12lpetv");
-				add_location(p2, file$5, 105, 8, 5487);
-				attr_dev(div5, "class", "info svelte-12lpetv");
+				add_location(a, file$5, 103, 24, 5465);
+				attr_dev(p2, "class", "svelte-1v9fvgb");
+				add_location(p2, file$5, 103, 8, 5449);
+				attr_dev(div5, "class", "info svelte-1v9fvgb");
 				add_location(div5, file$5, 60, 4, 2804);
 				attr_dev(section, "id", "candidateStanding");
-				attr_dev(section, "class", "svelte-12lpetv");
+				attr_dev(section, "class", "svelte-1v9fvgb");
 				add_location(section, file$5, 59, 0, 2767);
 			},
 			l: function claim(nodes) {
@@ -23916,7 +23919,7 @@ var app = (function () {
 
 				if (!current || dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-12lpetv")) {
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1v9fvgb")) {
 					attr_dev(span, "class", span_class_value);
 				}
 
@@ -24770,7 +24773,7 @@ var app = (function () {
 					each_blocks[i].c();
 				}
 
-				attr_dev(div, "class", "aggregator-bubbles svelte-1hrgsz9");
+				attr_dev(div, "class", "aggregator-bubbles svelte-w28mdv");
 				add_location(div, file$3, 107, 4, 3393);
 			},
 			m: function mount(target, anchor) {
@@ -24848,9 +24851,9 @@ var app = (function () {
 				span = element("span");
 				t2 = text$1(t2_value);
 				t3 = space();
-				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-1hrgsz9"));
+				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-w28mdv"));
 				add_location(span, file$3, 111, 16, 3701);
-				attr_dev(div, "class", "aggregator svelte-1hrgsz9");
+				attr_dev(div, "class", "aggregator svelte-w28mdv");
 				attr_dev(div, "role", "button");
 				attr_dev(div, "tabindex", "0");
 				add_location(div, file$3, 109, 12, 3487);
@@ -24897,7 +24900,7 @@ var app = (function () {
 				if (dirty & /*aggregatorsCurrent*/ 1 && t0_value !== (t0_value = /*aggregator*/ ctx[8].displayName + "")) set_data_dev(t0, t0_value);
 				if (dirty & /*aggregatorsCurrent*/ 1 && t2_value !== (t2_value = /*aggregator*/ ctx[8].lead + "")) set_data_dev(t2, t2_value);
 
-				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-1hrgsz9"))) {
+				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-w28mdv"))) {
 					attr_dev(span, "class", span_class_value);
 				}
 			},
@@ -25573,38 +25576,38 @@ var app = (function () {
 				article1 = element("article");
 				t13 = space();
 				article2 = element("article");
-				attr_dev(span0, "class", "svelte-1ngmj4e");
+				attr_dev(span0, "class", "svelte-qctm0v");
 				add_location(span0, file$2, 27, 12, 642);
 				set_style(div0, "flex-grow", "1");
 				set_style(div0, "flex-shrink", "1");
 				add_location(div0, file$2, 28, 12, 678);
-				attr_dev(span1, "class", "svelte-1ngmj4e");
+				attr_dev(span1, "class", "svelte-qctm0v");
 				add_location(span1, file$2, 29, 12, 740);
-				attr_dev(h10, "class", "svelte-1ngmj4e");
+				attr_dev(h10, "class", "svelte-qctm0v");
 				add_location(h10, file$2, 26, 8, 625);
-				attr_dev(header, "class", "svelte-1ngmj4e");
+				attr_dev(header, "class", "svelte-qctm0v");
 				add_location(header, file$2, 25, 4, 608);
 				attr_dev(article0, "id", "winner-gauge");
-				attr_dev(article0, "class", "svelte-1ngmj4e");
+				attr_dev(article0, "class", "svelte-qctm0v");
 				add_location(article0, file$2, 33, 8, 835);
-				attr_dev(h11, "class", "svelte-1ngmj4e");
+				attr_dev(h11, "class", "svelte-qctm0v");
 				add_location(h11, file$2, 39, 12, 1024);
 				attr_dev(a, "href", "https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma");
 				add_location(a, file$2, 41, 479, 1559);
-				attr_dev(p, "class", "svelte-1ngmj4e");
+				attr_dev(p, "class", "svelte-qctm0v");
 				add_location(p, file$2, 40, 12, 1076);
 				attr_dev(section, "id", "poll-graph");
-				attr_dev(section, "class", "svelte-1ngmj4e");
+				attr_dev(section, "class", "svelte-qctm0v");
 				add_location(section, file$2, 38, 8, 986);
-				attr_dev(article1, "class", "svelte-1ngmj4e");
+				attr_dev(article1, "class", "svelte-qctm0v");
 				add_location(article1, file$2, 48, 8, 1960);
-				attr_dev(article2, "class", "bodyContainer svelte-1ngmj4e");
+				attr_dev(article2, "class", "bodyContainer svelte-qctm0v");
 				add_location(article2, file$2, 49, 8, 1988);
 				attr_dev(div1, "id", "mainGrid");
-				attr_dev(div1, "class", "svelte-1ngmj4e");
+				attr_dev(div1, "class", "svelte-qctm0v");
 				add_location(div1, file$2, 32, 4, 807);
 				attr_dev(article3, "id", "appContainer");
-				attr_dev(article3, "class", "svelte-1ngmj4e");
+				attr_dev(article3, "class", "svelte-qctm0v");
 				add_location(article3, file$2, 24, 0, 576);
 			},
 			l: function claim(nodes) {

@@ -100,6 +100,8 @@
         grid-row: 1 / 2;
         border-top: 2px solid #888;
         padding: 8px 1rem;
+        max-width: 700px;
+        margin: 0 auto;
     }
 
     .bodyContainer {
@@ -153,11 +155,20 @@
         #poll-graph {
             grid-column: unset;
             grid-row: 1 / 2;
+            border-top: none;
+            padding: 0;
         }
 
         #winner-gauge {
+            max-width: 700px;
             grid-column: unset;
             grid-row: 2 / 3;
+            border-top: none;
+            padding: 6px;
+            border-top: 1px solid blue;
+            border-left: 1px solid blue;
+            border-right: 1px solid red;
+            border-bottom: 1px solid red;
         }
 
         h1 {

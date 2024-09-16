@@ -61,8 +61,6 @@
     <div class="info">
         <main>
             <p class="label"><strong>Aktuális szavazatarány-<br>különbség:</strong> {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")} <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span></p>
-            
-                        
             <div id="gaugeContainer">
                 <Gauge
                     value={-demLead * 100}
@@ -120,21 +118,18 @@
     .textContainer {
         display: flex;
         flex-direction: column;
-        align-items: center;
 
         h2 {
             font-size: 22px;
             font-weight: 500;
-        }
-
-        :global(br) {
-            display: none;
         }
     }
 
 
     #gaugeContainer {
         width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
         aspect-ratio: 250 / 150;
     }
 
@@ -149,6 +144,8 @@
     }
 
     .chartInfos {
+        max-width: 250px;
+        margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -169,7 +166,8 @@
         }
 
         .textContainer {
-            align-self: center;
+            align-items: center;
+            padding: 0 8px;
             
             h2#leaderText {
                 font-size: 0.9rem;
@@ -179,7 +177,7 @@
             }
             .standing {
                 margin-top: 3px;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 text-align: center;
 
                 span {
@@ -198,6 +196,7 @@
         grid-template-columns: 1fr;
 
         main {
+            margin-top: 12px;
             grid-row: span 2;
             max-height: fit-content;
             background-color: #f7f7f7;
@@ -210,11 +209,26 @@
                 font-size: 0.8rem;
                 color: #666;
                 text-align: center;
+                
+                & > * {
+                    font-family: 'Helvetica Neue';
+                    &:not(.compact) {
+                        color: #666;
+                    }
+                }
+
+                br {
+                    display: none;
+                }
             }
         }
 
         & > .textContainer {
             grid-row: 1 / 2;
+
+            p {
+                margin-top: 12px;
+            }
         }
 
         & > p {
@@ -248,14 +262,15 @@
         padding: 0 3px;
     }
 
-    @media (min-width: 550px) {
-        #candidateStanding {
+    @media (min-width: 450px) {
+        /* #candidateStanding {
             background-color: #f7f7f7;
             border-top: 2px solid #ddd;
-        }
+        } */
         .info {
-            grid-template-columns: 250px minmax(250px, 300px);
-            gap: 1rem;
+            max-width: 595px;
+            grid-template-columns: 220px 1fr;
+            gap: 0 1rem;
             border: none;
             background-color: unset;
 
@@ -263,9 +278,25 @@
                 grid-row: unset;
             }
 
-            main #gaugeContainer {
-                background-color: unset;
-                border-top: unset;
+            main {
+                margin-top: 0;
+                height: fit-content;
+
+                .label {
+                    br {
+                        display: unset;
+                    }
+                }
+                #gaugeContainer {
+                    background-color: unset;
+                    border-top: unset;
+                }
+            }
+
+            & > p {
+                height: 130px;
+                border-top: none;
+                padding-top: 0;
             }
         }
     }
@@ -287,12 +318,19 @@
 
             & > .textContainer {
                 grid-row: 1 / 2;
+                align-items: center;
             }
 
-            #gaugeContainer {
-                background-color: #f7f7f7;
-                border-top: 2px solid #ddd;
+            main {
+                margin-top: 1rem;
             }
+
+            & > p {
+                border-top: 1px solid #ddd;
+                padding-top: 4px;
+                margin-top: 16px;
+            }
+            
         }
     }
 </style>
