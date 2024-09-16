@@ -7,23 +7,20 @@
 
     $: demLead = $dynamicDayData ? calculateDemLead($dynamicDayData) : 0;
 
-    let leaderHTML = "";
     let leaderText = "";
     let leaderColor = "";
-    let currentStanding = "";
 
     const segments: Segment[] = [
-        { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
-        { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
-        { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
-        { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
-        { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
-        { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
-        { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
-        { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
+        { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.999 },
+        { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.998 },
+        { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.958 },
+        { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.845 },
+        { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.5 },
+        { start: -2, end: -1, color: "#0000ff32", leadingParty: "rep", probability: 0.731 },
+        { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.921 },
+        { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.981 },
         { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
-        { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
-        { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
+        { start: 2, end: 7, color: "#ff000035", leadingParty: "rep", probability: 1 },
     ]
 
     $: setDemLeadAndWinningHTML(demLead);
@@ -32,26 +29,13 @@
     function setDemLeadAndWinningHTML(demLead: number) {
         const band = segments.find((segment) => -demLead * 100 >= segment.start && -demLead * 100 < segment.end);
         if (band) {
-            leaderHTML = `várhatóan <br><span class='compact ${band.leadingParty}'>${band.leadingParty === "dem" ? "Kamala Harris" : "Donald Trump"}</span><br> nyeri az elnökválasztást.`;
-            leaderText = band.leadingParty === "dem" ? "Harris" : "Trump";
+            leaderText = (band.leadingParty === "dem" ? "Harris" : "Trump") + (band.probability > 0.9 ? " győz" : " esélyesebb");
             leaderColor = band.leadingParty === "dem" ? "#0000ff" : "#ff0000";
-        } else if (demLead >= 0.07) {
-            leaderHTML = `várhatóan <br><span class='compact dem'>Kamala Harris</span><br> nyeri az elnökválasztást.`;
-            leaderText = "Harris";
-            leaderColor = "#0000ff";
-        } else if (demLead <= -7) {
-            leaderHTML = `várhatóan <br><span class='compact rep'>Donald Trump</span><br> nyeri az elnökválasztást.`;
-            leaderText = "Trump";
-            leaderColor = "#ff0000";
         }
 
-        if (band?.probability < 0.4) {
-            leaderHTML = `valószínűleg <br><span class='compact tossup'>fej fej mellett</span><br> vannak a jelöltek.`;
-            leaderText = "Bizonytalan";
-            leaderColor = "#333";
+        if (band?.probability < 0.7) {
+            leaderText = "Hasonló esélyek";
         }
-
-        currentStanding = (demLead > 0 ? "Harris +" : demLead < 0 ? "Trump +" : "") + Math.abs(demLead * 100).toFixed(1).replace(".", ",");
     }
 
     setDemLeadAndWinningHTML(demLead);
@@ -66,19 +50,7 @@
                     value={-demLead * 100}
                     minValue={-7}
                     maxValue={7}
-                    segments={[
-                        { start: -7, end: -6, color: "#0000ff69", leadingParty: "dem", probability: 0.997 },
-                        { start: -6, end: -5, color: "#0000ff32", leadingParty: "dem", probability: 0.991 },
-                        { start: -5, end: -4, color: "#0000ff32", leadingParty: "dem", probability: 0.959 },
-                        { start: -4, end: -3, color: "#0000ff32", leadingParty: "dem", probability: 0.87 },
-                        { start: -3, end: -2, color: "#0000ff32", leadingParty: "dem", probability: 0.621 },
-                        { start: -2, end: -1, color: "#ff000035", leadingParty: "rep", probability: 0.306 },
-                        { start: -1, end: 0, color: "#ff000035", leadingParty: "rep", probability: 0.892 },
-                        { start: 0, end: 1, color: "#ff000035", leadingParty: "rep", probability: 0.971 },
-                        { start: 1, end: 2, color: "#ff000035", leadingParty: "rep", probability: 0.996 },
-                        { start: 2, end: 3, color: "#ff000035", leadingParty: "rep", probability: 0.999 },
-                        { start: 3, end: 7, color: "#ff000073", leadingParty: "rep", probability: 1 },
-                    ]}
+                    segments={segments}
                     strokeWidth={70}
                     tickInterval={1}
                     majorTicks={[-4, -2, 0, 2, 4]}
@@ -89,7 +61,7 @@
                 <div class="textContainer">
                     <h2 id="leaderText">Prognózis:</h2>
                     <div class="standing">
-                        Harris az esélyesebb
+                        {leaderText}
                     </div>
                 </div>
                 <img src="images/trump.png" alt="Trump" class="rep" />
