@@ -81,7 +81,11 @@
 
     function removeSoloAggregator(aggregator: string) {
         return () => {
-            d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.12).attr("r", 3).attr("stroke-width", 0);
+            if (screenSize < 500) {
+                d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.12).attr("r", 2).attr("stroke-width", 0);
+            } else {
+                d3.selectAll(`circle:is(.Trump, .Harris)`).attr("opacity", 0.12).attr("r", 3).attr("stroke-width", 0);
+            }
             d3.selectAll(`circle.background-dot:is(.Trump, .Harris)`).attr("opacity", 0.03);
             d3.selectAll(`path:is(.Trump, .Harris)`).attr("opacity", 0.425);
             d3.selectAll(`path.background-line:is(.Trump, .Harris)`).attr("opacity", 0.05);

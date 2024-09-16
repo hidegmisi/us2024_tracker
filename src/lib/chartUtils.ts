@@ -478,10 +478,6 @@ function setupInteractivity(
         .on("touchmove", function (event) {
             event.preventDefault();
 
-            if (event.touches[0].clientX < 50 || event.touches[0].clientX > width) {
-                return;
-            }
-            
             const touch = event.touches[0];
             handleMouseMove(
                 touch,
@@ -501,7 +497,9 @@ function setupInteractivity(
             event.preventDefault(); // Disable default tap behavior
         })
         .on("touchend", () => {
-            resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+            setTimeout(() => {
+                resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+            }, 100);
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
@@ -581,12 +579,14 @@ function handleMouseMove(
     } else {
         mouse = d3.pointer(event, chartGroup.node());
     }
-
-    console.log(mouse);
     
-
     const mouseDate = x.invert(mouse[0]);
-    console.log(mouse);
+
+    if (isTouch) {
+        if (mouseDate < new Date(dailyData[0].date) || mouseDate > x.domain()[1]) {
+            return;
+        }
+    }
     
     const roundedDate = new Date(mouseDate);
     roundedDate.setHours(0, 0, 0, 0);
