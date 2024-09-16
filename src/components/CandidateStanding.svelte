@@ -27,6 +27,8 @@
 
     // Logic to determine the leader based on demLead
     function setDemLeadAndWinningHTML(demLead: number) {
+        console.log(demLead);
+        
         const band = segments.find((segment) => -demLead * 100 >= segment.start && -demLead * 100 < segment.end);
         if (band) {
             leaderText = (band.leadingParty === "dem" ? "Harris" : "Trump") + (band.probability > 0.9 ? " győz" : " esélyesebb");

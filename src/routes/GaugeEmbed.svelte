@@ -3,6 +3,9 @@
     import { onMount } from "svelte";
     import type { PollData } from "../lib/types";
     import { fetchPollData, pollData } from "../stores/dataStore";
+    import Chart from "../components/Chart.svelte";
+    import { aggregators } from "../lib/dataUtils";
+    import AggregatorStrip from "../components/AggregatorStrip.svelte";
 
     export let repo: string;
 
@@ -19,8 +22,16 @@
 </script>
   
 <article>
+    {#if data.demLead !== null}
     <div class="chartContainer">
         <CandidateStanding />
+    </div>
+    {/if}
+    <div class="hidden">
+        {#if data.dailyData.length !== 0}
+            <AggregatorStrip dailyData={data.dailyData} />
+            <Chart dailyData={data.dailyData} {aggregators} />
+        {/if}
     </div>
 </article>
 
@@ -38,6 +49,10 @@ article {
     .chartContainer {
         width: 100%;
         margin: 1rem;
+    }
+    
+    .hidden {
+        display: none;
     }
 }
 </style>
