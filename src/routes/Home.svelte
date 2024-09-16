@@ -39,8 +39,7 @@
         <section id="poll-graph">
             <h1>Harris és Trump támogatottsága</h1>
             <p>
-                Ábránk percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag hány százalék esély mutatkozik arra, hogy egyik vagy másik jelölt többséget szerezzen az elnök személyéről végső soron döntő <a href="https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma">elektori testületben</a>. Minden tudnivaló az ábrák alatt. 
-                Az alábbi grafikon a legfontosabb amerikai poll aggregátorokat
+                Ábránk percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag hány százalék esély mutatkozik arra, hogy egyik vagy másik jelölt többséget szerezzen az elnök személyéről végső soron döntő <a href="https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma">elektori testületben</a>. Minden tudnivaló az ábrák alatt.
             </p>
             {#if data.dailyData.length !== 0}
                 <AggregatorStrip dailyData={data.dailyData} />

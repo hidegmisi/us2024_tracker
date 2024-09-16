@@ -25504,7 +25504,7 @@ var app = (function () {
 		return block;
 	}
 
-	// (39:12) {#if data.dailyData.length !== 0}
+	// (38:12) {#if data.dailyData.length !== 0}
 	function create_if_block$1(ctx) {
 		let aggregatorstrip;
 		let t;
@@ -25569,7 +25569,7 @@ var app = (function () {
 			block,
 			id: create_if_block$1.name,
 			type: "if",
-			source: "(39:12) {#if data.dailyData.length !== 0}",
+			source: "(38:12) {#if data.dailyData.length !== 0}",
 			ctx
 		});
 
@@ -25630,7 +25630,7 @@ var app = (function () {
 				t8 = text$1("Ábránk percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag hány százalék esély mutatkozik arra, hogy egyik vagy másik jelölt többséget szerezzen az elnök személyéről végső soron döntő ");
 				a = element("a");
 				a.textContent = "elektori testületben";
-				t10 = text$1(". Minden tudnivaló az ábrák alatt. \n                Az alábbi grafikon a legfontosabb amerikai poll aggregátorokat");
+				t10 = text$1(". Minden tudnivaló az ábrák alatt.");
 				t11 = space();
 				if (if_block1) if_block1.c();
 				t12 = space();
@@ -25661,9 +25661,9 @@ var app = (function () {
 				attr_dev(section, "class", "svelte-1x8td6w");
 				add_location(section, file$2, 38, 8, 986);
 				attr_dev(article1, "class", "svelte-1x8td6w");
-				add_location(article1, file$2, 49, 8, 2039);
+				add_location(article1, file$2, 48, 8, 1959);
 				attr_dev(article2, "class", "bodyContainer svelte-1x8td6w");
-				add_location(article2, file$2, 50, 8, 2067);
+				add_location(article2, file$2, 49, 8, 1987);
 				attr_dev(div1, "id", "mainGrid");
 				attr_dev(div1, "class", "svelte-1x8td6w");
 				add_location(div1, file$2, 32, 4, 807);
