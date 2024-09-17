@@ -128,7 +128,8 @@
     }
 
     .aggregator {
-        background-color: #f7f7f7;
+        flex-basis: calc(50% - 4px);
+        border: 1px solid #00f2;
         padding: 6px 12px;
         border-radius: 1rem;
         font-size: 14px;
@@ -137,6 +138,7 @@
     }
 
     .aggregator span {
+        float: right;
         font-family: "courier";
         display: inline-block;
         vertical-align: bottom;
@@ -144,5 +146,15 @@
         padding: 0 3px;
         background: transparent;
         cursor: default;
+    }
+
+    @media (min-width: 500px) {
+        .aggregator {
+            flex-basis: unset;
+
+            span {
+                float: none;
+            }
+        }
     }
 </style>

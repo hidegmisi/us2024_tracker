@@ -6,6 +6,7 @@
     let demLead: number = 0;
 
     $: demLead = $dynamicDayData ? calculateDemLead($dynamicDayData) : 0;
+    $: displayDate = ($dynamicDayData ? new Date($dynamicDayData.date) : new Date()).toLocaleDateString('hu-HU', {month: 'short', day: 'numeric'}).slice(0, -1) + ':';
 
     let leaderText = "";
     let leaderColor = "";
@@ -44,7 +45,7 @@
 <section id="candidateStanding">
     <div class="info">
         <main>
-            <p class="label"><strong>Aktuális szavazatarány-<br>különbség:</strong> {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")} <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span></p>
+            <p class="label"><strong>Szavazatarány-különbség,<br>{displayDate}</strong> {(demLead > 0 ? "Harris" : demLead < 0 ? "Trump" : "")} <span class="compact { demLead > 0 ? "dem" : demLead < 0 ? "rep" : "" }">+{Math.abs(demLead * 100).toFixed(1).replace(".", ",")}</span></p>
             <div id="gaugeContainer">
                 <Gauge
                     value={-demLead * 100}
@@ -148,7 +149,6 @@
                 padding-bottom: 0;
             }
             .standing {
-                margin-top: 3px;
                 font-size: 0.75rem;
                 text-align: center;
 
@@ -171,9 +171,10 @@
             margin-top: 12px;
             grid-row: span 2;
             max-height: fit-content;
-            background-color: #f7f7f7;
-            border-top: 2px solid #ddd;
-            padding-bottom: 8px;
+            border-top: 1px solid #00f2;
+            border-bottom: 1px solid #00f2;
+            padding: 8px 0;
+            padding-bottom: 1rem;
 
             .label {
                 font-family: 'Helvetica Neue';
@@ -181,6 +182,10 @@
                 font-size: 0.8rem;
                 color: #666;
                 text-align: center;
+
+                strong {
+                    font-weight: 500;
+                }
                 
                 & > * {
                     font-family: 'Helvetica Neue';
@@ -204,8 +209,6 @@
         }
 
         & > p {
-            border-top: 1px solid #eee;
-            padding-top: 6px;
             margin-top: 12px;
 
             &.source {
@@ -234,10 +237,10 @@
         padding: 0 3px;
     }
 
-    @media (min-width: 450px) {
+    @media (min-width: 480px) {
         .info {
-            max-width: 595px;
-            grid-template-columns: 220px 1fr;
+            max-width: 700px;
+            grid-template-columns: 250px 1fr;
             gap: 0 1rem;
             border: none;
             background-color: unset;
@@ -249,6 +252,7 @@
             main {
                 margin-top: 0;
                 height: fit-content;
+                border: 1px solid #00f2;
 
                 .label {
                     br {
@@ -291,12 +295,14 @@
 
             main {
                 margin-top: 1rem;
+                border-left: none;
+                border-right: none;
             }
 
             & > p {
-                border-top: 1px solid #ddd;
-                padding-top: 4px;
-                margin-top: 16px;
+                margin-top: 12px;
+                margin-bottom: 2px;
+                height: unset;
             }
             
         }

@@ -23688,7 +23688,7 @@ var app = (function () {
 					value: -/*demLead*/ ctx[0] * 100,
 					minValue: -7,
 					maxValue: 7,
-					segments: /*segments*/ ctx[2],
+					segments: /*segments*/ ctx[3],
 					strokeWidth: 70,
 					tickInterval: 1,
 					majorTicks: [-4, -2, 0, 2, 4]
@@ -23703,9 +23703,9 @@ var app = (function () {
 				main = element("main");
 				p0 = element("p");
 				strong = element("strong");
-				t0 = text$1("Aktuális szavazatarány-");
+				t0 = text$1("Szavazatarány-különbség,");
 				br = element("br");
-				t1 = text$1("különbség:");
+				t1 = text$1(/*displayDate*/ ctx[2]);
 				t2 = space();
 				t3 = text$1(t3_value);
 				t4 = space();
@@ -23740,55 +23740,55 @@ var app = (function () {
 				a = element("a");
 				a.textContent = "esélyesebb";
 				t21 = text$1(" Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.");
-				attr_dev(br, "class", "svelte-2y6tpl");
-				add_location(br, file$6, 46, 60, 1926);
-				attr_dev(strong, "class", "svelte-2y6tpl");
-				add_location(strong, file$6, 46, 29, 1895);
+				attr_dev(br, "class", "svelte-1nby4p8");
+				add_location(br, file$6, 47, 61, 2092);
+				attr_dev(strong, "class", "svelte-1nby4p8");
+				add_location(strong, file$6, 47, 29, 2060);
 
 				attr_dev(span, "class", span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-2y6tpl");
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1nby4p8");
 
-				add_location(span, file$6, 46, 140, 2006);
-				attr_dev(p0, "class", "label svelte-2y6tpl");
-				add_location(p0, file$6, 46, 12, 1878);
+				add_location(span, file$6, 47, 144, 2175);
+				attr_dev(p0, "class", "label svelte-1nby4p8");
+				add_location(p0, file$6, 47, 12, 2043);
 				attr_dev(div0, "id", "gaugeContainer");
-				attr_dev(div0, "class", "svelte-2y6tpl");
-				add_location(div0, file$6, 47, 12, 2158);
+				attr_dev(div0, "class", "svelte-1nby4p8");
+				add_location(div0, file$6, 48, 12, 2327);
 				if (!src_url_equal(img0.src, img0_src_value = "images/harris.png")) attr_dev(img0, "src", img0_src_value);
 				attr_dev(img0, "alt", "Harris");
-				attr_dev(img0, "class", "dem svelte-2y6tpl");
-				add_location(img0, file$6, 59, 16, 2573);
+				attr_dev(img0, "class", "dem svelte-1nby4p8");
+				add_location(img0, file$6, 60, 16, 2742);
 				attr_dev(h20, "id", "leaderText");
-				attr_dev(h20, "class", "svelte-2y6tpl");
-				add_location(h20, file$6, 61, 20, 2694);
-				attr_dev(div1, "class", "standing svelte-2y6tpl");
-				add_location(div1, file$6, 62, 20, 2750);
-				attr_dev(div2, "class", "textContainer svelte-2y6tpl");
-				add_location(div2, file$6, 60, 16, 2646);
+				attr_dev(h20, "class", "svelte-1nby4p8");
+				add_location(h20, file$6, 62, 20, 2863);
+				attr_dev(div1, "class", "standing svelte-1nby4p8");
+				add_location(div1, file$6, 63, 20, 2919);
+				attr_dev(div2, "class", "textContainer svelte-1nby4p8");
+				add_location(div2, file$6, 61, 16, 2815);
 				if (!src_url_equal(img1.src, img1_src_value = "images/trump.png")) attr_dev(img1, "src", img1_src_value);
 				attr_dev(img1, "alt", "Trump");
-				attr_dev(img1, "class", "rep svelte-2y6tpl");
-				add_location(img1, file$6, 66, 16, 2876);
-				attr_dev(div3, "class", "chartInfos svelte-2y6tpl");
-				add_location(div3, file$6, 58, 12, 2532);
-				attr_dev(main, "class", "svelte-2y6tpl");
-				add_location(main, file$6, 45, 8, 1859);
-				attr_dev(h21, "class", "svelte-2y6tpl");
-				add_location(h21, file$6, 70, 12, 3014);
-				attr_dev(p1, "class", "svelte-2y6tpl");
-				add_location(p1, file$6, 71, 12, 3051);
-				attr_dev(div4, "class", "textContainer svelte-2y6tpl");
-				add_location(div4, file$6, 69, 8, 2974);
+				attr_dev(img1, "class", "rep svelte-1nby4p8");
+				add_location(img1, file$6, 67, 16, 3045);
+				attr_dev(div3, "class", "chartInfos svelte-1nby4p8");
+				add_location(div3, file$6, 59, 12, 2701);
+				attr_dev(main, "class", "svelte-1nby4p8");
+				add_location(main, file$6, 46, 8, 2024);
+				attr_dev(h21, "class", "svelte-1nby4p8");
+				add_location(h21, file$6, 71, 12, 3183);
+				attr_dev(p1, "class", "svelte-1nby4p8");
+				add_location(p1, file$6, 72, 12, 3220);
+				attr_dev(div4, "class", "textContainer svelte-1nby4p8");
+				add_location(div4, file$6, 70, 8, 3143);
 				attr_dev(a, "href", "https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true");
-				add_location(a, file$6, 75, 24, 3285);
-				attr_dev(p2, "class", "svelte-2y6tpl");
-				add_location(p2, file$6, 75, 8, 3269);
-				attr_dev(div5, "class", "info svelte-2y6tpl");
-				add_location(div5, file$6, 44, 4, 1832);
+				add_location(a, file$6, 76, 24, 3454);
+				attr_dev(p2, "class", "svelte-1nby4p8");
+				add_location(p2, file$6, 76, 8, 3438);
+				attr_dev(div5, "class", "info svelte-1nby4p8");
+				add_location(div5, file$6, 45, 4, 1997);
 				attr_dev(section, "id", "candidateStanding");
-				attr_dev(section, "class", "svelte-2y6tpl");
-				add_location(section, file$6, 43, 0, 1795);
+				attr_dev(section, "class", "svelte-1nby4p8");
+				add_location(section, file$6, 44, 0, 1960);
 			},
 			l: function claim(nodes) {
 				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23835,6 +23835,8 @@ var app = (function () {
 				current = true;
 			},
 			p: function update(ctx, [dirty]) {
+				if (!current || dirty & /*displayDate*/ 4) set_data_dev(t1, /*displayDate*/ ctx[2]);
+
 				if ((!current || dirty & /*demLead*/ 1) && t3_value !== (t3_value = (/*demLead*/ ctx[0] > 0
 				? "Harris"
 				: /*demLead*/ ctx[0] < 0 ? "Trump" : "") + "")) set_data_dev(t3, t3_value);
@@ -23843,7 +23845,7 @@ var app = (function () {
 
 				if (!current || dirty & /*demLead*/ 1 && span_class_value !== (span_class_value = "compact " + (/*demLead*/ ctx[0] > 0
 				? "dem"
-				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-2y6tpl")) {
+				: /*demLead*/ ctx[0] < 0 ? "rep" : "") + " svelte-1nby4p8")) {
 					attr_dev(span, "class", span_class_value);
 				}
 
@@ -23882,9 +23884,10 @@ var app = (function () {
 	}
 
 	function instance$7($$self, $$props, $$invalidate) {
+		let displayDate;
 		let $dynamicDayData;
 		validate_store(dynamicDayData, 'dynamicDayData');
-		component_subscribe($$self, dynamicDayData, $$value => $$invalidate(3, $dynamicDayData = $$value));
+		component_subscribe($$self, dynamicDayData, $$value => $$invalidate(4, $dynamicDayData = $$value));
 		let { $$slots: slots = {}, $$scope } = $$props;
 		validate_slots('CandidateStanding', slots, []);
 		let demLead = 0;
@@ -23996,6 +23999,7 @@ var app = (function () {
 			leaderColor,
 			segments,
 			setDemLeadAndWinningHTML,
+			displayDate,
 			$dynamicDayData
 		});
 
@@ -24003,6 +24007,7 @@ var app = (function () {
 			if ('demLead' in $$props) $$invalidate(0, demLead = $$props.demLead);
 			if ('leaderText' in $$props) $$invalidate(1, leaderText = $$props.leaderText);
 			if ('leaderColor' in $$props) leaderColor = $$props.leaderColor;
+			if ('displayDate' in $$props) $$invalidate(2, displayDate = $$props.displayDate);
 		};
 
 		if ($$props && "$$inject" in $$props) {
@@ -24010,8 +24015,14 @@ var app = (function () {
 		}
 
 		$$self.$$.update = () => {
-			if ($$self.$$.dirty & /*$dynamicDayData*/ 8) {
+			if ($$self.$$.dirty & /*$dynamicDayData*/ 16) {
 				$$invalidate(0, demLead = $dynamicDayData ? calculateDemLead($dynamicDayData) : 0);
+			}
+
+			if ($$self.$$.dirty & /*$dynamicDayData*/ 16) {
+				$$invalidate(2, displayDate = ($dynamicDayData
+				? new Date($dynamicDayData.date)
+				: new Date()).toLocaleDateString('hu-HU', { month: 'short', day: 'numeric' }).slice(0, -1) + ':');
 			}
 
 			if ($$self.$$.dirty & /*demLead*/ 1) {
@@ -24019,7 +24030,7 @@ var app = (function () {
 			}
 		};
 
-		return [demLead, leaderText, segments, $dynamicDayData];
+		return [demLead, leaderText, displayDate, segments, $dynamicDayData];
 	}
 
 	class CandidateStanding extends SvelteComponentDev {
@@ -24671,7 +24682,7 @@ var app = (function () {
 					each_blocks[i].c();
 				}
 
-				attr_dev(div, "class", "aggregator-bubbles svelte-w28mdv");
+				attr_dev(div, "class", "aggregator-bubbles svelte-1m8l5i1");
 				add_location(div, file$4, 111, 4, 3579);
 			},
 			m: function mount(target, anchor) {
@@ -24749,9 +24760,9 @@ var app = (function () {
 				span = element("span");
 				t2 = text$1(t2_value);
 				t3 = space();
-				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-w28mdv"));
+				attr_dev(span, "class", span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-1m8l5i1"));
 				add_location(span, file$4, 115, 16, 3887);
-				attr_dev(div, "class", "aggregator svelte-w28mdv");
+				attr_dev(div, "class", "aggregator svelte-1m8l5i1");
 				attr_dev(div, "role", "button");
 				attr_dev(div, "tabindex", "0");
 				add_location(div, file$4, 113, 12, 3673);
@@ -24798,7 +24809,7 @@ var app = (function () {
 				if (dirty & /*aggregatorsCurrent*/ 1 && t0_value !== (t0_value = /*aggregator*/ ctx[8].displayName + "")) set_data_dev(t0, t0_value);
 				if (dirty & /*aggregatorsCurrent*/ 1 && t2_value !== (t2_value = /*aggregator*/ ctx[8].lead + "")) set_data_dev(t2, t2_value);
 
-				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-w28mdv"))) {
+				if (dirty & /*aggregatorsCurrent*/ 1 && span_class_value !== (span_class_value = "" + (null_to_empty(/*aggregator*/ ctx[8].leading) + " svelte-1m8l5i1"))) {
 					attr_dev(span, "class", span_class_value);
 				}
 			},
@@ -25421,14 +25432,16 @@ var app = (function () {
 	function create_fragment$4(ctx) {
 		let article3;
 		let header;
+		let img;
+		let img_src_value;
+		let t0;
 		let h10;
 		let span0;
-		let t1;
-		let div0;
+		let a0;
 		let t2;
 		let span1;
 		let t4;
-		let div1;
+		let div;
 		let article0;
 		let t5;
 		let section;
@@ -25436,7 +25449,7 @@ var app = (function () {
 		let t7;
 		let p;
 		let t8;
-		let a;
+		let a1;
 		let t10;
 		let t11;
 		let t12;
@@ -25451,16 +25464,17 @@ var app = (function () {
 			c: function create() {
 				article3 = element("article");
 				header = element("header");
+				img = element("img");
+				t0 = space();
 				h10 = element("h1");
 				span0 = element("span");
-				span0.textContent = "Vox Populi";
-				t1 = space();
-				div0 = element("div");
+				a0 = element("a");
+				a0.textContent = "Vox Populi:";
 				t2 = space();
 				span1 = element("span");
 				span1.textContent = "Egyesült Államok 2024";
 				t4 = space();
-				div1 = element("div");
+				div = element("div");
 				article0 = element("article");
 				if (if_block0) if_block0.c();
 				t5 = space();
@@ -25470,8 +25484,8 @@ var app = (function () {
 				t7 = space();
 				p = element("p");
 				t8 = text$1("Ábráink percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag várható szavazatarány-különbség függvényében melyik jelölt esélyesebb arra, hogy többséget szerezzen az elnök személyéről végső soron döntő ");
-				a = element("a");
-				a.textContent = "elektori testületben";
+				a1 = element("a");
+				a1.textContent = "elektori testületben";
 				t10 = text$1(". Minden tudnivaló az ábrák alatt.");
 				t11 = space();
 				if (if_block1) if_block1.c();
@@ -25479,38 +25493,42 @@ var app = (function () {
 				article1 = element("article");
 				t13 = space();
 				article2 = element("article");
-				attr_dev(span0, "class", "svelte-qctm0v");
-				add_location(span0, file$3, 27, 12, 642);
-				set_style(div0, "flex-grow", "1");
-				set_style(div0, "flex-shrink", "1");
-				add_location(div0, file$3, 28, 12, 678);
-				attr_dev(span1, "class", "svelte-qctm0v");
-				add_location(span1, file$3, 29, 12, 740);
-				attr_dev(h10, "class", "svelte-qctm0v");
-				add_location(h10, file$3, 26, 8, 625);
-				attr_dev(header, "class", "svelte-qctm0v");
+				attr_dev(img, "class", "headerImage svelte-1f7krtv");
+				if (!src_url_equal(img.src, img_src_value = "images/header-bg.webp")) attr_dev(img, "src", img_src_value);
+				add_location(img, file$3, 26, 8, 625);
+				attr_dev(a0, "href", "https://kozvelemeny.org");
+				attr_dev(a0, "target", "_blank");
+				attr_dev(a0, "class", "svelte-1f7krtv");
+				add_location(a0, file$3, 28, 18, 712);
+				attr_dev(span0, "class", "svelte-1f7krtv");
+				add_location(span0, file$3, 28, 12, 706);
+				attr_dev(span1, "class", "svelte-1f7krtv");
+				add_location(span1, file$3, 29, 12, 797);
+				attr_dev(h10, "class", "svelte-1f7krtv");
+				add_location(h10, file$3, 27, 8, 689);
+				attr_dev(header, "class", "svelte-1f7krtv");
 				add_location(header, file$3, 25, 4, 608);
 				attr_dev(article0, "id", "winner-gauge");
-				attr_dev(article0, "class", "svelte-qctm0v");
-				add_location(article0, file$3, 33, 8, 835);
-				attr_dev(h11, "class", "svelte-qctm0v");
-				add_location(h11, file$3, 39, 12, 1024);
-				attr_dev(a, "href", "https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma");
-				add_location(a, file$3, 41, 494, 1574);
-				attr_dev(p, "class", "svelte-qctm0v");
-				add_location(p, file$3, 40, 12, 1076);
+				attr_dev(article0, "class", "svelte-1f7krtv");
+				add_location(article0, file$3, 33, 8, 892);
+				attr_dev(h11, "class", "svelte-1f7krtv");
+				add_location(h11, file$3, 39, 12, 1081);
+				attr_dev(a1, "href", "https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma");
+				add_location(a1, file$3, 41, 494, 1631);
+				attr_dev(p, "class", "svelte-1f7krtv");
+				add_location(p, file$3, 40, 12, 1133);
 				attr_dev(section, "id", "poll-graph");
-				attr_dev(section, "class", "svelte-qctm0v");
-				add_location(section, file$3, 38, 8, 986);
-				attr_dev(article1, "class", "svelte-qctm0v");
-				add_location(article1, file$3, 48, 8, 1975);
-				attr_dev(article2, "class", "bodyContainer svelte-qctm0v");
-				add_location(article2, file$3, 49, 8, 2003);
-				attr_dev(div1, "id", "mainGrid");
-				attr_dev(div1, "class", "svelte-qctm0v");
-				add_location(div1, file$3, 32, 4, 807);
+				attr_dev(section, "class", "svelte-1f7krtv");
+				add_location(section, file$3, 38, 8, 1043);
+				attr_dev(article1, "class", "svelte-1f7krtv");
+				add_location(article1, file$3, 48, 8, 2032);
+				attr_dev(article2, "class", "bodyContainer svelte-1f7krtv");
+				add_location(article2, file$3, 49, 8, 2060);
+				attr_dev(div, "id", "mainGrid");
+				attr_dev(div, "class", "svelte-1f7krtv");
+				add_location(div, file$3, 32, 4, 864);
 				attr_dev(article3, "id", "appContainer");
-				attr_dev(article3, "class", "svelte-qctm0v");
+				attr_dev(article3, "class", "svelte-1f7krtv");
 				add_location(article3, file$3, 24, 0, 576);
 			},
 			l: function claim(nodes) {
@@ -25519,30 +25537,31 @@ var app = (function () {
 			m: function mount(target, anchor) {
 				insert_dev(target, article3, anchor);
 				append_dev(article3, header);
+				append_dev(header, img);
+				append_dev(header, t0);
 				append_dev(header, h10);
 				append_dev(h10, span0);
-				append_dev(h10, t1);
-				append_dev(h10, div0);
+				append_dev(span0, a0);
 				append_dev(h10, t2);
 				append_dev(h10, span1);
 				append_dev(article3, t4);
-				append_dev(article3, div1);
-				append_dev(div1, article0);
+				append_dev(article3, div);
+				append_dev(div, article0);
 				if (if_block0) if_block0.m(article0, null);
-				append_dev(div1, t5);
-				append_dev(div1, section);
+				append_dev(div, t5);
+				append_dev(div, section);
 				append_dev(section, h11);
 				append_dev(section, t7);
 				append_dev(section, p);
 				append_dev(p, t8);
-				append_dev(p, a);
+				append_dev(p, a1);
 				append_dev(p, t10);
 				append_dev(section, t11);
 				if (if_block1) if_block1.m(section, null);
-				append_dev(div1, t12);
-				append_dev(div1, article1);
-				append_dev(div1, t13);
-				append_dev(div1, article2);
+				append_dev(div, t12);
+				append_dev(div, article1);
+				append_dev(div, t13);
+				append_dev(div, article2);
 				article2.innerHTML = body;
 				current = true;
 			},

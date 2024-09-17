@@ -24,9 +24,9 @@
 
 <article id="appContainer">
     <header>
+        <img class="headerImage" src="images/header-bg.webp" />
         <h1>
-            <span>Vox Populi</span>
-            <div style="flex-grow: 1; flex-shrink: 1;"></div>
+            <span><a href="https://kozvelemeny.org" target="_blank">Vox Populi:</a></span>
             <span>Egyesült Államok 2024</span>
         </h1>
     </header>
@@ -63,45 +63,66 @@
     }
 
     header {
-        margin-bottom: 32px;
-        background-color: #ddd;
+        position: relative;
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        margin-bottom: 1rem;
         padding: 8px 16px;
-        background-size: auto 800%;
-        background-position: 0 50%;
-        background-repeat: repeat-x;
+        height: 160px;
+    }
+    header img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 0 10%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
     }
     header h1 {
-        font-size: 1.2rem;
+        font-size: 2rem;
+        background-color: #fff;
         color: #333;
-        display: flex;
+        padding: 0 12px;
     }
 
     header h1 span {
-        padding: 0 8px;
+        padding: 2px;
+        color: blue;
+        font-weight: 400;
+        &:first-child {
+            color: red;
+        }
+        a {
+            text-decoration: none;
+        }
     }
 
     #mainGrid {
         display: grid;
         grid-template-columns: 250px minmax(300px, 1fr);
         grid-template-rows: fit-content 1fr;
-        gap: 0 32px;
+        gap: 0 1rem;
     }
 
     #winner-gauge {
         grid-column: 1 / 2;
         grid-row: 1 / 2;
         height: fit-content;
-        border-top: 2px solid #333;
-        padding: 8px 0;
+        padding: 0;
+        border: 1px dashed red;
     }
 
     #poll-graph {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
-        border-top: 2px solid #888;
         padding: 8px 1rem;
         max-width: 700px;
         margin: 0 auto;
+        border: 1px dashed blue;
+        border-bottom: none;
     }
 
     .bodyContainer {
@@ -110,6 +131,8 @@
         gap: 1rem;
         max-width: 700px;
         line-height: 1.4;
+        border: 1px dashed blue;
+        border-top: none;
     }
 
     :global(.bodyContainer p) {
@@ -141,10 +164,8 @@
 
     @media (max-width: 900px) {
         header {
-            padding: 8px;
-
             h1 {
-                font-size: 1rem;
+                font-size: 1.5rem;
             }
         }
         #mainGrid {
@@ -155,7 +176,7 @@
         #poll-graph {
             grid-column: unset;
             grid-row: 1 / 2;
-            border-top: none;
+            border: none;
             padding: 0;
         }
 
@@ -163,16 +184,21 @@
             max-width: 700px;
             grid-column: unset;
             grid-row: 2 / 3;
-            border-top: none;
             padding: 6px;
-            border-top: 1px solid blue;
-            border-left: 1px solid blue;
-            border-right: 1px solid red;
-            border-bottom: 1px solid red;
         }
 
         h1 {
             font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        header {
+            padding: 8px;
+
+            h1 {
+                font-size: 1rem;
+            }
         }
     }
 </style>
