@@ -74,7 +74,7 @@
                 Ábránk Nate Silver becsléseire támaszkodó saját ítéletünket mutatja arról, hogy a melyik jelölt esélyesebb éppen az Elektori Kollégiumban aratott győzelemre.
             </p>
         </div>
-        <p>Harris akkor <a href="https://www.natesilver.net/p/pennsylvania-may-be-a-problem-for?utm_source=substack&publication_id=1198116&post_id=148272825&utm_medium=email&utm_content=share&utm_campaign=email-share&triggerShare=true&isFreemail=true&r=2juryv&triedRedirect=true">esélyesebb</a> Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.</p>
+        <p>Harris akkor <a href="https://www.natesilver.net/p/the-electoral-college-bias-has-returned">esélyesebb</a> Trumpnál, ha több, mint 2,5%-kal vezet az országos szavazatarány tekintetében.</p>
     </div>
 </section>
 

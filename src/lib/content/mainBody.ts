@@ -19,13 +19,16 @@ export const body = `<p>
     Általános szabályként arra érdemes emlékezni, hogy a választási rendszer a
     Republikánus jelöltnek kedvez, és Kamala Harrisnek országosan kb. 2,5%-kal
     nagyobb szavazatarányt kell elérnie Donald Trumpnál ahhoz, hogy nagyjából
-    egyenlő esélyeik legyenek a végső győzelemhez. A jelölteknek akkor van éppen
-    fifty-fiftyhez közelítő esélyük, ha ábránk nagyjából 49,5% esélyt ad az
-    esélyesebb jelöltnek, lévén az elektori kollégiumban a döntetlenre is van
-    egy pici esély (ebben az esetben a képviselőház dönt). Az esélyesebb jelölt
-    akkor áll majd nagyjából olyan jól a közvélemény-kutatásokban, mint Joe
-    Biden 2020-ban az ő előnyét némileg eltúlzó választás előtti kutatásokban,
-    ha ábránk 90%-os esélyt ad a győzelmére.
+    egyenlő esélyeik legyenek a végső győzelemhez. Ha Harris 2 és 3 százalék
+    közötti előnnyel bír az országos szavazatarányban, akkor hasonlónak
+    mondhatjuk a két jelölt esélyét az elektori testületben aratott győzelemre.
+    Ha Harris előnye 3 és 4 százalék közé esik, akkor Trump győzelmi esélye hatszor kisebb,
+    mint Harrisé (persze minél jobban vezet Harris, annál kisebb). Négy százaléknál
+    is nagyobb Harris vezetés mellett Trump esélyei már nagyon szerények, mint
+    ahogy Harrisé is nagyon kicsi, ha egy százaléknál kisebb a szavazatelőnye. Sőt, már
+    1-2 százalékos (tehát közel kétmillió szavazat körüli) Harris előny mellett is 
+    háromszor akkora lenne Trump győzelmi esélye, mint Harrisé, annyira kedvezőtlen a
+    Demokrata jelöltek számára a szavazatföldrajz és a választási szabályok összjátéka.
 </p>
 <p>
     Fontos kiemelni, hogy a mi esélybecslésünk arra épít, hogy az adott napon
@@ -208,7 +211,7 @@ export const body = `<p>
 </p>
 <p>
     Számos amerikai oldal, ezek között a talán legnagyobb és legrigorózusabb
-    szakmai apparátussal az Economist és a Silver Bulletin is, próbál a
+    szakmai apparátussal az Economist és a Silver Bulletin is, ad a
     pillanatnyi közvélemény-kutatások összefoglalásán túl egy vagy több teljesen
     külön becslést arra is, hogy az egyes jelölteknek mekkora esélye van a végső
     győzelemre az elektori testületben. Mi itt nem foglalkozunk ezekkel a
@@ -225,7 +228,10 @@ export const body = `<p>
     >
         itt
     </a>
-    ). Ennek a bizonytalanságnak az a közvetlen oka, hogy ezek a becslések
+    ).
+</p>
+<p>
+    Ennek a bizonytalanságnak az a közvetlen oka, hogy ezek a becslések
     különböző módokon vesznek figyelembe korábbi történelmi tapasztalatokat,
     például azt, hogy miként függ össze egy sor gazdasági mutató a választási
     eredményekkel, vagy hogy milyen tempóban alakul ki és múlik el egy-egy
