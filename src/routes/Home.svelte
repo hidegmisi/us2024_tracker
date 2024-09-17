@@ -7,6 +7,7 @@
     import AggregatorStrip from "../components/AggregatorStrip.svelte";
     import type { PollData } from "../lib/types";
     import { body } from "$lib/content/mainBody"
+    import CampaignEvents from "../components/CampaignEvents.svelte";
 
     export let repo: string;
 
@@ -46,7 +47,11 @@
                 <Chart dailyData={data.dailyData} {aggregators} />
             {/if}
         </section>
-        <article></article>
+        <article>
+            {#if data.dailyData.length !== 0}
+                <CampaignEvents dailyData={data.dailyData} />
+            {/if}
+        </article>
         <article class="bodyContainer">
             {@html body}
         </article>
@@ -130,6 +135,7 @@
         flex-direction: column;
         gap: 1rem;
         max-width: 700px;
+        padding: 8px 16px;
         line-height: 1.4;
         border: 1px dashed blue;
         border-top: none;
@@ -143,7 +149,6 @@
         width: 100%;
         max-width: 1000px;
         margin: 0 auto;
-        padding: 8px 16px;
     }
 
     h1 {
