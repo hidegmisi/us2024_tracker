@@ -25322,8 +25322,18 @@ var app = (function () {
 	    addCampaignEvents(chartGroup, dailyData, x, y, [
 	        {
 	            date: '2024-07-13',
-	            id: 'trump-shot-1',
+	            id: 'trump-assassination-1',
 	            label: 'Trumpot meglövik egy kampányrendezvényen',
+	            opacity: 0.3,
+	            labelColor: '#f00',
+	            width: 1.5,
+	            type: 'dotted',
+	            img: 'https://flexible.img.hani.co.kr/flexible/normal/866/577/imgdb/original/2024/0715/9917210304102314.jpg',
+	        },
+	        {
+	            date: '2024-07-15',
+	            id: 'rnc-start',
+	            label: 'Republikánus Nemzeti Konvenció',
 	            opacity: 0.3,
 	            labelColor: '#f00',
 	            width: 1.5,
@@ -25352,7 +25362,7 @@ var app = (function () {
 	            id: 'kennedy-out',
 	            label: 'Kennedy<br>visszalép',
 	            opacity: 0.3,
-	            labelColor: '#888',
+	            labelColor: '#000',
 	            width: 1.5,
 	            type: 'dotted',
 	        },
@@ -25361,7 +25371,16 @@ var app = (function () {
 	            id: 'debate-1',
 	            label: 'Elnökjelölti<br>vita',
 	            opacity: 0.3,
-	            labelColor: '#888',
+	            labelColor: '#000',
+	            width: 1.5,
+	            type: 'dotted',
+	        },
+	        {
+	            date: '2024-09-15',
+	            id: 'trump-assassination-2',
+	            label: 'Lövöldözés Trump golfpályáján',
+	            opacity: 0.3,
+	            labelColor: '#f00',
 	            width: 1.5,
 	            type: 'dotted',
 	        },
@@ -25443,7 +25462,7 @@ var app = (function () {
 	        .attr("class", "events");
 	    events.forEach((event) => {
 	        const eventDate = timeParse("%Y-%m-%d")(event.date);
-	        const xValue = x(0);
+	        const xValue = x(-0.05);
 	        const yValue = y(eventDate);
 	        eventGroup
 	            .append("circle")
@@ -25451,19 +25470,20 @@ var app = (function () {
 	            .attr("id", event.id)
 	            .attr("cx", xValue)
 	            .attr("cy", yValue)
-	            .attr("r", 10)
-	            .style("fill", event.labelColor)
-	            .style("opacity", event.opacity);
+	            .attr("r", 8)
+	            .style("fill", event.labelColor);
+	        /* .style("opacity", event.opacity); */
 	        eventGroup
 	            .append("text")
 	            .attr("class", "event-label")
 	            .attr("id", event.id)
 	            .attr("x", xValue)
 	            .attr("y", yValue)
-	            .attr("dy", "-1em")
+	            .attr("dx", 16)
 	            .style("fill", "#333")
 	            .style("font-size", "0.8em")
-	            .style("text-anchor", "middle")
+	            .style("text-anchor", "start")
+	            .style("alignment-baseline", "middle")
 	            .text(event.label);
 	    });
 	}
@@ -25479,7 +25499,7 @@ var app = (function () {
 		const block = {
 			c: function create() {
 				svg = svg_element("svg");
-				attr_dev(svg, "class", "campaignEvents svelte-8suj0g");
+				attr_dev(svg, "class", "campaignEvents svelte-5zz0g1");
 				add_location(svg, file$4, 14, 0, 269);
 			},
 			l: function claim(nodes) {

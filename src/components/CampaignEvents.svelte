@@ -18,9 +18,9 @@
     .campaignEvents {
         width: 100%;
         margin: 1rem 0;
-        padding: 2px;
 
-        border: 1px dashed red;
+        outline: 1px dashed red;
+        outline-offset: -0.5px;
     }
 
     svg {
