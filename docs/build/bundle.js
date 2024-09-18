@@ -25489,7 +25489,7 @@ var app = (function () {
 				h11.textContent = "Harris és Trump támogatottsága";
 				t7 = space();
 				p = element("p");
-				t8 = text$1("Ábráink percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump pillanatnyilag várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a pillanatnyilag várható szavazatarány-különbség függvényében melyik jelölt esélyesebb arra, hogy többséget szerezzen az elnök személyéről végső soron döntő ");
+				t8 = text$1("Ábráink percrekész és minden érdemi információforrást átfogó adatokat szolgáltatnak a 2024-es amerikai elnökválasztási verseny pillanatnyi állásáról. Trendvonalat mutató ábránk Kamala Harris és Donald Trump jelenleg várható szavazatarányának alakulását követi napról-napra. „Várható győztes” ábránk pedig azt, hogy a jelenleg várható szavazatarány-különbség függvényében melyik jelölt esélyesebb arra, hogy többséget szerezzen az elnök személyéről végső soron döntő ");
 				a1 = element("a");
 				a1.textContent = "elektori testületben";
 				t10 = text$1(". Minden tudnivaló az ábrák alatt.");
@@ -25520,16 +25520,16 @@ var app = (function () {
 				attr_dev(h11, "class", "svelte-1f7krtv");
 				add_location(h11, file$3, 39, 12, 1081);
 				attr_dev(a1, "href", "https://hu.wikipedia.org/wiki/Az_Amerikai_Egyes%C3%BClt_%C3%81llamok_elektori_koll%C3%A9giuma");
-				add_location(a1, file$3, 41, 494, 1631);
+				add_location(a1, file$3, 41, 482, 1619);
 				attr_dev(p, "class", "svelte-1f7krtv");
 				add_location(p, file$3, 40, 12, 1133);
 				attr_dev(section, "id", "poll-graph");
 				attr_dev(section, "class", "svelte-1f7krtv");
 				add_location(section, file$3, 38, 8, 1043);
 				attr_dev(article1, "class", "svelte-1f7krtv");
-				add_location(article1, file$3, 48, 8, 2032);
+				add_location(article1, file$3, 48, 8, 2020);
 				attr_dev(article2, "class", "bodyContainer svelte-1f7krtv");
-				add_location(article2, file$3, 49, 8, 2060);
+				add_location(article2, file$3, 49, 8, 2048);
 				attr_dev(div, "id", "mainGrid");
 				attr_dev(div, "class", "svelte-1f7krtv");
 				add_location(div, file$3, 32, 4, 864);
