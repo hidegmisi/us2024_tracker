@@ -4,10 +4,11 @@
 
     export let dailyData;
     export let aggregators;
+    export let bgColor = "#fff";
 
     onMount(() => {
-        drawChart(dailyData, aggregators);
-        window.addEventListener("resize", () => onResize(dailyData, aggregators));
+        drawChart(dailyData, aggregators, bgColor);
+        window.addEventListener("resize", () => onResize(dailyData, aggregators, bgColor));
     });
 
 </script>

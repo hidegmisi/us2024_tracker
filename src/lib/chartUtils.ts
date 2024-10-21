@@ -73,22 +73,22 @@ function getScreenSize(): keyof typeof screenSizes {
     return "large" as keyof typeof screenSizes;
 }
 
-export function onResize(dailyData: DayData[], aggregators: [keyof DayData]) {
+export function onResize(dailyData: DayData[], aggregators: [keyof DayData], bgColor = "#fff") {
     if (resizeDebounce) {
         clearTimeout(resizeDebounce);
     }
     
     resizeDebounce = setTimeout(() => {
         d3.selectAll(".polls").selectAll("*").remove();
-        drawChart(dailyData, aggregators);
+        drawChart(dailyData, aggregators, bgColor);
     }, 250);
 }
 
-export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
+export function drawChart(dailyData: DayData[], aggregators: [keyof DayData], bgColor = "#fff") {
     const screenSizeCateg = getScreenSize();
     const { margin, width, height, x, y, chartGroup, chartElements } = setupChart(dailyData, screenSizeCateg);
 
-    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, [
+    drawVerticalLines(chartGroup, dailyData, x, y, screenSizeCateg, bgColor, [
         {
             date: '2024-07-21',
             id: 'biden-out',
@@ -128,8 +128,8 @@ export function drawChart(dailyData: DayData[], aggregators: [keyof DayData]) {
     ]);
     drawGridlines(chartGroup, chartElements, x, y, width, height, screenSizeCateg);
     drawLines(chartGroup, chartElements, dailyData, x, y, screenSizeCateg);
-    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg);
-    setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg);
+    drawDots(chartGroup, chartElements, dailyData, x, y, aggregators, screenSizeCateg, bgColor);
+    setupInteractivity(chartGroup, chartElements, dailyData, x, y, width, height, screenSizeCateg, bgColor);
 }
 
 function setupChart(dailyData: DayData[], screenSizeCateg: keyof typeof screenSizes) {
@@ -224,7 +224,8 @@ function drawVerticalLines(
     x: d3.ScaleTime<number, number, never>,
     y: d3.ScaleLinear<number, number, never>,
     screenSizeCateg: keyof typeof screenSizes,
-    verticalLines: { date: string, id: string, label: string, opacity: number, labelColor: string, width: number, type: 'solid' | 'dotted' }[]
+    bgColor = '#fff',
+    verticalLines: { date: string, id: string, label: string, opacity: number, labelColor: string, width: number, type: 'solid' | 'dotted' }[],
 ) {
     verticalLines.forEach((line) => {
         const lineX = x(d3.timeParse("%Y-%m-%d")(line.date));
@@ -250,7 +251,7 @@ function drawVerticalLines(
             .attr("y", y(0.53))
             .attr("text-anchor", "middle")
             .attr("fill", line.labelColor)
-            .attr("stroke", "white")
+            .attr("stroke", bgColor)
             .attr("stroke-width", 9)
             .attr("paint-order", "stroke")
             /* .attr("font-size", `${gridLabelSizes[screenSizeCateg]}rem`) */
@@ -275,7 +276,8 @@ function drawDots(
     x: d3.ScaleTime<number, number, never>,
     y: d3.ScaleLinear<number, number, never>,
     aggregators: [keyof DayData],
-    screenSizeCateg: keyof typeof screenSizes
+    screenSizeCateg: keyof typeof screenSizes,
+    bgColor = '#fff',
 ) {
     const circleGroup = chartElements.append("g");
     const backgroundCircleGroup = chartGroup.append("g");
@@ -296,7 +298,7 @@ function drawDots(
                     .attr("r", dotSizes[screenSizeCateg])
                     .attr("fill", colors[candidate])
                     .attr("opacity", 0.12)
-                    .attr("stroke", "white")
+                    .attr("stroke", bgColor)
                     .attr("stroke-width", 0)
                     .attr("paint-order", "stroke");
                 
@@ -311,7 +313,7 @@ function drawDots(
                     .attr("r", dotSizes[screenSizeCateg])
                     .attr("fill", colors[candidate])
                     .attr("opacity", 0.03)
-                    .attr("stroke", "white")
+                    .attr("stroke", bgColor)
                     .attr("stroke-width", 0)
                     .attr("paint-order", "stroke");
             });
@@ -404,6 +406,7 @@ function setupInteractivity(
     width: number,
     height: number,
     screenSizeCateg: keyof typeof screenSizes,
+    bgColor: string = '#fff',
 ) {
     const paddingRightSize = paddingSizes[screenSizeCateg];
 
@@ -448,7 +451,7 @@ function setupInteractivity(
 
     dateLabel.attr("x", width - paddingRightSize).attr("y", -6);
 
-    const focusTexts = initializeFocusTexts(chartGroup, colors, screenSizeCateg);
+    const focusTexts = initializeFocusTexts(chartGroup, colors, screenSizeCateg, bgColor);
     updateLabels(focusTexts, dailyData, x, y);
 
     const svg = d3.select(chartGroup.node().parentNode);
@@ -536,7 +539,7 @@ function setupInteractivity(
 }
 
 
-function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
+function initializeFocusTexts(chartGroup, colors, screenSizeCateg, bgColor = '#fff') {
     const focusTexts = {};
     Object.keys(colors).forEach((candidate) => {
         focusTexts[candidate] = chartGroup
@@ -547,7 +550,7 @@ function initializeFocusTexts(chartGroup, colors, screenSizeCateg) {
             .attr("fill", '#333')
             .attr("font-size", `${candidateLabelSizes[screenSizeCateg]}rem`)
             .attr("font-weight", 400)
-            .attr("stroke", "#fff")
+            .attr("stroke", bgColor)
             .attr("stroke-width", 6)
             .attr("paint-order", "stroke");
     });
