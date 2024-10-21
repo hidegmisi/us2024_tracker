@@ -26476,7 +26476,7 @@ var app = (function () {
 		let { $$slots: slots = {}, $$scope } = $$props;
 		validate_slots('Chart444Embed', slots, []);
 		let { repo } = $$props;
-		let { bgColor = '#e3e3e3' } = $$props;
+		let { bgColor = '#f0f0f0' } = $$props;
 		let dailyData = [];
 
 		async function fetchData() {

@@ -4,7 +4,7 @@
     import { getPollData, prepareData, aggregators } from "../lib/dataUtils.js";
 
     export let repo;
-    export let bgColor = '#e3e3e3';
+    export let bgColor = '#f0f0f0';
 
     let dailyData = [];
 
