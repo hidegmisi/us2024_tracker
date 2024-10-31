@@ -20,7 +20,8 @@ const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date
 const aggregators = Object.keys(aggregatorNameMap) as (keyof typeof aggregatorNameMap)[];
 
 async function fetchPollData(): Promise<RawData[]> {
-    const response = await fetch("/data/daily.csv");
+    const basePath = window.location.pathname.includes('us2024_tracker') ? '/us2024_tracker/' : '/';
+    const response = await fetch(basePath + "data/daily.csv");
     const csvText = await response.text();
     const csvData = d3.csvParse(csvText);
     return csvData as unknown as RawData[];
