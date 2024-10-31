@@ -23511,11 +23511,11 @@ var app = (function () {
 	    economist: { abv: "Economist", full: "The Economist", link: "https://www.economist.com/interactive/us-2024-election/trump-harris-polls" },
 	};
 	const aggregators = Object.keys(aggregatorNameMap);
-	async function fetchPollData$1(repo) {
-	    const response = await fetch(`https://api.github.com/repos/${repo}/contents/daily_aggregates.csv`);
-	    const json = await response.json();
-	    const csvData = atob(json.content);
-	    return csvParse(csvData);
+	async function fetchPollData$1() {
+	    const response = await fetch("/data/daily.csv");
+	    const csvText = await response.text();
+	    const csvData = csvParse(csvText);
+	    return csvData;
 	}
 	function isDataStale() {
 	    const oneHour = 1000 * 60 * 60;
@@ -23528,7 +23528,9 @@ var app = (function () {
 	}
 	async function getPollData(repo) {
 	    if (isDataStale()) {
-	        const pollData = await fetchPollData$1(repo);
+	        const pollData = await fetchPollData$1();
+	        if (!pollData)
+	            return false;
 	        const now = new Date();
 	        sessionStorage.setItem("pollsData", JSON.stringify(pollData));
 	        sessionStorage.setItem("pollsDataUpdated", now.toString());

@@ -19,13 +19,11 @@ const aggregatorNameMap: { [key in keyof Omit<CandidateData, 'candidate' | 'date
 
 const aggregators = Object.keys(aggregatorNameMap) as (keyof typeof aggregatorNameMap)[];
 
-async function fetchPollData(repo: string): Promise<RawData[]> {
-    const response = await fetch(
-        `https://api.github.com/repos/${repo}/contents/daily_aggregates.csv`,
-    );
-    const json = await response.json();
-    const csvData = atob(json.content);
-    return d3.csvParse(csvData) as unknown as RawData[];
+async function fetchPollData(): Promise<RawData[]> {
+    const response = await fetch("/data/daily.csv");
+    const csvText = await response.text();
+    const csvData = d3.csvParse(csvText);
+    return csvData as unknown as RawData[];
 }
 
 function isDataStale() {
@@ -43,7 +41,9 @@ function isDataStale() {
 
 async function getPollData(repo: string): Promise<RawData[] | false> {
     if (isDataStale()) {
-        const pollData = await fetchPollData(repo);
+        const pollData = await fetchPollData();
+        if (!pollData) return false;
+        
         const now = new Date();
         sessionStorage.setItem("pollsData", JSON.stringify(pollData));
         sessionStorage.setItem("pollsDataUpdated", now.toString());
