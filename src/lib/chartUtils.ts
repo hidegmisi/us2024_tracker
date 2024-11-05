@@ -477,6 +477,7 @@ function setupInteractivity(
         })
         .on("mouseout", () => {
             resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts);
+            fixLabelPositions(focusTexts, x, y, width, height);
         })
         .on("touchmove", function (event) {
             event.preventDefault();
@@ -506,6 +507,7 @@ function setupInteractivity(
         });
 
     setDynamicDemLead(dailyData, new Date(dailyData[dailyData.length - 1].date));
+    fixLabelPositions(focusTexts, x, y, width, height);
     /* d3.selectAll(".vertical-line-label").raise(); */
 
     function resetVerticalLine(chartGroup, dailyData, x, y, width, height, verticalLine, dateLabel, focusTexts) {
